@@ -22,18 +22,30 @@ class ExtInventoryManager extends KFInventoryManager;
 var transient float MoneyTossTime;
 var transient byte MoneyTossCount;
 
-// simulated function ThrowMoney()
-// {
-// 	local KFPlayerController KFPC;
-// 	local KF2GUIController GUIController;
+simulated function ThrowMoney()
+{
+    local KFPlayerController KFPC;
+    local KF2GUIController GUIController;
+    local UI_FinanceMenu FinanceMenu;
     
-//     KFPC = KFPlayerController(Pawn(Owner).Controller);
-//     if (KFPC != None && KFPC.MyGFxManager != None)
-//     {
-
-// 		GUIController = class'KF2GUIController'.Static.GetGUIController(KFPC);
-//     }
-// }
+    KFPC = KFPlayerController(Pawn(Owner).Controller);
+    if (KFPC != None)
+    {
+        GUIController = class'KF2GUIController'.Static.GetGUIController(KFPC);
+        if (GUIController != None)
+        {
+            // Open the finance menu using KF2GUIController
+            FinanceMenu = UI_FinanceMenu(GUIController.OpenMenu(class'UI_FinanceMenu'));
+            
+            // Optional: Set focus or perform additional setup
+            if (FinanceMenu != None)
+            {
+                // Menu is now open and active
+                `log("Finance menu opened successfully");
+            }
+        }
+    }
+}
 
 reliable server function ServerThrowMoney()
 {
