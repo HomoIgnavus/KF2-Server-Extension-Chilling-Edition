@@ -55,7 +55,7 @@ function InitMenu()
     // `log("UI_MidGameMenu localized MapVoteButtonText: [" $ MapVoteButtonText $ "]");
     // `log("UI_MidGameMenu default MapVoteButtonText: [" $ default.MapVoteButtonText $ "]");
 
-	// `log("Localize ServerExt2026: [" $ Localize("UI_MidGameMenu", "MapVoteButtonText", "ServerExt2026") $ "]");
+	// `log("Localize DoshExt: [" $ Localize("UI_MidGameMenu", "MapVoteButtonText", "DoshExt") $ "]");
 	// `log("Localize ServerExt: [" $ Localize("UI_MidGameMenu", "MapVoteButtonText", "ServerExt") $ "]");
 
 	PageSwitcher = KFGUI_SwitchMenuBar(FindComponentID('Pager'));

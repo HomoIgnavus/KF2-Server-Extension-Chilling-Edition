@@ -122,7 +122,7 @@ function AdjustDamage(out int InDamage, out vector Momentum, Controller Instigat
 	local float TempDamage;
 	local bool bHasSacrificeSkill;
 
-	`log("ExtHumanPawn.AdjustDamage() InDamage="$InDamage$", ArmorInt="$ArmorInt);
+	// `log("ExtHumanPawn.AdjustDamage() InDamage="$InDamage$", ArmorInt="$ArmorInt);
 	super.AdjustDamage(InDamage, Momentum, InstigatedBy, HitLocation, DamageType, HitInfo, DamageCauser);
 
 	// nullify damage during trader time
@@ -184,7 +184,7 @@ function AdjustDamage(out int InDamage, out vector Momentum, Controller Instigat
 		AddTakenDamage( InstigatedBy, FMin(Health, InDamage), DamageCauser, class<KFDamageType>(DamageType) );
 	}
 
-	`log("ExtHumanPawn.AdjustDamage() adjusted InDamage="$InDamage$", ArmorInt="$ArmorInt);
+	// `log("ExtHumanPawn.AdjustDamage() adjusted InDamage="$InDamage$", ArmorInt="$ArmorInt);
 
 	// (Cheats) Dont allow dying if demigod mode is enabled
 `if(`__TW_SDK_)
@@ -1522,7 +1522,7 @@ defaultproperties
 	WakeUpAnimSet=AnimSet'ZED_Clot_Anim.Alpha_Clot_Master'
 
 	Begin Object Name=SpecialMoveHandler_0
-		SpecialMoveClasses(SM_Emote)=class'ServerExt2026.ExtSM_Player_Emote'
+		SpecialMoveClasses(SM_Emote)=class'DoshExt.ExtSM_Player_Emote'
 	End Object
 
 	DefaultInventory.Empty()

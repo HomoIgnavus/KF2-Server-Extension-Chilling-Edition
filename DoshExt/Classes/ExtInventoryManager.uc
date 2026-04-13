@@ -41,7 +41,7 @@ simulated function ThrowMoney()
             if (FinanceMenu != None)
             {
                 // Menu is now open and active
-                `log("Finance menu opened successfully");
+                `log("Finance menu opened");
             }
         }
     }

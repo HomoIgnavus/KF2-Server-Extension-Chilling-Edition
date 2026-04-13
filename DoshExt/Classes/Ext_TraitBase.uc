@@ -18,7 +18,7 @@
 
 Class Ext_TraitBase extends Object
 	abstract
-	Config(ServerExt2026)
+	Config(DoshExt)
 	DependsOn(ExtWebAdmin_UI);
 
 var localized string MaxLevelText;

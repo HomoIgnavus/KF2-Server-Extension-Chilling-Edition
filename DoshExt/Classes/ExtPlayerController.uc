@@ -16,7 +16,8 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-Class ExtPlayerController extends KFPlayerController;
+Class ExtPlayerController extends KFPlayerController
+	dependson(Ext_WeaponProperties);
 
 var localized string GotItemText;
 var localized string KilledHimselfWith;
@@ -30,6 +31,8 @@ var localized string ConnectionError;
 var localized string Disconnecting;
 var localized string NowViewingFrom;
 var localized string ViewingFromOwnCamera;
+
+var array<Ext_WeaponProperties> WeaponProperties;
 
 struct FAdminCmdType
 {
@@ -1236,6 +1239,93 @@ state Dead
 			out_Location = HL;
 		else out_Location = EndOffset;
 	}
+}
+
+function AddWeaponProperties(class<KFWeaponDefinition> WPD)
+{
+	local Ext_WeaponProperties WPP;
+	
+	if (HasWeaponProperty(WPD)) return;
+
+	WPP.Init(WPD, self);
+	WeaponProperties.AddItem(WPP);
+	`log("AddWeaponProperties() Added: " @ WPP.WeaponDef);
+}
+
+function bool HasWeaponProperty(class<KFWeaponDefinition> WPD)
+{
+	local Ext_WeaponProperties WPP;
+	foreach WeaponProperties(WPP)
+	{
+		if (WPP.WeaponDef == WPD)
+			return true;
+	}
+
+	return false;
+}
+
+// apply upgrade for specified weapon instance
+function ApplyWeaponUpgrade(KFWeapon KFW)
+{
+	local Ext_WeaponProperties WPP;
+
+	if (KFW == none) return;
+
+	foreach WeaponProperties(WPP)
+	{
+		if (KFW.Class != WPP.WeaponClass) continue;
+		
+		WPP.ApplyModifiers(KFW);
+		// `log("ApplyWeaponUpgrades() Applied upgrade for : " @ WPP.GetItemName());
+		return;
+	}
+
+	// weapon properties not found:
+	// AddWeaponProperties(KFW);
+	
+}
+
+// apply upgrade for all weapons
+function ApplyWeaponUpgrades(bool ResetMaxLvs = false)
+{
+	local Inventory inv;
+	local KFWeapon KFW;
+	local Ext_WeaponProperties WPP;
+
+	// typically used when the player's prestige lv changes
+	if (ResetMaxLvs) class'Ext_WeaponProperties'.static.InitClass(PlayerReplicationInfo);
+
+	for (Inv = self.Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+	{
+		KFW = KFWeapon(Inv);
+
+		if (KFW == none) continue;
+
+		ApplyWeaponUpgrade(KFW);
+	}
+}
+
+function HandlePickup(Inventory Inv)
+{
+	local KFWeapon KFW;
+
+	super.HandlePickup(Inv);
+	ApplyWeaponUpgrades();
+
+	KFW = KFWeapon(Inv);
+	if (KFW != none)
+		ApplyWeaponUpgrade(KFW);
+}
+
+function NotifyAddInventory(Inventory NewItem)
+{
+	local KFWeapon KFW;
+
+	super.NotifyAddInventory(NewItem);
+
+	KFW = KFWeapon(NewItem);
+	if (KFW != none)
+		ApplyWeaponUpgrade(KFW);
 }
 
 exec function RequestSwitchTeam()

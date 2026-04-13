@@ -25,7 +25,7 @@ defaultproperties
 
 	bInfiniteSpareAmmo=True
 
-	// DualClass=class'ServerExt2026.ExtWeap_Pistol_MedicS'
+	// DualClass=class'DoshExt.ExtWeap_Pistol_MedicS'
 
 	InstantHitDamageTypes(DEFAULT_FIREMODE)=class'ExtDT_Ballistic_9mm'
 }

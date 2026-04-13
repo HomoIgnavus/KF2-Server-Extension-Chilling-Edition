@@ -24,5 +24,5 @@ defaultproperties
 	// Set free ammo
 	AmmoPricePerMag=0
 
-	WeaponClassPath="ServerExt2026.ExtWeap_Pistol_9mm"
+	WeaponClassPath="DoshExt.ExtWeap_Pistol_9mm"
 }

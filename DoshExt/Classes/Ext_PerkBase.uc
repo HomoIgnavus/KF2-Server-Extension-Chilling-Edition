@@ -20,7 +20,7 @@
 Class Ext_PerkBase extends Info
 	NotPlaceable
 	Abstract
-	Config(ServerExt2026)
+	Config(DoshExt)
 	DependsOn(ExtWebAdmin_UI);
 
 var array<FWebAdminConfigInfo> WebConfigs;

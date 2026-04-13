@@ -27,7 +27,7 @@ defaultproperties
 	// Free ammo
 	AmmoPricePerMag=0
 
-	WeaponClassPath="ServerExt2026.ExtWeap_Pistol_MedicS"
+	WeaponClassPath="DoshExt.ExtWeap_Pistol_MedicS"
 
 	// Unsellable upgrades
 	UpgradeSellPrice[0] = 0

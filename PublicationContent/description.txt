@@ -1,16 +1,38 @@
 [h1]Description[/h1]
 This is a slightly modified version of GenZmeY's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2085786712&searchtext=server+ext]Server Extension[/url], with the changes below:
-
-- [u]Spectate[/u] button moved further away from [u]skip trader[/u] to prevent accidental suicide
-- Map rating pop-up disabled to prevent occassional stucks
-- Armor size can exceed 255
-- Magazine size can exceed 255
-- [spoiler]New bugs[/spoiler]
+[list]
+[*][u]Spectate[/u] button moved further away from [u]skip trader[/u] to prevent accidental suicide
+[*]Map rating pop-up disabled to prevent occassional stucks
+[*]Armor size can exceed 255
+[*]Magazine size can exceed 255
+[*][spoiler]New bugs[/spoiler]
+[/list]
 
 [h1]Usage[/h1]
-Start the game/server with Mutator=ServerExtMut2026.ServerExtMut.
-The rest is the same as the original [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2085786712&searchtext=server+ext]Server Extension[/url]
-If you have GenZmeY's Server Extension installed you need to remove it before downloading this one.
+[h2]Fresh setup[/h2]
+[olist]
+[*]Save those .ini files from [url=https://github.com/HomoIgnavus/KF2-Server-Extension-2026/tree/main/DefaultConfigs]DefaultConfigs[/url] to your KFGame\Config folder.
+[*]Adjust the values in these ini files to your preference
+[/olist]
 
-[h1]Known Issues[\h1]
-- Armor in stats menu can only display up to +155, but this doesn't affect the actual max armor value
+[h2]Migrate from the original Server Extension[/h2]
+[olist]
+[*]backup the following 3 files:
+[list]
+[*]KFServerExt.ini
+[*]KFServerExtMut.ini
+[*]KFxMapVote.ini
+[/list]
+[*]Add "2026" to the names of the files above so that the become
+[list]
+[*]KFDoshExt.ini
+[*]KFDoshExtMut.ini
+[*]KFxMapVote2026.ini
+[/list]
+[*]In KFDoshExt.ini and KFDoshExtMut.ini, replace all occurrence of "ServerExt" with "DoshExt"
+[*]In KFDoshExtMut.ini and KFxMapVote2026.ini, replace all "ServerExtMut" with "DoshExtMut"
+[/olist]
+
+
+Now Start the game/server with Mutator=DoshExtMut.ServerExtMut.
+The rest is the same as the original [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2085786712&searchtext=server+ext]Server Extension[/url]

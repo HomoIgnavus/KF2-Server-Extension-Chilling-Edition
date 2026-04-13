@@ -18,7 +18,7 @@
 
 // Server extension mutator, by Marco.
 Class ServerExtMut extends KFMutator
-	Config(ServerExtMut2026);
+	Config(DoshExtMut);
 
 // Webadmin
 var array<FWebAdminConfigInfo> WebConfigs;
@@ -1750,7 +1750,7 @@ function WebAdminSetValue(name PropName, int ElementIndex, string Value)
 defaultproperties
 {
 	// GroupNames.Add("ServerExt")
-	GroupNames.Add("ServerExt2026")
+	GroupNames.Add("DoshExt")
 	
 	// Main devs
 	DevList.Add("0x0110000100E8984E") // Marco
