@@ -133,7 +133,6 @@ function ApplyPerk(Ext_PerkBase P)
 	local KFInventoryManager InvMan;
 	local Ext_T_ZEDHelper H;
 	local int i;
-	local ExtPlayerController ExtPC;
 
 	if (P==None)
 		return;
@@ -177,11 +176,8 @@ function ApplyPerk(Ext_PerkBase P)
 	}
 	
 	ApplyPawnStats();
-	
-	// apply weapon upgrades
-	ExtPC = ExtPlayerController(Owner);
-	if (ExtPC == none) return;
-	ExtPC.ApplyWeaponUpgrades(true);
+
+	// check if weapon upgrades are valid for the current prestige lv
 }
 
 simulated final function Ext_PerkBase FindPerk(class<Ext_PerkBase> P)
@@ -875,35 +871,7 @@ function NotifyPerkSacrificeExploded()
 
 simulated function float GetAoERadiusModifier()
 {
-	// return (Ext_PerkDemolition(CurrentPerk)!=None ? Ext_PerkDemolition(CurrentPerk).GetAoERadiusModifier() : 1.0);
-
-	local ExtPlayerController ExtPC;
-    local KFWeapon CurrentWeapon;
-    local Ext_WeaponProperties WProps;
-    local float WeaponAoEMult;
-    
-    // Get base multiplier from demo perk
-    WeaponAoEMult = (Ext_PerkDemolition(CurrentPerk)!=None ? Ext_PerkDemolition(CurrentPerk).GetAoERadiusModifier() : 1.0);
-    
-    // Apply per-weapon AoE multiplier
-    ExtPC = ExtPlayerController(PlayerOwner);
-    if (ExtPC != None && ExtPC.Pawn != None && ExtPC.Pawn.Weapon != None)
-    {
-        CurrentWeapon = KFWeapon(ExtPC.Pawn.Weapon);
-        
-        // Find weapon properties for this weapon class
-        foreach ExtPC.WeaponProperties(WProps)
-        {
-            if (WProps.WeaponClass != None && WProps.WeaponClass.Class == CurrentWeapon.Class)
-            {
-                // Apply weapon-specific AoE multiplier
-                WeaponAoEMult *= (1.0 + WProps.AoEPerLv * WProps.AoELv);
-                break;
-            }
-        }
-    }
-    
-    return WeaponAoEMult;
+	return (Ext_PerkDemolition(CurrentPerk)!=None ? Ext_PerkDemolition(CurrentPerk).GetAoERadiusModifier() : 1.0);
 }
 
 // MEDIC:

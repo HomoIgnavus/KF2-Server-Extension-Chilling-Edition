@@ -1,16 +1,13 @@
 class UIP_WeaponPage extends KFGUI_MultiComponent
-    dependson(Ext_WeaponProperties);
+    config(DoshExtWeapons);
 
-var KFPlayerReplicationInfo KFPRI;
+var ExtPlayerController KFPC;
+var ExtPlayerReplicationInfo KFPRI;
 var KFGUI_ColumnList InventoryList;
 var KFGUI_ColumnList SaleList;
 var KFGUI_Base WeaponIconDisplay; // For displaying weapon icon
 var KFGUI_Button BuyWeaponButton; // Upgrade button below icon
 var int WeaponIdx;
-
-var Ext_WeaponProperties SelectedInventoryWeap;
-var class<KFWeaponDefinition> SelectedTraderWeap;
-var bool bIsInventorySelected;
 
 var KFGUI_Button DmgUpgradeBtn;
 var KFGUI_Button AoEUpgradeBtn;
@@ -34,10 +31,38 @@ var localized string ColumnPenetrationText;
 var localized string ColumnMagazineText;
 var localized string ColumnAmmoText;
 
-var config Array<string> WeapDef;
-var Array< class<KFWeaponDefinition> > WeaponDefList;
-var Array< class<KFWeapon> > WeaponClassList;
 var Array<int> SaleListMap; // Maps SaleList row indices to WeaponDefList indices
+
+var config Array<string> WeapDef;
+
+// var array< class<ExtWeapon> > TraderWeapList;
+var Array<Ext_WeaponProperties> AvailableWeapons;
+var Ext_WeaponProperties SelectedInventoryWeap;
+var int SelectedTraderIdx;
+var Array<Ext_WeaponProperties> OwnedWeapList;
+var bool bIsInventorySelected;
+
+function LoadAvailableWeapons()
+{
+    local int i;
+    local class<KFWeaponDefinition> WPD;
+    local Ext_WeaponProperties WPP;
+
+    if (KFPC.WeaponList == None)
+        return;
+
+    for (i = 0; i < KFPC.WeaponList.WeapDefs.Length; i++)
+    {
+        WPD = KFPC.WeaponList.WeapDefs[i];
+        if (WPD != None)
+        {
+            WPP = new class'Ext_WeaponProperties';
+            WPP.DefInit(WPD);
+            AvailableWeapons.AddItem(WPP);
+        }
+    }
+    `log("LoadAvailableWeapons(): Loaded " @ AvailableWeapons.Length @ " available weapons from WeaponList.");
+}
 
 function FColumnItem NewFColumnItem(string Text, float Width)
 {
@@ -173,7 +198,18 @@ private function AddStatRow(name LabelID, name ValueID, name ButtonID, float YPo
 
 function InitMenu()
 {
+    KFPC = ExtPlayerController(GetPlayer());
+    if (KFPC == None)
+    {
+        `log("Error: UIP_WeaponPage could not get player controller reference.");
+        return;
+    }
+    KFPC.WeaponPage = Self;
+    KFPRI = ExtPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+
     EnsureComponentsBuilt();
+
+    LoadAvailableWeapons();
 
     WeaponIconDisplay = FindComponentID('WeaponIconDisplay');
     BuyWeaponButton = KFGUI_Button(FindComponentID('WeaponUpgradeButton'));
@@ -187,7 +223,6 @@ function InitMenu()
     InventoryList.Columns.AddItem(NewFColumnItem(ColumnMagazineText, 0.12));
     InventoryList.Columns.AddItem(NewFColumnItem(ColumnAmmoText, 0.22));
 
-    LoadTraderWeapons();
     SaleList = KFGUI_ColumnList(FindComponentID('Sale'));
     SaleList.Columns.AddItem(NewFColumnItem(ColumnWeaponText, 0.32));
     SaleList.Columns.AddItem(NewFColumnItem(ColumnPriceText, 0.10));
@@ -261,50 +296,6 @@ function InitMenu()
         AmmoUpgradeBtn.OnClickRight = OnUpgradeAmmo;
     }
 
-    KFPRI = KFPlayerReplicationInfo(GetPlayer().PlayerReplicationInfo);
-}
-
-private function InitWeaponProperties()
-{
-    local class<KFWeaponDefinition> WPD;
-    local Ext_WeaponProperties WPP;
-
-    foreach WeaponDefList(WPD)
-    {
-        WPP = new(Self) class'Ext_WeaponProperties';
-        WPP.Init(WPD);
-        OwnedWeapProps.AddItem(WPP);
-    }
-}
-
-private function LoadTraderWeapons()
-{
-    local string DefStr;
-    local class<KFWeaponDefinition> WPD;
-    local class<KFWeapon> WPC;
-
-    `log("UIP_WeaponPage: found " @ WeapDef.Length @ " items in config.");
-
-    WeaponDefList.Length = 0;
-    WeaponClassList.Length = 0;
-    foreach WeapDef(DefStr)
-    {
-        if (DefStr == "")
-            continue;
-
-        `log("UIP_WeaponPage: WeapDef=" @ DefStr);
-        WPD = class<KFWeaponDefinition>(DynamicLoadObject(DefStr, class'Class'));
-        if (WPD == None)        
-        {
-            `Log("Failed to load weapon class: " @ DefStr);
-            continue;
-        }
-        WPC = class<KFWeapon>(DynamicLoadObject(WPD.default.WeaponClassPath, class'Class'));
-
-        WeaponDefList.AddItem(WPD);
-        WeaponClassList.AddItem(WPC);
-    }
-    `log("UIP_WeaponPage: Loaded " @ WeaponDefList.Length @ " weapons for trader.");
 }
 
 function ShowMenu()
@@ -321,49 +312,51 @@ function CloseMenu()
     
     // Clear selection state
     SelectedInventoryWeap = None;
-    SelectedTraderWeap = None;
+    SelectedTraderIdx = -1;
 }
 
-function int GetFireRate(int WeaponIdxParam)
+function int GetFireRate(KFWeapon KFW)
 {
-    local float interval;
-    local class<KFWeapon> WPC;
+    return Round(60 / KFW.FireInterval[0]);
+}
 
-    WPC = WeaponClassList[WeaponIdxParam];
-    if (WPC == None)
+function int GetTraderFireRate(int WeaponIdxParam)
+{
+    local Ext_WeaponProperties WPP;
+
+    WPP = AvailableWeapons[WeaponIdxParam];
+    if (WPP == None)
         return 0;
 
-    interval = WPC.default.FireInterval[0] > 0 ? WPC.default.FireInterval[0] : 1.0;
-
-    return Round(1.0 / interval);
+    return WPP.GetBaseFireRate();
 }
 
-function bool CanAfford(class<KFWeaponDefinition> WeaponDef)
+function bool CanAfford(Ext_WeaponProperties WPP)
 {
-    if (WeaponDef == None)
+    if (WPP == None)
         return false;
-    return KFPRI.Score >= WeaponDef.default.BuyPrice;
+    return KFPRI.Score >= WPP.BasePrice;
 }
 
 function Timer()
 {
-    local Inventory Inv;
-    local KFWeapon KFW;
     local class<KFWeaponDefinition> WPD;
     local class<KFWeapon> WPC;
     local Ext_WeaponProperties WPP;
+    local KFWeapon KFW;
     local Pawn P;
-    local string FireRate;
-    local string Dmg;
-    local string Pnt;
-    local string Mag;
-    local string Spare;
+    local int FireRate;
+    local int AoE;
+    local int DoT;
+    local int Dmg;
+    local int Pnt;
+    local int Mag;
+    local int Spare;
     local int Price;
     local ExtPlayerController KFPC;
-    local int i;
+    local int idx;
+    local int PropIdx;
     local bool bHasWeapon;
-    local Ext_WeaponProperties KeepInvWeap;
-    local class<KFWeaponDefinition> KeepSaleWeap;
 
     KFPC = ExtPlayerController(GetPlayer());
     if (KFPC == none) return;
@@ -372,65 +365,61 @@ function Timer()
     if (P == None || P.InvManager == None) return;
 
     // weapon inventory list
-    // AllWeapProps.Length = 0;
     InventoryList.EmptyList();
+    OwnedWeapList = KFPC.InvProperties;
         
-    for (i = 0; i < KFPC.WeaponProperties.Length; i++)
+    for (idx = 0; idx < OwnedWeapList.Length; idx++)
     {
-        WPP = KFPC.WeaponProperties[i];
-        if (SelectedInventoryWeap == WPP) KeepInvWeap = WPP;
-        // Price = KFW.default.SellPrice;
-        Dmg = WPP.GetDamageInfo();
-        FireRate = WPP.GetFireRateInfo();
-        Pnt = WPP.GetPenetrationInfo();
-        Mag = WPP.GetMagazineInfo();
-        Spare = WPP.GetAmmoInfo();
-        InventoryList.AddLine(WPP.GetItemName() @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ Mag @ " \n " @ Spare, i);
+        WPP = OwnedWeapList[idx];
+        KFW = OwnedWeapList[idx].WeaponInstance;
+        if (KFW == None) continue;
         
-        break;
+        // Price = KFW.default.SellPrice;
+        Dmg = Round(KFW.InstantHitDamage[0]);
+        FireRate = GetFireRate(KFW);
+        Pnt = KFW.PenetrationPower[0];
+        Mag = KFW.MagazineCapacity[0];
+        Spare = KFW.SpareAmmoCapacity[0];
+        InventoryList.AddLine(WPP.WeaponDef.default.GetItemName() @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ Mag @ " \n " @ Spare, idx);
     }
 
     // trader weapon list
     SaleList.EmptyList();
     SaleListMap.Length = 0;
-    for (i = 0; i < WeaponDefList.Length; i++)
+    for (idx = 0; idx < AvailableWeapons.Length; idx++)
     {
-        WPD = WeaponDefList[i];
-        WPC = WeaponClassList[i];
-        if (WPD == None)
+        WPP = AvailableWeapons[idx];
+        WPC = WPP.WeaponClass;
+        WPD = WPP.WeaponDef;
+        if (WPP == None)
+        {
+            `log("WeaponPage: WPP is None for index " @ idx);
             continue;
+        }
         
         // Check if player already has this weapon in inventory
         bHasWeapon = false;
-        for (Inv = P.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+        // Skip if player already owns this weapon
+        if (KFPC.FindWeaponProperties(WPC, PropIdx))
         {
-            KFW = KFWeapon(Inv);
-            if (KFW != None && KFW.Class == WPC)
-            {
-                bHasWeapon = true;
-                break;
-            }
+            `log("WeaponPage: Player already owns " @ WPD.default.WeaponClassPath);
+            continue;
         }
         
-        // Skip if player already owns this weapon
-        if (bHasWeapon)
-            continue;
-        
         // Add to visible list and map
-        SaleListMap.AddItem(i);
-        if (SelectedTraderWeap == WPD) KeepSaleWeap = WPD;
+        SaleListMap.AddItem(idx);
         
         // hide weapons of different perks
         // if (WPC.default.AssociatedPerkClasses != P.)
-        Price = WPD.default.BuyPrice;
-        FireRate = GetFireRate(i);
+        Price = WPP.BasePrice;
+        FireRate = GetTraderFireRate(idx);
         Dmg = Round(WPC.static.CalculateTraderWeaponStatDamage());
         Pnt = Round(WPC.default.PenetrationPower[0]);
-        SaleList.AddLine(WPD.static.GetItemName() @ "\n" @ Price @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ WPC.default.MagazineCapacity[0] @ " \n " @ WPC.default.SpareAmmoCapacity[0], i);
+        SaleList.AddLine(WPD.static.GetItemName() @ "\n" @ Price @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ WPC.default.MagazineCapacity[0] @ " \n " @ WPC.default.SpareAmmoCapacity[0], SaleListMap.Length - 1);
+        `log("WeaponPage: Added " @ WPD.static.GetItemName() @ " to sale list with price " @ Price);
     }
 
-    SelectedInventoryWeap = KeepInvWeap;
-    SelectedTraderWeap = KeepSaleWeap;
+    // SelectedInventoryWeap = KeepInvWeap;
 
     // Update weapon icon display if a weapon is selected
     UpdateWeaponIconDisplay();
@@ -438,9 +427,9 @@ function Timer()
 
 function OnInventorySelected(KFGUI_ListItem Item, int Row, bool bRight, bool bDblClick)
 {
-    if (Item != None && Item.Value >= 0 && Item.Value < OwnedWeapProps.Length)
+    if (Item != None && Item.Value >= 0 && Item.Value < OwnedWeapList.Length)
     {
-        SelectedInventoryWeap = OwnedWeapProps[Item.Value];
+        SelectedInventoryWeap = OwnedWeapList[Item.Value];
         bIsInventorySelected = true;
         BuyWeaponButton.SetDisabled(false);
         UpdateWeaponIconDisplay();
@@ -449,9 +438,9 @@ function OnInventorySelected(KFGUI_ListItem Item, int Row, bool bRight, bool bDb
 
 function OnTraderSelected(KFGUI_ListItem Item, int Row, bool bRight, bool bDblClick)
 {
-    if (Item != None && Item.Value >= 0 && Item.Value < WeaponDefList.Length)
+    if (Item != None && Item.Value >= 0 && Item.Value < SaleListMap.Length)
     {
-        SelectedTraderWeap = WeaponDefList[Item.Value];
+        SelectedTraderIdx = SaleListMap[Item.Value];
         bIsInventorySelected = false;
         BuyWeaponButton.SetDisabled(false);
         UpdateWeaponIconDisplay();
@@ -460,11 +449,10 @@ function OnTraderSelected(KFGUI_ListItem Item, int Row, bool bRight, bool bDblCl
 
 function OnBuyWeaponClicked(KFGUI_Button Sender)
 {
+    local Ext_WeaponProperties WPP;
     local ExtPlayerController EXTPC;
     local ExtHumanPawn EXTP;
-    local class<KFWeapon> WPC;
     local KFWeapon SpawnedWeapon;
-    local Ext_WeaponProperties WPP;
 
     EXTPC = ExtPlayerController(GetPlayer());
     if (EXTPC == None)
@@ -477,28 +465,26 @@ function OnBuyWeaponClicked(KFGUI_Button Sender)
     if (bIsInventorySelected)
     {
         // Sell the selected inventory weapon
-        if (SelectedInventoryWeap != None)
-        {
-            SellSelectedWeapon(EXTPC, EXTP);
-        }
+        if (SelectedInventoryWeap == None)
+            return;
+        SellSelectedWeapon(EXTPC, EXTP);
     }
     else
     {
         // Buy the selected trader weapon
-        if (SelectedTraderWeap != None && CanAfford(SelectedTraderWeap))
-        {
-            `log("Purchase weapon: " @ SelectedTraderWeap);
-            WPC = class<KFWeapon>(DynamicLoadObject(SelectedTraderWeap.default.WeaponClassPath, class'Class'));
-            SpawnedWeapon = KFWeapon(extp.InvManager.CreateInventory(WPC));
-            if (SpawnedWeapon == None) return;
+        WPP = AvailableWeapons[SelectedTraderIdx];
+        
+        if (WPP == None || !CanAfford(WPP)) return;
 
-            KFPRI.AddDosh(-SelectedTraderWeap.default.BuyPrice);
-            WPP = new(self) class'Ext_WeaponProperties'();
-            ExtPC.AddWeaponProperties(SelectedTraderWeap);
-            OwnedWeapProps.AddItem(WPP);
-            Timer();
-        }
+        `log("Purchase weapon: " @ WPP.WeaponClass);
+        // SpawnedWeapon = KFWeapon(extp.InvManager.CreateInventory(WPP.WeaponClass));
+
+        if (!EXTPC.AddWeapon(WPP.WeaponClass)) return;
+
+        KFPRI.AddDosh(-WPP.BasePrice);
+
     }
+    Timer();
 }
 
 private function SellSelectedWeapon(ExtPlayerController EXTPC, ExtHumanPawn EXTP)
@@ -508,7 +494,7 @@ private function SellSelectedWeapon(ExtPlayerController EXTPC, ExtHumanPawn EXTP
     local int SellPrice;
     local int i;
 
-    if (SelectedInventoryWeap == None || SelectedInventoryWeap.WeaponClass == None)
+    if (SelectedInventoryWeap == none)
         return;
 
     // Find the actual weapon instance in inventory
@@ -516,7 +502,7 @@ private function SellSelectedWeapon(ExtPlayerController EXTPC, ExtHumanPawn EXTP
     for (Inv = EXTP.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
     {
         WeaponToSell = KFWeapon(Inv);
-        if (WeaponToSell != None && WeaponToSell.Class == SelectedInventoryWeap.WeaponClass)
+        if (WeaponToSell != None && WeaponToSell.Class == SelectedInventoryWeap.Class)
         {
             break;
         }
@@ -537,11 +523,11 @@ private function SellSelectedWeapon(ExtPlayerController EXTPC, ExtHumanPawn EXTP
     KFPRI.AddDosh(SellPrice);
 
     // Remove from owned properties
-    for (i = 0; i < OwnedWeapProps.Length; i++)
+    for (i = 0; i < OwnedWeapList.Length; i++)
     {
-        if (OwnedWeapProps[i] == SelectedInventoryWeap)
+        if (OwnedWeapList[i] == SelectedInventoryWeap)
         {
-            OwnedWeapProps.Remove(i, 1);
+            OwnedWeapList.Remove(i, 1);
             break;
         }
     }
@@ -570,90 +556,93 @@ function UpdateWeaponIconDisplay()
 
 function UpdateStatsDisplay()
 {
-    local Ext_WeaponProperties WPP;
+    local int Prestige;
+    local int Dosh;
 
+    Prestige = KFPRI.FCurrentPerk.CurrentPrestige;
+    Dosh = KFPRI.Score;
     // Toggle upgrade buttons based on selection type
     if (DmgUpgradeBtn != None)
     {
         DmgUpgradeBtn.SetDisabled(!bIsInventorySelected || SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddDamage());
-        DmgUpgradeBtn.ButtonText = string(SelectedInventoryWeap.GetCostDmg());
+        DmgUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextDmgCost);
     }
 
     if (AoEUpgradeBtn != None)
     {
-        AoEUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || SelectedInventoryWeap.CanAddAoE());
-        AoEUpgradeBtn.ButtonText = string(SelectedInventoryWeap.GetCostAoE());
+        AoEUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddAoE());
+        AoEUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextAoECost);
     }
 
     if (FireRateUpgradeBtn != None)
     {
-        FireRateUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || SelectedInventoryWeap.CanAddFireRate());
-        FireRateUpgradeBtn.ButtonText = string(SelectedInventoryWeap.GetCostFireRate());
+        FireRateUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddFireRate());
+        FireRateUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextFireRateCost);
     }
 
     if (PenetrationUpgradeBtn != None)
     {
-        PenetrationUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || SelectedInventoryWeap.CanAddPenetration());
-        PenetrationUpgradeBtn.ButtonText = string(SelectedInventoryWeap.GetCostPenetration());
+        PenetrationUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddPenetration());
+        PenetrationUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextPenetrationCost);
     }
 
     if (MagazineUpgradeBtn != None)
     {
-        MagazineUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || SelectedInventoryWeap.CanAddMagazine());
-        MagazineUpgradeBtn.ButtonText = string(SelectedInventoryWeap.GetCostMagazine());
+        MagazineUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddMagazine());
+        MagazineUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextMagazineCost);
     }
 
     if (AmmoUpgradeBtn != None)
     {
-        AmmoUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || SelectedInventoryWeap.CanAddAmmo());
-        AmmoUpgradeBtn.ButtonText = string(SelectedInventoryWeap.GetCostAmmo());
+        AmmoUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddAmmo());
+        AmmoUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextSpareCost);
     }
 
-    if (bIsInventorySelected && SelectedInventoryWeap != None)
-    {
-        WPP = SelectedInventoryWeap;
-    }
-    else
-    {
-        // For trader weapons, show base stats without level
-        if (DmgValueLabel != None)
-            DmgValueLabel.SetText("Base");
-        if (AoEValueLabel != None)
-            AoEValueLabel.SetText("Base");
-        if (FireRateValueLabel != None)
-            FireRateValueLabel.SetText("Base");
-        if (PenetrationValueLabel != None)
-            PenetrationValueLabel.SetText("Base");
-        if (MagazineValueLabel != None)
-            MagazineValueLabel.SetText("Base");
-        if (AmmoValueLabel != None)
-            AmmoValueLabel.SetText("Base");
-        return;
-    }
+    // if (bIsInventorySelected && SelectedInventoryWeap != None)
+    // {
+    //     WPP = SelectedInventoryWeap;
+    // }
+    // else
+    // {
+    //     // For trader weapons, show base stats without level
+    //     if (DmgValueLabel != None)
+    //         DmgValueLabel.SetText("Base");
+    //     if (AoEValueLabel != None)
+    //         AoEValueLabel.SetText("Base");
+    //     if (FireRateValueLabel != None)
+    //         FireRateValueLabel.SetText("Base");
+    //     if (PenetrationValueLabel != None)
+    //         PenetrationValueLabel.SetText("Base");
+    //     if (MagazineValueLabel != None)
+    //         MagazineValueLabel.SetText("Base");
+    //     if (AmmoValueLabel != None)
+    //         AmmoValueLabel.SetText("Base");
+    //     return;
+    // }
 
     // Update damage stat
     if (DmgValueLabel != None)
-        DmgValueLabel.SetText(WPP.GetDamageInfo());
+        DmgValueLabel.SetText(SelectedInventoryWeap.GetDamageInfo());
 
     // Update AoE stat
     if (AoEValueLabel != None)
-        AoEValueLabel.SetText(WPP.GetAoEInfo());
+        AoEValueLabel.SetText(SelectedInventoryWeap.GetAoEInfo());
 
     // Update fire rate stat
     if (FireRateValueLabel != None)
-        FireRateValueLabel.SetText(WPP.GetFireRateInfo());
+        FireRateValueLabel.SetText(SelectedInventoryWeap.GetFireRateInfo());
 
     // Update penetration stat
     if (PenetrationValueLabel != None)
-        PenetrationValueLabel.SetText(WPP.GetPenetrationInfo());
+        PenetrationValueLabel.SetText(SelectedInventoryWeap.GetPenetrationInfo());
 
     // Update magazine stat
     if (MagazineValueLabel != None)
-        MagazineValueLabel.SetText(WPP.GetMagazineInfo());
+        MagazineValueLabel.SetText(SelectedInventoryWeap.GetMagazineInfo());
 
     // Update ammo stat
     if (AmmoValueLabel != None)
-        AmmoValueLabel.SetText(WPP.GetAmmoInfo());
+        AmmoValueLabel.SetText(SelectedInventoryWeap.GetAmmoInfo());
 }
 
 function OnUpgradeDamage(KFGUI_Button Sender)
@@ -736,36 +725,48 @@ function DrawWeaponIcon(class<KFWeapon> KFW, Canvas C, float X, float Y, float W
     }
 }
 
-function DrawWeaponClassIcon(class<KFWeapon> WPC, Canvas C, float X, float Y, float Width, float Height)
+// function DrawWeaponClassIcon(class<KFWeapon> WPC, Canvas C, float X, float Y, float Width, float Height)
+// {
+//     local Texture2D Tex;
+//     local float DrawW, DrawH;
+
+//     if (WPC != None)
+//     {
+//         Tex = WPC.default.WeaponSelectTexture;
+//         if (Tex != None)
+//         {
+//             DrawW = Width;
+//             DrawH = DrawW * (float(Tex.SizeY) / float(Tex.SizeX));
+//             if (DrawH > Height)
+//             {
+//                 DrawH = Height;
+//                 DrawW = DrawH * (float(Tex.SizeX) / float(Tex.SizeY));
+//             }
+//             X += (Width - DrawW) / 2.0;
+//             Y += (Height - DrawH) / 2.0;
+
+//             C.SetPos(X, Y);
+//             C.DrawTile(Tex, DrawW, DrawH, 0, 0, Tex.SizeX, Tex.SizeY);
+//         }
+//     }
+// }
+
+function Ext_WeaponProperties GetWeaponProperties(class<KFWeapon> KFW)
 {
-    local Texture2D Tex;
-    local float DrawW, DrawH;
-
-    if (WPC != None)
+    local Ext_WeaponProperties WPP;
+    foreach AvailableWeapons(WPP)
     {
-        Tex = WPC.default.WeaponSelectTexture;
-        if (Tex != None)
-        {
-            DrawW = Width;
-            DrawH = DrawW * (float(Tex.SizeY) / float(Tex.SizeX));
-            if (DrawH > Height)
-            {
-                DrawH = Height;
-                DrawW = DrawH * (float(Tex.SizeX) / float(Tex.SizeY));
-            }
-            X += (Width - DrawW) / 2.0;
-            Y += (Height - DrawH) / 2.0;
-
-            C.SetPos(X, Y);
-            C.DrawTile(Tex, DrawW, DrawH, 0, 0, Tex.SizeX, Tex.SizeY);
-        }
+        if (WPP.WeaponClass == KFW)
+            return WPP;
     }
+    return None;
 }
 
 function DrawMenu()
 {
     local float X, Y, W, H;
     local int idx, i;
+    local class<KFWeapon> WP2Draw;
     
     Super.DrawMenu();
     
@@ -781,31 +782,16 @@ function DrawMenu()
         
         if (bIsInventorySelected)
         {
-            if (SelectedInventoryWeap != None)
-            {
-                DrawWeaponIcon(SelectedInventoryWeap.WeaponClass, Canvas, X, Y, W, H);
-            }
+            if (SelectedInventoryWeap == none) return;
+            WP2Draw = SelectedInventoryWeap.WeaponClass;
         }
         else
         {
-            if (SelectedTraderWeap != None)
-            {
-                idx = -1;
-                for (i = 0; i < WeaponDefList.Length; ++i)
-                {
-                    if (WeaponDefList[i] == SelectedTraderWeap)
-                    {
-                        idx = i;
-                        break;
-                    }
-                }
-                
-                if (idx != -1 && idx < WeaponClassList.Length)
-                {
-                    DrawWeaponClassIcon(WeaponClassList[idx], Canvas, X, Y, W, H);
-                }
-            }
+            if (SelectedTraderIdx == -1 || SelectedTraderIdx >= AvailableWeapons.Length) return;
+            WP2Draw = AvailableWeapons[SelectedTraderIdx].WeaponClass;
         }
+
+        DrawWeaponIcon(WP2Draw, Canvas, X, Y, W, H);
     }
 }
 

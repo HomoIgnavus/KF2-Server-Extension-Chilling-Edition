@@ -16,8 +16,7 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-Class ExtPlayerController extends KFPlayerController
-	dependson(Ext_WeaponProperties);
+Class ExtPlayerController extends KFPlayerController;
 
 var localized string GotItemText;
 var localized string KilledHimselfWith;
@@ -32,7 +31,9 @@ var localized string Disconnecting;
 var localized string NowViewingFrom;
 var localized string ViewingFromOwnCamera;
 
-var array<Ext_WeaponProperties> WeaponProperties;
+var UIP_WeaponPage WeaponPage;
+var Ext_WeaponList WeaponList;
+var array<Ext_WeaponProperties> InvProperties;
 
 struct FAdminCmdType
 {
@@ -89,6 +90,12 @@ replication
 
 simulated function PostBeginPlay()
 {
+	InvProperties.Length = 0;
+	if (WeaponList == None)
+	{
+		WeaponList = new class'Ext_WeaponList';
+		WeaponList.LoadWeapons();
+	}
 	Super.PostBeginPlay();
 	if (WorldInfo.NetMode!=NM_Client && ActivePerkManager==None)
 	{
@@ -1241,81 +1248,90 @@ state Dead
 	}
 }
 
-function AddWeaponProperties(class<KFWeaponDefinition> WPD)
+function bool FindWeaponProperties(class<KFWeapon> WPC, out int WeaponIdx)
 {
-	local Ext_WeaponProperties WPP;
-	
-	if (HasWeaponProperty(WPD)) return;
 
-	WPP.Init(WPD, self);
-	WeaponProperties.AddItem(WPP);
-	`log("AddWeaponProperties() Added: " @ WPP.WeaponDef);
-}
-
-function bool HasWeaponProperty(class<KFWeaponDefinition> WPD)
-{
-	local Ext_WeaponProperties WPP;
-	foreach WeaponProperties(WPP)
+	for (WeaponIdx = 0; WeaponIdx < InvProperties.Length; WeaponIdx++)
 	{
-		if (WPP.WeaponDef == WPD)
-			return true;
+		if (InvProperties[WeaponIdx].WeaponClass == WPC) return true;
 	}
 
 	return false;
 }
 
-// apply upgrade for specified weapon instance
-function ApplyWeaponUpgrade(KFWeapon KFW)
+function bool HasWeapon(class<KFWeapon> WPC)
 {
-	local Ext_WeaponProperties WPP;
+	local Inventory Inv;
 
-	if (KFW == none) return;
-
-	foreach WeaponProperties(WPP)
+	for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
 	{
-		if (KFW.Class != WPP.WeaponClass) continue;
-		
-		WPP.ApplyModifiers(KFW);
-		// `log("ApplyWeaponUpgrades() Applied upgrade for : " @ WPP.GetItemName());
-		return;
+		if (Inv.Class == WPC) return true;
 	}
 
-	// weapon properties not found:
-	// AddWeaponProperties(KFW);
+	return false;
+}
+
+function CreateWeapProp(KFWeapon NewWeapon)
+{
+	local int idx;
+	local Ext_WeaponProperties WPP;
+
+	if (FindWeaponProperties(NewWeapon.Class, idx))
+	{
+		InvProperties[idx].WeaponInstance = NewWeapon;
+		InvProperties[idx].ApplyModifiers();
+	}
+	else
+	{
+		WPP = new class'Ext_WeaponProperties';
+		WPP.PCInit(self, NewWeapon);
+		InvProperties.AddItem(WPP);
+	}
+}
+
+/***
+ * wrapper for Pawn.InvManager.CreateInventory()
+ * add a weapon to the pawn and create an associated weapon properties
+ * return true if the weapon is added, otherwise false
+ */ 
+function bool AddWeapon(class<KFWeapon> WPC)
+{
 	
+	
+	local ExtHumanPawn ExtHP;
+	local KFWeapon SpawnedWeapon;
+
+	ExtHP = ExtHumanPawn(Pawn);
+	if (ExtHP == None) return false;
+
+	if (HasWeapon(WPC)) return false;
+
+	SpawnedWeapon = KFWeapon(ExtHP.InvManager.CreateInventory(WPC));
+	if (SpawnedWeapon == None) return false;
+
+	CreateWeapProp(SpawnedWeapon);
+
+	return true;
 }
 
-// apply upgrade for all weapons
-function ApplyWeaponUpgrades(bool ResetMaxLvs = false)
+function ApplyWeaponUpgrades()
 {
-	local Inventory inv;
-	local KFWeapon KFW;
-	local Ext_WeaponProperties WPP;
+	local int idx;
 
-	// typically used when the player's prestige lv changes
-	if (ResetMaxLvs) class'Ext_WeaponProperties'.static.InitClass(PlayerReplicationInfo);
-
-	for (Inv = self.Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+	for (idx = 0; idx < InvProperties.Length; idx++)
 	{
-		KFW = KFWeapon(Inv);
-
-		if (KFW == none) continue;
-
-		ApplyWeaponUpgrade(KFW);
+		if (InvProperties[idx].WeaponInstance != None)
+			InvProperties[idx].ApplyModifiers();
 	}
 }
 
-function HandlePickup(Inventory Inv)
-{
-	local KFWeapon KFW;
+// function HandlePickup(Inventory Inv)
+// {
+// 	local KFWeapon KFW;
 
-	super.HandlePickup(Inv);
-	ApplyWeaponUpgrades();
+// 	super.HandlePickup(Inv);
 
-	KFW = KFWeapon(Inv);
-	if (KFW != none)
-		ApplyWeaponUpgrade(KFW);
-}
+// }
 
 function NotifyAddInventory(Inventory NewItem)
 {
@@ -1325,7 +1341,7 @@ function NotifyAddInventory(Inventory NewItem)
 
 	KFW = KFWeapon(NewItem);
 	if (KFW != none)
-		ApplyWeaponUpgrade(KFW);
+		CreateWeapProp(KFW);
 }
 
 exec function RequestSwitchTeam()
