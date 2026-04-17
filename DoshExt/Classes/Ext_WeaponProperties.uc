@@ -385,7 +385,7 @@ public function string GetAoEInfo()
 
 public function int GetBaseFireRate()
 {
-    return Round(60 / BaseFireInterval[0]);
+    return Round(3600 / BaseFireInterval[0]);
 }
 
 public function string GetFireRateInfo()
