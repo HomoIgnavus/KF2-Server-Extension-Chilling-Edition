@@ -20,1472 +20,557 @@ Init: Base directory: D:\programs\Steam\steamapps\common\killingfloor2\Binaries\
 [0000.57] DevOnline: [EOS SDK] Logging Callback Set
 [0000.57] Init: Presizing for 179220 objects not considered by GC, pre-allocating 0 bytes.
 [0000.57] Init: Object subsystem initialized
-[0002.77] Log: CachePaths() took 2.19 Seconds
-[0002.77] DevDataBase: Connection to "Provider=sqloledb;Data Source=production-db;Initial Catalog=EngineTaskPerf;Trusted_Connection=Yes;Connection Timeout=2" or "10.1.20.20" failed
-[0002.83] Log: TwD3d1xInfoInit: Acceptable DX11 adapter found
-[0002.83] Log: Unknown GPU : Amd 0x15bf
+[0002.72] Log: CachePaths() took 2.15 Seconds
+[0002.73] DevDataBase: Connection to "Provider=sqloledb;Data Source=production-db;Initial Catalog=EngineTaskPerf;Trusted_Connection=Yes;Connection Timeout=2" or "10.1.20.20" failed
+[0002.79] Log: TwD3d1xInfoInit: Acceptable DX11 adapter found
+[0002.79] Log: Unknown GPU : Amd 0x15bf
 
-[0002.83] Log: Adapter : AMD Radeon 780M Graphics
+[0002.79] Log: Adapter : AMD Radeon 780M Graphics
 
-[0002.84] Log: Vendor : Amd
+[0002.79] Log: Vendor : Amd
 
-[0002.84] Log: DeviceId : 5567
+[0002.79] Log: DeviceId : 5567
 
-[0002.84] Log: SubSysId : 364843010
+[0002.79] Log: SubSysId : 364843010
 
-[0002.84] Log: Revision : 208
+[0002.79] Log: Revision : 208
 
-[0002.84] Log: DedicatedVideoMemory : 411 MiB
+[0002.79] Log: DedicatedVideoMemory : 411 MiB
 
-[0002.84] Log: DedicatedSystemMemory : 0 MiB
+[0002.79] Log: DedicatedSystemMemory : 0 MiB
 
-[0002.84] Log: SharedSystemMemory : 24108 MiB
+[0002.79] Log: SharedSystemMemory : 24108 MiB
 
-[0002.84] Log: DisplayCount : 1
+[0002.79] Log: DisplayCount : 1
 
-[0002.84] Log: "\\.\DISPLAY1" : { "x" : 0, "y" : 0, "width" : 2560, "height" : 1440 }
+[0002.79] Log: "\\.\DISPLAY1" : { "x" : 0, "y" : 0, "width" : 2560, "height" : 1440 }
 
-[0002.84] Log: [AppCompat] Machine  detected compatibility level: Composite: 3. CPU: 4. GPU: 3.
-[0002.84] Log: [AppCompat] Previous detected compatibility level: Composite: 3. CPU: 4. GPU: 3.
-[0002.87] Log: Found D3D11 adapter 0: AMD Radeon 780M Graphics
-[0002.87] Log: Adapter has 411MB of dedicated video memory, 0MB of dedicated system memory, and 24108MB of shared system memory
-[0002.88] Log: Found D3D11 adapter 1: Microsoft Basic Render Driver
-[0002.88] Log: Adapter has 0MB of dedicated video memory, 0MB of dedicated system memory, and 24108MB of shared system memory
-[0002.89] Log: Shader platform (RHI): PC-D3D-SM5
-[0002.91] Log: [CROSSPLAY] FORCEREWRITE wrong [IpDrv.TcpNetDriver] AllowDownloads
-[0002.93] Log: PhysXLevel : 0
-[0002.93] Log: [FSocketWin::Bind] Binding to 0.0.0.0:9989
-[0003.04] Log: [ThreadAffinity] Number of hardware threads is 16. Setting thread affinity for game and render threads to share L2 cache
-[0014.49] Log: 299510 objects as part of root set at end of initial load.
-[0014.49] Log: 0 out of 0 bytes used by permanent object pool.
-[0014.49] Log: Initializing Engine...
-[0014.50] Log: [FSocketWin::Bind] Binding to 216.239.35.0:123
-[0015.50] Log: [FSocketWin::Bind] Binding to 216.239.35.0:123
-[0016.50] Log: [FSocketWin::Bind] Binding to 216.239.35.0:123
-[0017.50] Log: [FSocketWin::Bind] Binding to 216.239.35.0:123
-[0018.50] Log: [FSocketWin::Bind] Binding to 216.239.35.0:123
-[0019.50] Log: *** Using local time
-[0019.50] Log: *** Updating timed game events
-[0019.50] Log: **** Current Time: 2026 4 16 8 0 6
-[0019.50] Log: **** World start in seconds: 1492444800
-[0019.50] Log: **** Current time in seconds: 1776297606
-[0019.50] Log: **** Intended weekly index: 469
-[0019.50] Log: **** USED Weekly index: 469
-[0019.54] Log: [NVidia GeForceExperience] Compiled against GSA version: 1.0.2.0
-[0019.54] Log: [NVidia GeForceExperience] Running against GSA version: 1.0.2.0
-[0019.62] Log: Checking to see if current resolution is supported ....OK
-[0019.71] Log: Wwise(R) SDK Version 2015.1.8 Build 5618. Copyright (c) 2006-2012 Audiokinetic Inc. / All Rights Reserved.
-[0020.42] Log: AMD driver version: 26.2.2, build version: 25.30.27.02-260217a-198634C-AMD-Software-Adrenalin-Edition
-[0020.42] Log: Detected 1 Crossfire CPUs for rendering
-[0020.45] Log: [ThreadAffinity] Number of hardware threads is 16. Setting thread affinity for game and render threads to share L2 cache
-[0020.45] Log: Initializing Steamworks
-[0020.46] Log: GSteamFriends->GetFriendCount return 36
-[0020.46] Log: Logged in as 'Hŏmō Ignāvus'
-[0020.46] Log: FVoiceInterfaceVivox::CreateInstance(MaxLocalTalkers=1, MaxRemoteTalkers=16, bIsSpeechRecognitionDesired=0)
-[0020.46] Log: FVoiceInterfaceVivox::Init(MaxLocalTalkers=1, MaxRemoteTalkers=16, bIsSpeechRecognitionDesired=0)
-[0020.46] Log: vx_get_default_codecs_mask()=39
-[0020.47] Log: EncryptedAppTicketResponse: bIOFailure = FALSE
-[0020.47] Log: EncryptedAppTicketResponse: pEncryptedAppTicketResponse is NOT NULL
-[0020.47] Log: EncryptedAppTicketResponse: pEncryptedAppTicketResponse->m_eResult = 1
-[0020.47] Log: EncryptedAppTicketResponse k_EResultOK 080210e19ee5cc0f180420702aa001eafea3af1bb56c3cbd521ec2139a2843ac85509fbc913a0d8b2407bbd780440fb14adf4db071238e34b3bf34de40e1565d4b426933ab02790863c3cc3f8361e3bc924108b7035b4fa2b4c19551dc38c47ae2a1ed0631463364de354453801d1b08693d7231b07bfa6dfed1effd1d4c5de390261a925dd364574334e15ae2bea871423ccba36bb9f17be72acb7f8dc848b8abdf75a93489756b17b121de35ae9d
-[0020.47] Log: FVoiceInterfaceVivox::vivoxConnect
-[0020.48] Log: [TWAnalytics::requestInventoryItem] Requesting Item Id: 0 TotalNumberExpected: -1
-[0020.50] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0020.50] Warning: Warning, Failed to find object 'Class None.'
-[0020.50] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0020.50] Warning: Warning, Failed to find object 'Class None.'
-[0020.55] Log: LoadMap: KF-Crazy_Playboy_Edited?Name=Player?Team=255?game=ConfigurableGameMode.CGM_Survival?Setup=1?Mutator=DoshExtMut.ServerExtMut,WaveTimeOut.WaveTimeOut
-[0020.82] Log: SetGameInfo
-[0020.82] Log: GameType parameter 'ConfigurableGameMode.CGM_Survival'
-[0020.83] Log: LoadPackagesFully 'ConfigurableGameMode.CGM_Survival'
-[0020.83] Log: GameClass Param
-[0020.86] Log: GameClass URL
-[0020.86] Log: PostLoadClass packages LoadPackagesFully
-[0020.86] Log: Game class is 'CGM_Survival'
-[0020.89] Log: *** WARNING - PATHS MAY NOT BE VALID ***
-[0020.89] Log: Bringing World kf-crazy_playboy_edited.TheWorld up for play (0) at 2026.04.16-16.00.07
-[0020.89] ScriptLog: CGM_Survival.InitGame()
-[0020.89] ScriptLog: Mutators DoshExtMut.ServerExtMut,WaveTimeOut.WaveTimeOut
-[0021.10] ScriptLog: [xVotingHandler] Config is up-to-date
-[0021.16] ScriptLog: WaveTimeOut mutator initialized
-[0021.16] ScriptLog: WaveTimeOut: Config Version =  2
-[0021.17] ScriptLog: WaveTimeOut: TimeOutSeconds =  60
-[0021.17] ScriptLog: WaveTimeOut: ApprovalRate =  0.8000
-[0021.17] DevLobby: LobbyJoinGame ServerIP=
-[0021.18] ScriptLog: GameSetups.GenSetup() DisplayMode: 0
-[0021.18] ScriptLog: GameSetups.GenSetup() MaxWave: 100
-[0021.18] ScriptLog: GameSetups.GenSetup() InitialDosh: 10000
-[0021.18] ScriptLog: GameSetups.GenSetup() TraderTime: 20
-[0021.18] ScriptLog: GameSetups.GenSetup() bStartWithTrader: True
-[0021.18] ScriptLog: GameSetups.GenSetup() XpScale: 10.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() DoshScale: 0.5000
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraSpawnPerWave: 0.2000
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraSpawnPerPlayer: 0.7500
-[0021.18] ScriptLog: GameSetups.GenSetup() MaxAlive: 60
-[0021.18] ScriptLog: GameSetups.GenSetup() Interval: 5
-[0021.18] ScriptLog: GameSetups.GenSetup() ZedHealthScale: 3.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraHealthPerWave: 0.0500
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraHealthPerPlayer: 0.3000
-[0021.18] ScriptLog: GameSetups.GenSetup() MaxHealthScale: 999.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ZedResistanceScale: 1.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraResistancePerWave: 0.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() MaxResistanceScale: 1.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ZedDamageScale: 2.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraDamagePerWave: 0.0500
-[0021.18] ScriptLog: GameSetups.GenSetup() MaxDamageScale: 999.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ZedSpeedScale: 1.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() ExtraSpeedPerWave: 0.0200
-[0021.18] ScriptLog: GameSetups.GenSetup() MaxSpeedScale: 10.0000
-[0021.18] ScriptLog: GameSetups.GenSetup() bUseStockScaling: False
-[0021.18] ScriptLog: GameSetups.GenSetup() bEnableBossWaves: False
-[0021.22] Log: REFRESHING GAME CONTENT
-[0021.22] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.22] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.22] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_UnDev_Archetype
-[0021.22] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.22] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.22] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_Slasher_Archetype
-[0021.30] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.30] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.30] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_AlphaKing_Archetype
-[0021.34] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.34] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.34] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_Alpha_Archetype
-[0021.34] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.34] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.34] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_CrawlerKing_Archetype
-[0021.39] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.39] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.40] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Crawler_Archetype
-[0021.40] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.40] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.40] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Gorefast2_Archetype
-[0021.45] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.45] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.45] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Gorefast_Archetype
-[0021.48] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.48] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.48] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_EMP_Archetype
-[0021.54] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.54] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.54] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Laser_Archetype
+[0002.79] Log: [AppCompat] Machine  detected compatibility level: Composite: 3. CPU: 4. GPU: 3.
+[0002.79] Log: [AppCompat] Previous detected compatibility level: Composite: 3. CPU: 4. GPU: 3.
+[0002.83] Log: Found D3D11 adapter 0: AMD Radeon 780M Graphics
+[0002.83] Log: Adapter has 411MB of dedicated video memory, 0MB of dedicated system memory, and 24108MB of shared system memory
+[0002.85] Log: Found D3D11 adapter 1: Microsoft Basic Render Driver
+[0002.85] Log: Adapter has 0MB of dedicated video memory, 0MB of dedicated system memory, and 24108MB of shared system memory
+[0002.85] Log: Shader platform (RHI): PC-D3D-SM5
+[0002.87] Log: [CROSSPLAY] FORCEREWRITE wrong [IpDrv.TcpNetDriver] AllowDownloads
+[0002.89] Log: PhysXLevel : 0
+[0002.89] Log: [FSocketWin::Bind] Binding to 0.0.0.0:9989
+[0002.97] Log: [ThreadAffinity] Number of hardware threads is 16. Setting thread affinity for game and render threads to share L2 cache
+[0014.68] Log: 299510 objects as part of root set at end of initial load.
+[0014.68] Log: 0 out of 0 bytes used by permanent object pool.
+[0014.68] Log: Initializing Engine...
+[0014.69] Log: [FSocketWin::Bind] Binding to 216.239.35.4:123
+[0015.69] Log: [FSocketWin::Bind] Binding to 216.239.35.4:123
+[0016.69] Log: [FSocketWin::Bind] Binding to 216.239.35.4:123
+[0017.69] Log: [FSocketWin::Bind] Binding to 216.239.35.4:123
+[0018.69] Log: [FSocketWin::Bind] Binding to 216.239.35.4:123
+[0019.69] Log: *** Using local time
+[0019.69] Log: *** Updating timed game events
+[0019.69] Log: **** Current Time: 2026 4 17 5 22 55
+[0019.69] Log: **** World start in seconds: 1492444800
+[0019.69] Log: **** Current time in seconds: 1776374575
+[0019.69] Log: **** Intended weekly index: 469
+[0019.69] Log: **** USED Weekly index: 469
+[0019.73] Log: [NVidia GeForceExperience] Compiled against GSA version: 1.0.2.0
+[0019.73] Log: [NVidia GeForceExperience] Running against GSA version: 1.0.2.0
+[0019.81] Log: Checking to see if current resolution is supported ....OK
+[0019.89] Log: Wwise(R) SDK Version 2015.1.8 Build 5618. Copyright (c) 2006-2012 Audiokinetic Inc. / All Rights Reserved.
+[0020.62] Log: AMD driver version: 26.2.2, build version: 25.30.27.02-260217a-198634C-AMD-Software-Adrenalin-Edition
+[0020.62] Log: Detected 1 Crossfire CPUs for rendering
+[0020.65] Log: [ThreadAffinity] Number of hardware threads is 16. Setting thread affinity for game and render threads to share L2 cache
+[0020.65] Log: Initializing Steamworks
+[0020.66] Log: GSteamFriends->GetFriendCount return 36
+[0020.66] Log: Logged in as 'Hŏmō Ignāvus'
+[0020.66] Log: FVoiceInterfaceVivox::CreateInstance(MaxLocalTalkers=1, MaxRemoteTalkers=16, bIsSpeechRecognitionDesired=0)
+[0020.67] Log: FVoiceInterfaceVivox::Init(MaxLocalTalkers=1, MaxRemoteTalkers=16, bIsSpeechRecognitionDesired=0)
+[0020.67] Log: vx_get_default_codecs_mask()=39
+[0020.67] Log: EncryptedAppTicketResponse: bIOFailure = FALSE
+[0020.67] Log: EncryptedAppTicketResponse: pEncryptedAppTicketResponse is NOT NULL
+[0020.67] Log: EncryptedAppTicketResponse: pEncryptedAppTicketResponse->m_eResult = 1
+[0020.67] Log: EncryptedAppTicketResponse k_EResultOK 0802109feb8bc806180420702aa001dec9be6f01074a1ab2cd14d9d03020447172b09610b29858ce0588511f39d20bbbea5879464992833b14eee0dc32d9d9427f531ee73083494e80c603edbf8d993266b3506f5b9e3a675933660d45362296c637b194b48ada54cd585243a0bff2bd337cd9972494e7ee9e7279e8d43f0aac53609744bd938412b8f88d1b0f72425bc02b6bcc9d5bcb6408811dc53affbdf7b097eb943d545b66cb8b2857008e39
+[0020.67] Log: FVoiceInterfaceVivox::vivoxConnect
+[0020.69] Log: [TWAnalytics::requestInventoryItem] Requesting Item Id: 0 TotalNumberExpected: -1
+[0020.71] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0020.71] Warning: Warning, Failed to find object 'Class None.'
+[0020.71] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0020.71] Warning: Warning, Failed to find object 'Class None.'
+[0020.75] Log: LoadMap: KF-Crazy_Playboy_Edited?Name=Player?Team=255?game=ConfigurableGameMode.CGM_Survival?Setup=1?Mutator=DoshExtMut.ServerExtMut,WaveTimeOut.WaveTimeOut
+[0021.03] Log: SetGameInfo
+[0021.03] Log: GameType parameter 'ConfigurableGameMode.CGM_Survival'
+[0021.03] Log: LoadPackagesFully 'ConfigurableGameMode.CGM_Survival'
+[0021.03] Log: GameClass Param
+[0021.06] Log: GameClass URL
+[0021.06] Log: PostLoadClass packages LoadPackagesFully
+[0021.06] Log: Game class is 'CGM_Survival'
+[0021.10] Log: *** WARNING - PATHS MAY NOT BE VALID ***
+[0021.10] Log: Bringing World kf-crazy_playboy_edited.TheWorld up for play (0) at 2026.04.17-13.22.56
+[0021.10] ScriptLog: CGM_Survival.InitGame()
+[0021.10] ScriptLog: Mutators DoshExtMut.ServerExtMut,WaveTimeOut.WaveTimeOut
+[0021.31] ScriptLog: [xVotingHandler] Config is up-to-date
+[0021.37] ScriptLog: WaveTimeOut mutator initialized
+[0021.37] ScriptLog: WaveTimeOut: Config Version =  2
+[0021.37] ScriptLog: WaveTimeOut: TimeOutSeconds =  60
+[0021.37] ScriptLog: WaveTimeOut: ApprovalRate =  0.8000
+[0021.37] DevLobby: LobbyJoinGame ServerIP=
+[0021.39] ScriptLog: GameSetups.GenSetup() DisplayMode: 0
+[0021.39] ScriptLog: GameSetups.GenSetup() MaxWave: 100
+[0021.39] ScriptLog: GameSetups.GenSetup() InitialDosh: 10000
+[0021.39] ScriptLog: GameSetups.GenSetup() TraderTime: 20
+[0021.39] ScriptLog: GameSetups.GenSetup() bStartWithTrader: True
+[0021.39] ScriptLog: GameSetups.GenSetup() XpScale: 10.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() DoshScale: 0.5000
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraSpawnPerWave: 0.2000
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraSpawnPerPlayer: 0.7500
+[0021.39] ScriptLog: GameSetups.GenSetup() MaxAlive: 60
+[0021.39] ScriptLog: GameSetups.GenSetup() Interval: 5
+[0021.39] ScriptLog: GameSetups.GenSetup() ZedHealthScale: 3.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraHealthPerWave: 0.0500
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraHealthPerPlayer: 0.3000
+[0021.39] ScriptLog: GameSetups.GenSetup() MaxHealthScale: 999.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ZedResistanceScale: 1.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraResistancePerWave: 0.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() MaxResistanceScale: 1.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ZedDamageScale: 2.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraDamagePerWave: 0.0500
+[0021.39] ScriptLog: GameSetups.GenSetup() MaxDamageScale: 999.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ZedSpeedScale: 1.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() ExtraSpeedPerWave: 0.0200
+[0021.39] ScriptLog: GameSetups.GenSetup() MaxSpeedScale: 10.0000
+[0021.39] ScriptLog: GameSetups.GenSetup() bUseStockScaling: False
+[0021.39] ScriptLog: GameSetups.GenSetup() bEnableBossWaves: False
+[0021.43] Log: REFRESHING GAME CONTENT
+[0021.43] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.43] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.43] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_UnDev_Archetype
+[0021.43] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.43] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.43] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_Slasher_Archetype
+[0021.51] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.51] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.51] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_AlphaKing_Archetype
+[0021.55] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.55] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.56] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_Alpha_Archetype
 [0021.56] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
 [0021.56] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.56] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Rocket_Archetype
-[0021.57] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.57] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.57] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Stalker_Archetype
-[0021.63] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.63] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.63] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Scrake_Archetype
-[0021.70] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.70] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.70] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Fleshpound_Archetype
+[0021.56] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_CrawlerKing_Archetype
+[0021.61] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.61] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.61] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Crawler_Archetype
+[0021.61] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.61] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.61] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Gorefast2_Archetype
+[0021.67] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.67] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.67] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Gorefast_Archetype
+[0021.69] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.69] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.69] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_EMP_Archetype
+[0021.76] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.76] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.76] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Laser_Archetype
 [0021.78] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
 [0021.78] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.78] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_FleshpoundMini_Archetype
+[0021.78] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Rocket_Archetype
 [0021.79] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
 [0021.79] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.79] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Bloat_Archetype
-[0021.87] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.87] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.87] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Siren_Archetype
+[0021.79] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Stalker_Archetype
+[0021.85] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0021.85] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0021.85] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Scrake_Archetype
 [0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
 [0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_EMP_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Laser_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Rocket_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Husk_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_AlphaKing_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_CrawlerKing_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Gorefast2_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_EMP_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Laser_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Rocket_Archetype
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.92] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_HansClot_Archetype
-[0021.93] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
-[0021.93] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
-[0021.94] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_KingBloatSubspawn_Archetype
-[0022.01] ScriptLog: CGM_Survival.InitSpawnManager()
-[0022.01] ScriptWarning: Accessed array 'CGM_SpawnManager_0.DifficultyWaveSettings' out of bounds (-1/0)
+[0021.92] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Fleshpound_Archetype
+[0022.00] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.00] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.00] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_FleshpoundMini_Archetype
+[0022.01] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.01] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.01] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Bloat_Archetype
+[0022.09] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.09] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.09] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Siren_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_EMP_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Laser_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Rocket_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Husk_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Clot_AlphaKing_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_CrawlerKing_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_Gorefast2_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_EMP_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Laser_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_DAR_Rocket_Archetype
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.14] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.14] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_HansClot_Archetype
+[0022.15] Log: AKFPawn_Monster::PreloadContent - Checking Modes...
+[0022.15] Log: AKFPawn_Monster::PreloadContent - OFFLINE Seasonal Skins mode
+[0022.15] Log: AKFPawn_Monster::PreloadContent - Searching for path: ZED_ARCH.ZED_KingBloatSubspawn_Archetype
+[0022.31] ScriptLog: CGM_Survival.InitSpawnManager()
+[0022.31] ScriptWarning: Accessed array 'CGM_SpawnManager_0.DifficultyWaveSettings' out of bounds (-1/0)
         CGM_SpawnManager kf-crazy_playboy_edited.TheWorld:PersistentLevel.CGM_Survival_0.CGM_SpawnManager_0
         Function KFGame.KFAISpawnManager:GetWaveSettings:0043
-[0022.01] ScriptLog: CGM_SpawnManager.Initialize() Loaded Setup: 1
-[0022.01] ScriptLog: RegularWaves.Init() - Setup parameter: 1
-[0022.01] ScriptLog: RegularWaves.Init() - Setup property: 1
-[0022.01] ScriptLog: RegularWaves.SortWaves(): Setup =  1
-[0022.01] ScriptLog: Loaded  10  spawns.
-[0022.01] ScriptLog: RegularWaves.SortWaves() - Total Waves: 1
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  0
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  1
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  2
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  3
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  4
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Total waves:  13
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  0
-[0022.01] ScriptLog: RandomWaves.GroupSpawns() Total waves:  1
-[0022.01] ScriptLog: CGM_SpawnManager.Initialize() MaxAlive: 60  Interval: 5
-[0022.04] ScriptLog: Gameplay events will not be recorded.
-[0022.04] Log: Bringing up level for play took: 1.172958
-[0022.04] ScriptLog: KFGameInfo.SeatPlayer
-[0022.06] ScriptLog: GetSeasonalStateName: No Event
-[0022.06] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.06] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Log: FAILED TO INIT Logitech
-[0022.07] Log: Failed to load LightFX.dll.
-[0022.07] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0022.07] Warning: Warning, Failed to find object 'Class None.'
-[0022.07] Log: InAKFPerk::LoadPerkData() NewLevel = 0, NewBuild = 0, NewPrestigeLevel = 0
-[0022.07] Log: FVoiceInterfaceVivox::RegisterRemoteTalker 76561198057412927
-[0022.07] Log: FVoiceInterfaceVivox::vivoxLogin(0X110000105CA593F)
-[0022.08] Log: FVoiceInterfaceVivox::StartRemoteVoiceProcessing 76561198057412927
-[0022.08] Log: [Vivox Debug] vivoxLoginState != login_state_logged_in
-[0022.08] Log: [Vivox Debug] lobbyUid is 0
-[0022.08] Log: FVoiceInterfaceVivox::vivoxLogin(0X110000105CA593F)
-[0022.12] Log: FVoiceInterfaceVivox::SetVolume(1.500000)
-[0022.12] Log: FVoiceInterfaceVivox::SetMicVolume(50.000000) rescaled to 47
-[0022.12] ScriptWarning: Accessed array 'ExtPlayerController_0.PerkList' out of bounds (7/1)
+[0022.31] ScriptLog: CGM_SpawnManager.Initialize() Loaded Setup: 1
+[0022.31] ScriptLog: RegularWaves.Init() - Setup parameter: 1
+[0022.31] ScriptLog: RegularWaves.Init() - Setup property: 1
+[0022.31] ScriptLog: RegularWaves.SortWaves(): Setup =  1
+[0022.31] ScriptLog: Loaded  10  spawns.
+[0022.31] ScriptLog: RegularWaves.SortWaves() - Total Waves: 1
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  0
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  1
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  2
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  3
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  4
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  5
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Total waves:  13
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Adding wave index  0
+[0022.31] ScriptLog: RandomWaves.GroupSpawns() Total waves:  1
+[0022.31] ScriptLog: CGM_SpawnManager.Initialize() MaxAlive: 60  Interval: 5
+[0022.34] ScriptLog: Gameplay events will not be recorded.
+[0022.35] Log: Bringing up level for play took: 1.270302
+[0022.35] ScriptLog: KFGameInfo.SeatPlayer
+[0022.35] Warning: Warning, Failed to load 'Class kfgamecontent.KFWeapDef_HuskCannon': Failed to find object 'Class kfgamecontent.KFWeapDef_HuskCannon'
+[0022.35] ScriptLog: Failed to load weapon definition: KFGameContent.KFWeapDef_HuskCannon
+[0022.37] ScriptLog: GetSeasonalStateName: No Event
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Log: FAILED TO INIT Logitech
+[0022.37] Log: Failed to load LightFX.dll.
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0022.37] Warning: Warning, Failed to find object 'Class None.'
+[0022.37] Log: InAKFPerk::LoadPerkData() NewLevel = 0, NewBuild = 0, NewPrestigeLevel = 0
+[0022.37] Log: FVoiceInterfaceVivox::RegisterRemoteTalker 76561198057412927
+[0022.37] Log: FVoiceInterfaceVivox::vivoxLogin(0X110000105CA593F)
+[0022.38] Log: FVoiceInterfaceVivox::StartRemoteVoiceProcessing 76561198057412927
+[0022.38] Log: [Vivox Debug] vivoxLoginState != login_state_logged_in
+[0022.38] Log: [Vivox Debug] lobbyUid is 0
+[0022.38] Log: FVoiceInterfaceVivox::vivoxLogin(0X110000105CA593F)
+[0022.43] Log: FVoiceInterfaceVivox::SetVolume(1.500000)
+[0022.43] Log: FVoiceInterfaceVivox::SetMicVolume(50.000000) rescaled to 47
+[0022.43] ScriptWarning: Accessed array 'ExtPlayerController_0.PerkList' out of bounds (7/1)
         ExtPlayerController kf-crazy_playboy_edited.TheWorld:PersistentLevel.ExtPlayerController_0
         Function KFGame.KFPlayerController:CheckCurrentPerkAllowed:008B
-[0022.12] ScriptLog: Failed to check CanShareUserCreatedContent
-[0022.12] ScriptLog: Failed to check CanCommunicateVoice
-[0022.34] Warning: Warning, Failed to load 'Font None.Times New Roman': Failed to find object 'Font None.Times New Roman'
-[0022.34] ScriptLog: Ext_PerkBase.ApplyEffect() bActivePerk= False , PlayerOwner.Pawn= None
-[0022.34] ScriptLog: Ext_PerkBase.ApplyEffect() bActivePerk= False , PlayerOwner.Pawn= None
-[0022.34] Log: FVoiceInterfaceVivox::StopLocalVoiceProcessing
-[0022.34] Log: FVoiceInterfaceVivox::VivoxMuteLocalMic MUTE
-[0022.34] ScriptWarning: Accessed array 'ExtPlayerController_0.PerkList' out of bounds (7/1)
+[0022.43] ScriptLog: Failed to check CanShareUserCreatedContent
+[0022.43] ScriptLog: Failed to check CanCommunicateVoice
+[0022.64] Warning: Warning, Failed to load 'Font None.Times New Roman': Failed to find object 'Font None.Times New Roman'
+[0022.64] ScriptLog: Ext_PerkBase.ApplyEffect() bActivePerk= False , PlayerOwner.Pawn= None
+[0022.64] ScriptLog: Ext_PerkBase.ApplyEffect() bActivePerk= False , PlayerOwner.Pawn= None
+[0022.64] Log: FVoiceInterfaceVivox::StopLocalVoiceProcessing
+[0022.64] Log: FVoiceInterfaceVivox::VivoxMuteLocalMic MUTE
+[0022.64] ScriptWarning: Accessed array 'ExtPlayerController_0.PerkList' out of bounds (7/1)
         ExtPlayerController kf-crazy_playboy_edited.TheWorld:PersistentLevel.ExtPlayerController_0
         Function KFGame.KFPlayerController:CheckCurrentPerkAllowed:008B
-[0022.34] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  root1
-[0022.35] ScriptLog: open menu:  0
-[0022.35] ScriptLog: Controller Disconnected
-[0022.35] Log: ########### Finished loading level: 1.806610 seconds
-[0022.35] Log: FVoiceInterfaceVivox::SetVolume(1.500000)
-[0022.35] Log: FVoiceInterfaceVivox::SetMicVolume(50.000000) rescaled to 47
-[0022.35] Log: KF2 VERSION: 1150
-[0022.35] Log: Initializing Engine Completed
-[0022.37] Log: >>>>>>>>>>>>>> Initial startup: 22.37s <<<<<<<<<<<<<<<
-[0054.64] Log: heard FOnlineAsyncEventInventoryDefinitionsUpdate
-[0054.69] Warning: Warning, Failed to load 'Font None.Times New Roman': Failed to find object 'Font None.Times New Roman'
-[0054.92] Log: OnReadComplete INT StatId=1  Value=6553617
-[0054.92] Log: OnReadComplete INT StatId=2  Value=613
-[0054.92] Log: OnReadComplete INT StatId=10  Value=6553600
-[0054.92] Log: OnReadComplete INT StatId=11  Value=678
-[0054.92] Log: OnReadComplete INT StatId=20  Value=6553613
-[0054.92] Log: OnReadComplete INT StatId=21  Value=618
-[0054.92] Log: OnReadComplete INT StatId=30  Value=6553614
-[0054.92] Log: OnReadComplete INT StatId=31  Value=425
-[0054.92] Log: OnReadComplete INT StatId=40  Value=6553607
-[0054.92] Log: OnReadComplete INT StatId=41  Value=681
-[0054.92] Log: OnReadComplete INT StatId=50  Value=6553602
-[0054.92] Log: OnReadComplete INT StatId=51  Value=421
-[0054.92] Log: OnReadComplete INT StatId=60  Value=6553622
-[0054.92] Log: OnReadComplete INT StatId=61  Value=425
-[0054.92] Log: OnReadComplete INT StatId=70  Value=6553635
-[0054.92] Log: OnReadComplete INT StatId=71  Value=341
-[0054.92] Log: OnReadComplete INT StatId=80  Value=6553614
-[0054.92] Log: OnReadComplete INT StatId=81  Value=614
-[0054.92] Log: OnReadComplete INT StatId=90  Value=6553611
-[0054.92] Log: OnReadComplete INT StatId=91  Value=617
-[0054.92] Log: OnReadComplete INT StatId=200  Value=429654
-[0054.92] Log: OnReadComplete INT StatId=201  Value=5037
-[0054.92] Log: OnReadComplete INT StatId=22  Value=496
-[0054.92] Log: OnReadComplete INT StatId=42  Value=9
-[0054.92] Log: OnReadComplete INT StatId=202  Value=7344
-[0054.92] Log: OnReadComplete INT StatId=203  Value=3880
-[0054.92] Log: OnReadComplete INT StatId=300  Value=-1209597184
-[0054.92] Log: OnReadComplete INT StatId=301  Value=0
-[0054.92] Log: OnReadComplete INT StatId=302  Value=4617
-[0054.92] Log: OnReadComplete INT StatId=303  Value=119597189
-[0054.92] Log: OnReadComplete INT StatId=304  Value=0
-[0054.92] Log: OnReadComplete INT StatId=305  Value=0
-[0054.92] Log: OnReadComplete INT StatId=306  Value=0
-[0054.92] Log: OnReadComplete INT StatId=307  Value=0
-[0054.92] Log: OnReadComplete INT StatId=308  Value=0
-[0054.92] Log: OnReadComplete INT StatId=309  Value=0
-[0054.92] Log: OnReadComplete INT StatId=310  Value=0
-[0054.92] Log: OnReadComplete INT StatId=311  Value=0
-[0054.92] Log: OnReadComplete INT StatId=2000  Value=107
-[0054.92] Log: OnReadComplete INT StatId=2001  Value=541
-[0054.92] Log: OnReadComplete INT StatId=2002  Value=1670
-[0054.92] Log: OnReadComplete INT StatId=2003  Value=8911
-[0054.92] Log: OnReadComplete INT StatId=2004  Value=1662
-[0054.92] Log: OnReadComplete INT StatId=2005  Value=1107
-[0054.92] Log: OnReadComplete INT StatId=2006  Value=513
-[0054.92] Log: OnReadComplete INT StatId=2007  Value=130656
-[0054.92] Log: OnReadComplete INT StatId=3000  Value=334
-[0054.92] Log: OnReadComplete INT StatId=400  Value=30946650
-[0054.92] Log: OnReadComplete INT StatId=401  Value=24982272
-[0054.92] Log: OnReadComplete INT StatId=402  Value=1
-[0054.92] Log: OnReadComplete INT StatId=403  Value=0
-[0054.92] Log: [FSocketWin::Bind] Binding to 216.239.35.0:123
-[0055.92] Error: WriteOnlineStats: SessionHasStats is FALSE
-[0055.92] Log: [UKFOnlineStatsWrite::VerifyDoshVaultCrates] Requesting 49 number of Vault Crates.
-[0055.92] Log: [TWAnalytics::requestInventoryItem] Requesting Item Id: 5313 TotalNumberExpected: 49
-[0055.92] Error: WriteOnlineStats: SessionHasStats is FALSE
-[0055.92] Log: UKFOnlineStatsWrite::CacheWeeklyEventState - RESTART Index: 469
-[0055.92] Log: InAKFPerk::LoadPerkData() NewLevel = 0, NewBuild = 0, NewPrestigeLevel = 0
-[0055.93] Log: GSteamFriends->GetFriendCount return 36
-[0055.93] ScriptLog: X-VoteWebAdmin ERROR: No WebServer object found!
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  BackendStatusIndicatorWidget
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  StartMenu
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  PartyWidget
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  MenuBarWidget
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  ButtonPromptWidgetContainer
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  ChatBoxWidget
-[0055.95] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  Notification
-[0055.96] ScriptLog: label LatestUpdate
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_KF3
-[0055.96] ScriptLog: redirectURL https://killingfloor3.com/
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2022_UltimateEdition_Upgrade
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/app/1914560/KF2__Ultimate_Edition_Upgrade_DLC/
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2023_CosmeticsSeasonPass
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/app/2363410/Killing_Floor_2__Cosmetics_Season_Pass
-[0055.96] ScriptLog: label ArmorySeasonPass
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2022_ArmorySeasonPassII
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/app/1914490/KF2__Season_Pass_2022
-[0055.96] ScriptLog: label ArmorySeasonPass
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Spring_Armory_Season_Pass
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/app/1524820/Killing_Floor_2__Armory_Season_Pass
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_SS_Steampunk_MrsFosterBundle
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/6185
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Fall_ReaperOutfit
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/8462
-[0055.96] ScriptLog: label FeaturedEventItem
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Halloween2023_LastStand_Uniforms
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/9747
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Halloween_CommandoChicken_Bundle
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/5286
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Xmas_BadSanta
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/6670
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Halloween2023_MG3Shredder
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/9749
-[0055.96] ScriptLog: label FeaturedItemBundle
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2023_S12Shockgun
-[0055.96] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/9655
-[0055.96] ScriptLog: label Jaegorhorn
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_CommunityHub
-[0055.96] ScriptLog: redirectURL https://steamcommunity.com/app/232090
-[0055.96] ScriptLog: label Forums
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_CommunityForums
-[0055.96] ScriptLog: redirectURL http://forums.tripwireinteractive.com/
-[0055.96] ScriptLog: label Survey
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Survey
-[0055.96] ScriptLog: redirectURL http://www.tripwireinteractive.com/redirect/KF2Survey/
-[0055.96] ScriptLog: label CommunityTracker
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_CommunityIssue
-[0055.96] ScriptLog: redirectURL http://www.killingfloor2.com/roadmap
-[0055.96] ScriptLog: label Merch
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Merch
-[0055.96] ScriptLog: redirectURL http://www.tripwireinteractive.com/redirect/shop/
-[0055.96] ScriptLog: label Uncovered
-[0055.96] ScriptLog: imageURL img://UI_WhatsNew_PS4.UI_WhatsNew_KFUncovered
-[0055.96] ScriptLog: redirectURL https://www.youtube.com/watch?v=fTdfedt9B48/
-[0056.00] ScriptLog: WI:  WorldInfo_0
-[0056.00] ScriptLog: WI.NetMode:  NM_Standalone
-[0056.03] Warning: Warning, Failed to load 'Font None.Times New Roman': Failed to find object 'Font None.Times New Roman'
-[0056.04] ScriptWarning: Accessed None 'PlayerOwner'
-        ExtPerkManager kf-crazy_playboy_edited.TheWorld:PersistentLevel.ExtPerkManager_1
-        Function DoshExt.ExtPerkManager:InitPerks:0095
-[0056.04] Log: RetryCharacterOwnership -- inventory is now ready
-[0056.13] Log: FVoiceInterfaceVivox::vivoxLogin(0X110000105CA593F)
+[0022.65] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  root1
+[0022.65] ScriptLog: open menu:  0
+[0022.65] ScriptLog: Controller Disconnected
+[0022.66] Log: ########### Finished loading level: 1.907609 seconds
+[0022.66] Log: FVoiceInterfaceVivox::SetVolume(1.500000)
+[0022.66] Log: FVoiceInterfaceVivox::SetMicVolume(50.000000) rescaled to 47
+[0022.66] Log: KF2 VERSION: 1150
+[0022.66] Log: Initializing Engine Completed
+[0022.68] Log: >>>>>>>>>>>>>> Initial startup: 22.68s <<<<<<<<<<<<<<<
+[0022.74] Warning: Warning, Failed to load 'Font None.Times New Roman': Failed to find object 'Font None.Times New Roman'
+[0045.39] Log: heard FOnlineAsyncEventInventoryDefinitionsUpdate
+[0045.44] ScriptLog: X-VoteWebAdmin ERROR: No WebServer object found!
+[0045.44] Log: FVoiceInterfaceVivox::vivoxLogin(0X110000105CA593F)
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  MenuBarWidget
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  BackendStatusIndicatorWidget
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  PartyWidget
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  ButtonPromptWidgetContainer
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  StartMenu
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  ChatBoxWidget
+[0045.53] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  Notification
+[0045.54] ScriptLog: WI:  WorldInfo_0
+[0045.54] ScriptLog: WI.NetMode:  NM_Standalone
+[0045.54] ScriptLog: label LatestUpdate
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_KF3
+[0045.54] ScriptLog: redirectURL https://killingfloor3.com/
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2022_UltimateEdition_Upgrade
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/app/1914560/KF2__Ultimate_Edition_Upgrade_DLC/
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2023_CosmeticsSeasonPass
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/app/2363410/Killing_Floor_2__Cosmetics_Season_Pass
+[0045.54] ScriptLog: label ArmorySeasonPass
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2022_ArmorySeasonPassII
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/app/1914490/KF2__Season_Pass_2022
+[0045.54] ScriptLog: label ArmorySeasonPass
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Spring_Armory_Season_Pass
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/app/1524820/Killing_Floor_2__Armory_Season_Pass
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_SS_Steampunk_MrsFosterBundle
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/6185
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Fall_ReaperOutfit
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/8462
+[0045.54] ScriptLog: label FeaturedEventItem
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Halloween2023_LastStand_Uniforms
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/9747
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Halloween_CommandoChicken_Bundle
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/5286
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Xmas_BadSanta
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/6670
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Halloween2023_MG3Shredder
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/9749
+[0045.54] ScriptLog: label FeaturedItemBundle
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Summer2023_S12Shockgun
+[0045.54] ScriptLog: redirectURL https://store.steampowered.com/buyitem/232090/9655
+[0045.54] ScriptLog: label Jaegorhorn
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_CommunityHub
+[0045.54] ScriptLog: redirectURL https://steamcommunity.com/app/232090
+[0045.54] ScriptLog: label Forums
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_CommunityForums
+[0045.54] ScriptLog: redirectURL http://forums.tripwireinteractive.com/
+[0045.54] ScriptLog: label Survey
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Survey
+[0045.54] ScriptLog: redirectURL http://www.tripwireinteractive.com/redirect/KF2Survey/
+[0045.54] ScriptLog: label CommunityTracker
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_CommunityIssue
+[0045.54] ScriptLog: redirectURL http://www.killingfloor2.com/roadmap
+[0045.54] ScriptLog: label Merch
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew.UI_WhatsNew_Merch
+[0045.54] ScriptLog: redirectURL http://www.tripwireinteractive.com/redirect/shop/
+[0045.54] ScriptLog: label Uncovered
+[0045.54] ScriptLog: imageURL img://UI_WhatsNew_PS4.UI_WhatsNew_KFUncovered
+[0045.54] ScriptLog: redirectURL https://www.youtube.com/watch?v=fTdfedt9B48/
+[0045.61] Warning: Warning, Failed to load 'Font None.Times New Roman': Failed to find object 'Font None.Times New Roman'
+[0045.62] Log: RetryCharacterOwnership -- inventory is now ready
  * evt_account_login_state_change: .tripwirein-ki04.0X110000105CA593F. login_state_logging_in
 
-[0061.24] Warning: Warning, Failed to load 'Font None.KFMerged Regular': Failed to find object 'Font None.KFMerged Regular'
-[0061.24] Warning: Warning, Failed to load 'Font None.KFMerged Regular': Failed to find object 'Font None.KFMerged Regular'
-[0063.48] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus PartyWidget:'ExtWidget_PartyInGame_0' bAfterLobby:'False' bForceClose:'False'
-[0063.48] ScriptLog: Setting PartyWidget Visibility false, bAfterLobby = true
-[0063.49] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus CurrentMenu:'KFGFxMenu_StartGame_0'
-[0063.50] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus PartyWidget:'ExtWidget_PartyInGame_0' bAfterLobby:'True' bForceClose:'True'
-[0063.50] ScriptWarning: Accessed None 'WeaponPage'
+[0045.62] Log: OnReadComplete INT StatId=1  Value=6553617
+[0045.62] Log: OnReadComplete INT StatId=2  Value=613
+[0045.62] Log: OnReadComplete INT StatId=10  Value=6553600
+[0045.62] Log: OnReadComplete INT StatId=11  Value=678
+[0045.62] Log: OnReadComplete INT StatId=20  Value=6553613
+[0045.62] Log: OnReadComplete INT StatId=21  Value=618
+[0045.62] Log: OnReadComplete INT StatId=30  Value=6553614
+[0045.62] Log: OnReadComplete INT StatId=31  Value=425
+[0045.62] Log: OnReadComplete INT StatId=40  Value=6553607
+[0045.62] Log: OnReadComplete INT StatId=41  Value=681
+[0045.62] Log: OnReadComplete INT StatId=50  Value=6553602
+[0045.62] Log: OnReadComplete INT StatId=51  Value=421
+[0045.62] Log: OnReadComplete INT StatId=60  Value=6553622
+[0045.62] Log: OnReadComplete INT StatId=61  Value=425
+[0045.62] Log: OnReadComplete INT StatId=70  Value=6553635
+[0045.62] Log: OnReadComplete INT StatId=71  Value=341
+[0045.62] Log: OnReadComplete INT StatId=80  Value=6553614
+[0045.62] Log: OnReadComplete INT StatId=81  Value=614
+[0045.62] Log: OnReadComplete INT StatId=90  Value=6553611
+[0045.62] Log: OnReadComplete INT StatId=91  Value=617
+[0045.62] Log: OnReadComplete INT StatId=200  Value=429654
+[0045.62] Log: OnReadComplete INT StatId=201  Value=5037
+[0045.62] Log: OnReadComplete INT StatId=22  Value=496
+[0045.62] Log: OnReadComplete INT StatId=42  Value=9
+[0045.62] Log: OnReadComplete INT StatId=202  Value=7344
+[0045.62] Log: OnReadComplete INT StatId=203  Value=3880
+[0045.62] Log: OnReadComplete INT StatId=300  Value=-1209597184
+[0045.62] Log: OnReadComplete INT StatId=301  Value=0
+[0045.62] Log: OnReadComplete INT StatId=302  Value=4617
+[0045.62] Log: OnReadComplete INT StatId=303  Value=119597189
+[0045.62] Log: OnReadComplete INT StatId=304  Value=0
+[0045.62] Log: OnReadComplete INT StatId=305  Value=0
+[0045.62] Log: OnReadComplete INT StatId=306  Value=0
+[0045.62] Log: OnReadComplete INT StatId=307  Value=0
+[0045.62] Log: OnReadComplete INT StatId=308  Value=0
+[0045.62] Log: OnReadComplete INT StatId=309  Value=0
+[0045.62] Log: OnReadComplete INT StatId=310  Value=0
+[0045.62] Log: OnReadComplete INT StatId=311  Value=0
+[0045.62] Log: OnReadComplete INT StatId=2000  Value=107
+[0045.62] Log: OnReadComplete INT StatId=2001  Value=541
+[0045.62] Log: OnReadComplete INT StatId=2002  Value=1670
+[0045.62] Log: OnReadComplete INT StatId=2003  Value=8911
+[0045.62] Log: OnReadComplete INT StatId=2004  Value=1662
+[0045.62] Log: OnReadComplete INT StatId=2005  Value=1107
+[0045.62] Log: OnReadComplete INT StatId=2006  Value=513
+[0045.62] Log: OnReadComplete INT StatId=2007  Value=130656
+[0045.62] Log: OnReadComplete INT StatId=3000  Value=334
+[0045.62] Log: OnReadComplete INT StatId=400  Value=30946650
+[0045.62] Log: OnReadComplete INT StatId=401  Value=24982272
+[0045.62] Log: OnReadComplete INT StatId=402  Value=1
+[0045.62] Log: OnReadComplete INT StatId=403  Value=0
+[0045.62] Log: [FSocketWin::Bind] Binding to 216.239.35.4:123
+[0046.62] Error: WriteOnlineStats: SessionHasStats is FALSE
+[0046.62] Log: [UKFOnlineStatsWrite::VerifyDoshVaultCrates] Requesting 49 number of Vault Crates.
+[0046.62] Log: [TWAnalytics::requestInventoryItem] Requesting Item Id: 5313 TotalNumberExpected: 49
+[0046.62] Log: InAKFPerk::LoadPerkData() NewLevel = 0, NewBuild = 0, NewPrestigeLevel = 0
+[0046.62] Error: WriteOnlineStats: SessionHasStats is FALSE
+[0046.62] Log: UKFOnlineStatsWrite::CacheWeeklyEventState - RESTART Index: 469
+[0046.62] Log: GSteamFriends->GetFriendCount return 36
+ * evt_account_login_state_change: .tripwirein-ki04.0X110000105CA593F. login_state_logged_in
+
+[0051.38] Warning: Warning, Failed to load 'Font None.KFMerged Regular': Failed to find object 'Font None.KFMerged Regular'
+[0051.38] Warning: Warning, Failed to load 'Font None.KFMerged Regular': Failed to find object 'Font None.KFMerged Regular'
+[0053.62] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus PartyWidget:'ExtWidget_PartyInGame_0' bAfterLobby:'False' bForceClose:'False'
+[0053.62] ScriptLog: Setting PartyWidget Visibility false, bAfterLobby = true
+[0053.62] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus CurrentMenu:'KFGFxMenu_StartGame_0'
+[0053.64] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus PartyWidget:'ExtWidget_PartyInGame_0' bAfterLobby:'True' bForceClose:'True'
+[0053.64] ScriptWarning: Accessed None 'WeaponPage'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_0
         Function DoshExt.Ext_WeaponProperties:PCInit:00BF
-[0063.50] ScriptWarning: Accessed None
+[0053.64] ScriptWarning: Accessed None
         Ext_WeaponProperties Transient.Ext_WeaponProperties_0
         Function DoshExt.Ext_WeaponProperties:PCInit:00F2
-[0063.50] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_0
         Function DoshExt.Ext_WeaponProperties:DefInit:0039
-[0063.50] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0063.50] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_0
         Function DoshExt.Ext_WeaponProperties:DefInit:0095
-[0063.50] ScriptLog: Failed to load weapon instance:
-[0063.50] ScriptLog: ApplyModifiers: modded stats: Dmg= 25.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 15  MaxAmmo= -1
-[0063.51] ScriptWarning: Accessed None 'WeaponPage'
+[0053.64] ScriptLog: Failed to load weapon instance:
+[0053.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 25.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 15  MaxAmmo= -6
+[0053.64] ScriptWarning: Accessed None 'WeaponPage'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_1
         Function DoshExt.Ext_WeaponProperties:PCInit:00BF
-[0063.51] ScriptWarning: Accessed None
+[0053.64] ScriptWarning: Accessed None
         Ext_WeaponProperties Transient.Ext_WeaponProperties_1
         Function DoshExt.Ext_WeaponProperties:PCInit:00F2
-[0063.51] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_1
         Function DoshExt.Ext_WeaponProperties:DefInit:0039
-[0063.51] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0063.51] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_1
         Function DoshExt.Ext_WeaponProperties:DefInit:0095
-[0063.51] ScriptLog: Failed to load weapon instance:
-[0063.51] ScriptLog: ApplyModifiers: modded stats: Dmg= 20.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
-[0063.51] ScriptWarning: Accessed None 'WeaponPage'
+[0053.64] ScriptLog: Failed to load weapon instance:
+[0053.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 20.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
+[0053.64] ScriptWarning: Accessed None 'WeaponPage'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_2
         Function DoshExt.Ext_WeaponProperties:PCInit:00BF
-[0063.51] ScriptWarning: Accessed None
+[0053.64] ScriptWarning: Accessed None
         Ext_WeaponProperties Transient.Ext_WeaponProperties_2
         Function DoshExt.Ext_WeaponProperties:PCInit:00F2
-[0063.51] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_2
         Function DoshExt.Ext_WeaponProperties:DefInit:0039
-[0063.51] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0063.51] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_2
         Function DoshExt.Ext_WeaponProperties:DefInit:0095
-[0063.51] ScriptLog: Failed to load weapon instance:
-[0063.51] ScriptLog: ApplyModifiers: modded stats: Dmg= 0.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
-[0063.51] ScriptWarning: Accessed None 'WeaponPage'
+[0053.64] ScriptLog: Failed to load weapon instance:
+[0053.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 0.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
+[0053.64] ScriptWarning: Accessed None 'WeaponPage'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_3
         Function DoshExt.Ext_WeaponProperties:PCInit:00BF
-[0063.51] ScriptWarning: Accessed None
+[0053.64] ScriptWarning: Accessed None
         Ext_WeaponProperties Transient.Ext_WeaponProperties_3
         Function DoshExt.Ext_WeaponProperties:PCInit:00F2
-[0063.51] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_3
         Function DoshExt.Ext_WeaponProperties:DefInit:0039
-[0063.51] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
-[0063.51] ScriptWarning: Accessed null class context 'WeaponDefParam'
+[0053.64] Warning: Warning, Failed to load 'Class None.': Failed to find object 'Class None.'
+[0053.64] ScriptWarning: Accessed null class context 'WeaponDefParam'
         Ext_WeaponProperties Transient.Ext_WeaponProperties_3
         Function DoshExt.Ext_WeaponProperties:DefInit:0095
-[0063.51] ScriptLog: Failed to load weapon instance:
-[0063.51] ScriptLog: ApplyModifiers: modded stats: Dmg= 32.0000  FireRate= 1.0000  Penetration= 0.0000  Magazine= 0  MaxAmmo= 0
-[0063.51] Warning: SpawnActor failed because class KFWeap_Random is abstract
-[0063.51] ScriptWarning: InventoryManager::CreateInventory - Couldn't spawn inventory KFWeap_Random
+[0053.64] ScriptLog: Failed to load weapon instance:
+[0053.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 32.0000  FireRate= 1.0000  Penetration= 0.0000  Magazine= 0  MaxAmmo= 0
+[0053.64] Warning: SpawnActor failed because class KFWeap_Random is abstract
+[0053.64] ScriptWarning: InventoryManager::CreateInventory - Couldn't spawn inventory KFWeap_Random
         ExtInventoryManager kf-crazy_playboy_edited.TheWorld:PersistentLevel.ExtInventoryManager_0
         Function Engine.InventoryManager:CreateInventory:0138
-[0063.51] Error: Can't start an online game that hasn't been created
-[0063.51] ScriptLog: CGM_SpawnManager.GetSpawnList(): NextWaveIndex =  0  Interval =  5
-[0063.51] ScriptLog: RegularWaves.GetWaveCount() WaveCount =  1
-[0063.51] ScriptLog: CGM_SpawnManager.GetSpawnList() - Regular Wave
-[0063.51] ScriptLog: CGM_Waves.GetSpawnList() - Getting spawns for Wave: 0  PlayerNum: 1
-[0063.53] ScriptLog: CGM_SpawnManager.SetTotalAi() - Total AI for this wave:  25
-[0063.53] ScriptLog: CGM_SpawnManager.SetupNextWave() - WaveTotalAI = 25
-[0063.53] ScriptLog: WaveNum= 1
-[0063.53] ScriptLog: GetStateName() == 'PlayingWave'= True
-[0063.53] ScriptLog: MyKFGRI.bTraderIsOpen= False
-[0063.53] ScriptLog: MyKFGRI.AIRemaining= 1
-[0063.53] ScriptLog: MyKFGRI.WaveTotalAICount= 0
-[0063.53] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus PartyWidget:'ExtWidget_PartyInGame_0' bAfterLobby:'True' bForceClose:'True'
-[0063.53] ScriptLog: CGM_Survival.StartMatch() - bStartWithTrader = true
-[0063.54] ScriptLog: Ext_PerkBase.ModifyArmor() Modifiers[14] =  0.0000
-[0063.54] ScriptLog: Ext_PerkBase.ModifyArmor() MaxArmor =  100
-[0063.54] ScriptLog: ExtPerkManager.ModifyArmorInt() MaxArmorInt= 100
-[0063.90] ScriptLog: (KFGFxMenu_StartGame_0) KFGFxObject_Menu::None:Callback_MenusFinishedClosing Manager.bMenusOpen:'True'
-[0064.96] ScriptLog: LoadAvailableWeapons(): Loaded  2  available weapons from WeaponList.
-[0064.96] ScriptLog: Finance menu opened
-[0065.80] ScriptLog: WeaponPage: Added  M14-EBR Assault Rifle  to sale list with price  1700
-[0065.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0065.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0066.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0067.78] ScriptLog: WeaponPage: Added  M14-EBR Assault Rifle  to sale list with price  1700
-[0067.78] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0067.78] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0067.79] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0067.79] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0067.79] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0067.79] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0068.04] ScriptLog: Purchase weapon:  KFWeap_AssaultRifle_M14EBR
-[0068.04] ScriptLog: ApplyModifiers: modded stats: Dmg= 90.0000  FireRate= 0.0800  Penetration= 2.0000  Magazine= 30  MaxAmmo= 360
-[0068.08] ScriptLog: ApplyModifiers: modded stats: Dmg= 90.0000  FireRate= 0.0800  Penetration= 2.0000  Magazine= 30  MaxAmmo= 360
-[0068.08] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0068.08] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0068.08] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0069.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0069.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0069.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0071.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0071.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0071.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0073.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0073.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0073.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0075.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0075.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0075.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0077.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0077.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0077.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0079.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0079.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0079.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0081.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0081.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0081.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0083.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0083.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0083.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0085.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0085.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0085.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0087.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0087.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0087.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0089.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0089.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0089.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0091.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0091.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0091.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0092.49] ScriptLog: Failed to play dialog id 7. Failed random chance to play.
-[0093.80] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0093.80] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0093.80] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0095.63] ScriptLog: ApplyModifiers: modded stats: Dmg= 25.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 15  MaxAmmo= -1
-[0095.63] ScriptLog: ApplyModifiers: modded stats: Dmg= 20.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
-[0095.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 0.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
-[0095.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 32.0000  FireRate= 1.0000  Penetration= 0.0000  Magazine= 0  MaxAmmo= 0
-[0095.64] ScriptLog: ApplyModifiers: modded stats: Dmg= 90.0000  FireRate= 0.0800  Penetration= 2.0000  Magazine= 30  MaxAmmo= 360
-[0095.93] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0095.93] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0095.93] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[0095.93] ScriptLog: Finance menu opened
-[0097.91] ScriptLog: WeaponPage: Player already owns  WeaponPackExt.KFWeap_AssaultRifle_M14EBR
-[0097.91] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0103
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0170
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:01B3
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0220
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0263
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:02D0
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0313
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0380
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:03C3
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0430
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0473
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:04BE
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:050B
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:0558
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05A5
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:05F2
-[0097.91] ScriptWarning: Accessed None 'SelectedInventoryWeap'
-        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
-        Function DoshExt.UIP_WeaponPage:UpdateStatsDisplay:063F
-[
+[0053.64] Error: Can't start an online game that hasn't been created
+[0053.64] ScriptLog: CGM_SpawnManager.GetSpawnList(): NextWaveIndex =  0  Interval =  5
+[0053.64] ScriptLog: RegularWaves.GetWaveCount() WaveCount =  1
+[0053.64] ScriptLog: CGM_SpawnManager.GetSpawnList() - Regular Wave
+[0053.64] ScriptLog: CGM_Waves.GetSpawnList() - Getting spawns for Wave: 0  PlayerNum: 1
+[0053.66] ScriptLog: CGM_SpawnManager.SetTotalAi() - Total AI for this wave:  25
+[0053.66] ScriptLog: CGM_SpawnManager.SetupNextWave() - WaveTotalAI = 25
+[0053.66] ScriptLog: WaveNum= 1
+[0053.66] ScriptLog: GetStateName() == 'PlayingWave'= True
+[0053.66] ScriptLog: MyKFGRI.bTraderIsOpen= False
+[0053.66] ScriptLog: MyKFGRI.AIRemaining= 1
+[0053.66] ScriptLog: MyKFGRI.WaveTotalAICount= 0
+[0053.66] ScriptLog: (ExtMoviePlayer_Manager_0) KFGfxMoviePlayer_Manager::None:CloseMenus PartyWidget:'ExtWidget_PartyInGame_0' bAfterLobby:'True' bForceClose:'True'
+[0053.66] ScriptLog: CGM_Survival.StartMatch() - bStartWithTrader = true
+[0053.77] ScriptLog: Ext_PerkBase.ModifyArmor() Modifiers[14] =  0.0000
+[0053.77] ScriptLog: Ext_PerkBase.ModifyArmor() MaxArmor =  100
+[0053.77] ScriptLog: ExtPerkManager.ModifyArmorInt() MaxArmorInt= 100
+[0054.04] ScriptLog: (KFGFxMenu_StartGame_0) KFGFxObject_Menu::None:Callback_MenusFinishedClosing Manager.bMenusOpen:'True'
+[0056.23] ScriptLog: LoadAvailableWeapons(): Loaded  2  available weapons from WeaponList.
+[0056.23] ScriptLog: Finance menu opened
+[0057.23] ScriptLog: Ext_WeaponProperties.SetMaxLvs: Prestige= 100
+[0057.23] ScriptLog: Ext_WeaponProperties.SetMaxLvs: MaxDmgLv= 100  MaxAoELv= 100  MaxDotLv= 100  MaxFireRateLv= 100  MaxPenetrationLv= 100  MaxMagazineLv= 100  MaxSpareLv= 100
+[0057.24] ScriptLog: Ext_WeaponProperties.SetMaxLvs: Prestige= 100
+[0057.24] ScriptLog: Ext_WeaponProperties.SetMaxLvs: MaxDmgLv= 100  MaxAoELv= 100  MaxDotLv= 100  MaxFireRateLv= 100  MaxPenetrationLv= 100  MaxMagazineLv= 100  MaxSpareLv= 100
+[0057.24] ScriptLog: Ext_WeaponProperties.SetMaxLvs: Prestige= 100
+[0057.24] ScriptLog: Ext_WeaponProperties.SetMaxLvs: MaxDmgLv= 100  MaxAoELv= 100  MaxDotLv= 100  MaxFireRateLv= 100  MaxPenetrationLv= 100  MaxMagazineLv= 100  MaxSpareLv= 100
+[0057.24] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0057.24] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0057.24] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0057.24] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0057.24] ScriptLog: WeaponPage: Added  M14-EBR Assault Rifle  to sale list with price  1700
+[0057.24] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
+[0059.22] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0059.22] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0059.22] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0059.22] ScriptWarning: Accessed null class context 'WeaponDef'
+        UIP_WeaponPage Transient.UI_FinanceMenu_0:UIP_WeaponPage_0
+        Function DoshExt.UIP_WeaponPage:Timer:0268
+[0059.22] ScriptLog: WeaponPage: Added  M14-EBR Assault Rifle  to sale list with price  1700
+[0059.22] ScriptLog: WeaponPage: Added  Seeker Triple-Kill  to sale list with price  6500
+[0059.56] ScriptLog: ApplyModifiers: modded stats: Dmg= 25.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 15  MaxAmmo= -6
+[0059.56] ScriptLog: ApplyModifiers: modded stats: Dmg= 20.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
+[0059.56] ScriptLog: ApplyModifiers: modded stats: Dmg= 0.0000  FireRate= 0.2000  Penetration= 0.0000  Magazine= 100  MaxAmmo= 0
+[0059.56] ScriptLog: ApplyModifiers: modded stats: Dmg= 32.0000  FireRate= 1.0000  Penetration= 0.0000  Magazine= 0  MaxAmmo= 0
+[0062.04] ScriptLog: open menu:  6
+[0062.06] ScriptLog: KFGfxMoviePlayer_Manager - WidgetInitialized - WidgetName:  OptionsSelectionMenu

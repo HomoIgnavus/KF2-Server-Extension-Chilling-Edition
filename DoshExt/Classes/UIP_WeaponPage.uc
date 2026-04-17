@@ -37,7 +37,7 @@ var config Array<string> WeapDef;
 
 // var array< class<ExtWeapon> > TraderWeapList;
 var Array<Ext_WeaponProperties> AvailableWeapons;
-var Ext_WeaponProperties SelectedInventoryWeap;
+var int SelectedInventoryIdx;
 var int SelectedTraderIdx;
 var Array<Ext_WeaponProperties> OwnedWeapList;
 var bool bIsInventorySelected;
@@ -301,6 +301,11 @@ function InitMenu()
 function ShowMenu()
 {
     Super.ShowMenu();
+    
+    class'Ext_WeaponProperties'.static.SetMaxLvs(KFPRI);
+    class'Ext_WeaponProp_GrenadeLauncher'.static.SetMaxLvs(KFPRI);
+    class'Ext_WeaponProp_HuskCannon'.static.SetMaxLvs(KFPRI);
+
     SetTimer(2.0, true);
     Timer();
 }
@@ -311,7 +316,7 @@ function CloseMenu()
     SetTimer(0, false);
     
     // Clear selection state
-    SelectedInventoryWeap = None;
+    SelectedInventoryIdx = -1;
     SelectedTraderIdx = -1;
 }
 
@@ -380,7 +385,7 @@ function Timer()
         Pnt = KFW.PenetrationPower[0];
         Mag = KFW.MagazineCapacity[0];
         Spare = KFW.SpareAmmoCapacity[0];
-        InventoryList.AddLine(WPP.WeaponDef.default.GetItemName() @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ Mag @ " \n " @ Spare, idx);
+        InventoryList.AddLine(WPP.WeaponDef.static.GetItemName() @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ Mag @ " \n " @ Spare, idx);
     }
 
     // trader weapon list
@@ -429,7 +434,7 @@ function OnInventorySelected(KFGUI_ListItem Item, int Row, bool bRight, bool bDb
 {
     if (Item != None && Item.Value >= 0 && Item.Value < OwnedWeapList.Length)
     {
-        SelectedInventoryWeap = OwnedWeapList[Item.Value];
+        SelectedInventoryIdx = Item.Value;
         bIsInventorySelected = true;
         BuyWeaponButton.SetDisabled(false);
         UpdateWeaponIconDisplay();
@@ -465,7 +470,7 @@ function OnBuyWeaponClicked(KFGUI_Button Sender)
     if (bIsInventorySelected)
     {
         // Sell the selected inventory weapon
-        if (SelectedInventoryWeap == None)
+        if (SelectedInventoryIdx < 0)
             return;
         SellSelectedWeapon(EXTPC, EXTP);
     }
@@ -489,51 +494,24 @@ function OnBuyWeaponClicked(KFGUI_Button Sender)
 
 private function SellSelectedWeapon(ExtPlayerController EXTPC, ExtHumanPawn EXTP)
 {
-    local KFWeapon WeaponToSell;
     local Inventory Inv;
     local int SellPrice;
     local int i;
 
-    if (SelectedInventoryWeap == none)
+    if (SelectedInventoryIdx < 0)
         return;
 
     // Find the actual weapon instance in inventory
-    WeaponToSell = None;
-    for (Inv = EXTP.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
-    {
-        WeaponToSell = KFWeapon(Inv);
-        if (WeaponToSell != None && WeaponToSell.Class == SelectedInventoryWeap.Class)
-        {
-            break;
-        }
-        WeaponToSell = None;
-    }
-
-    if (WeaponToSell == None)
-        return;
-
-    // Calculate sell price (75% of buy price)
-    SellPrice = SelectedInventoryWeap.GetSellPrice();
+    SellPrice = EXTPC.InvProperties[SelectedInventoryIdx].GetSellPrice();
 
     // Remove weapon from inventory
-    EXTP.InvManager.RemoveFromInventory(WeaponToSell);
-    WeaponToSell.Destroy();
+    EXTPC.RemoveWeapon(SelectedInventoryIdx);
 
     // Refund the player
     KFPRI.AddDosh(SellPrice);
 
-    // Remove from owned properties
-    for (i = 0; i < OwnedWeapList.Length; i++)
-    {
-        if (OwnedWeapList[i] == SelectedInventoryWeap)
-        {
-            OwnedWeapList.Remove(i, 1);
-            break;
-        }
-    }
-
     // Clear selection and refresh
-    SelectedInventoryWeap = None;
+    SelectedInventoryIdx = -1;
     bIsInventorySelected = false;
     Timer();
 }
@@ -558,44 +536,47 @@ function UpdateStatsDisplay()
 {
     local int Prestige;
     local int Dosh;
+    local Ext_WeaponProperties WPP;
 
     Prestige = KFPRI.FCurrentPerk.CurrentPrestige;
     Dosh = KFPRI.Score;
+    WPP = OwnedWeapList[SelectedInventoryIdx];
+
     // Toggle upgrade buttons based on selection type
     if (DmgUpgradeBtn != None)
     {
-        DmgUpgradeBtn.SetDisabled(!bIsInventorySelected || SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddDamage());
-        DmgUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextDmgCost);
+        DmgUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddDamage());
+        DmgUpgradeBtn.ButtonText = string(WPP.NextDmgCost);
     }
 
     if (AoEUpgradeBtn != None)
     {
-        AoEUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddAoE());
-        AoEUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextAoECost);
+        AoEUpgradeBtn.SetDisabled(!bIsInventorySelected && WPP == None || !WPP.CanAddAoE());
+        AoEUpgradeBtn.ButtonText = string(WPP.NextAoECost);
     }
 
     if (FireRateUpgradeBtn != None)
     {
-        FireRateUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddFireRate());
-        FireRateUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextFireRateCost);
+        FireRateUpgradeBtn.SetDisabled(!bIsInventorySelected && WPP == None || !WPP.CanAddFireRate());
+        FireRateUpgradeBtn.ButtonText = string(WPP.NextFireRateCost);
     }
 
     if (PenetrationUpgradeBtn != None)
     {
-        PenetrationUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddPenetration());
-        PenetrationUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextPenetrationCost);
+        PenetrationUpgradeBtn.SetDisabled(!bIsInventorySelected && WPP == None || !WPP.CanAddPenetration());
+        PenetrationUpgradeBtn.ButtonText = string(WPP.NextPenetrationCost);
     }
 
     if (MagazineUpgradeBtn != None)
     {
-        MagazineUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddMagazine());
-        MagazineUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextMagazineCost);
+        MagazineUpgradeBtn.SetDisabled(!bIsInventorySelected && WPP == None || !WPP.CanAddMagazine());
+        MagazineUpgradeBtn.ButtonText = string(WPP.NextMagazineCost);
     }
 
     if (AmmoUpgradeBtn != None)
     {
-        AmmoUpgradeBtn.SetDisabled(!bIsInventorySelected && SelectedInventoryWeap == None || !SelectedInventoryWeap.CanAddAmmo());
-        AmmoUpgradeBtn.ButtonText = string(SelectedInventoryWeap.NextSpareCost);
+        AmmoUpgradeBtn.SetDisabled(!bIsInventorySelected && WPP == None || !WPP.CanAddAmmo());
+        AmmoUpgradeBtn.ButtonText = string(WPP.NextSpareCost);
     }
 
     // if (bIsInventorySelected && SelectedInventoryWeap != None)
@@ -622,80 +603,80 @@ function UpdateStatsDisplay()
 
     // Update damage stat
     if (DmgValueLabel != None)
-        DmgValueLabel.SetText(SelectedInventoryWeap.GetDamageInfo());
+        DmgValueLabel.SetText(WPP.GetDamageInfo());
 
     // Update AoE stat
     if (AoEValueLabel != None)
-        AoEValueLabel.SetText(SelectedInventoryWeap.GetAoEInfo());
+        AoEValueLabel.SetText(WPP.GetAoEInfo());
 
     // Update fire rate stat
     if (FireRateValueLabel != None)
-        FireRateValueLabel.SetText(SelectedInventoryWeap.GetFireRateInfo());
+        FireRateValueLabel.SetText(WPP.GetFireRateInfo());
 
     // Update penetration stat
     if (PenetrationValueLabel != None)
-        PenetrationValueLabel.SetText(SelectedInventoryWeap.GetPenetrationInfo());
+        PenetrationValueLabel.SetText(WPP.GetPenetrationInfo());
 
     // Update magazine stat
     if (MagazineValueLabel != None)
-        MagazineValueLabel.SetText(SelectedInventoryWeap.GetMagazineInfo());
+        MagazineValueLabel.SetText(WPP.GetMagazineInfo());
 
     // Update ammo stat
     if (AmmoValueLabel != None)
-        AmmoValueLabel.SetText(SelectedInventoryWeap.GetAmmoInfo());
+        AmmoValueLabel.SetText(WPP.GetAmmoInfo());
 }
 
 function OnUpgradeDamage(KFGUI_Button Sender)
 {
-    if (!bIsInventorySelected || SelectedInventoryWeap == None)
+    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
         return;
     
-    SelectedInventoryWeap.AddDamage();
+    OwnedWeapList[SelectedInventoryIdx].AddDamage();
     UpdateStatsDisplay();
 }
 
 function OnUpgradeAoE(KFGUI_Button Sender)
 {
-    if (!bIsInventorySelected || SelectedInventoryWeap == None)
+    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
         return;
     
-    SelectedInventoryWeap.AddAoE();
+    OwnedWeapList[SelectedInventoryIdx].AddAoE();
     UpdateStatsDisplay();
 }
 
 function OnUpgradeFireRate(KFGUI_Button Sender)
 {
-    if (!bIsInventorySelected || SelectedInventoryWeap == None)
+    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
         return;
     
-    SelectedInventoryWeap.AddFireRate();
+    OwnedWeapList[SelectedInventoryIdx].AddFireRate();
     UpdateStatsDisplay();
 }
 
 function OnUpgradePenetration(KFGUI_Button Sender)
 {
-    if (!bIsInventorySelected || SelectedInventoryWeap == None)
+    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
         return;
     
-    SelectedInventoryWeap.AddPenetration();
+    OwnedWeapList[SelectedInventoryIdx].AddPenetration();
     UpdateStatsDisplay();
 }
 
 function OnUpgradeMagazine(KFGUI_Button Sender)
 {
-    if (!bIsInventorySelected || SelectedInventoryWeap == None)
+    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
         return;
     
-    SelectedInventoryWeap.AddMagazine();
+    OwnedWeapList[SelectedInventoryIdx].AddMagazine();
     UpdateStatsDisplay();
 }
 
 function OnUpgradeAmmo(KFGUI_Button Sender)
 {
-    if (!bIsInventorySelected || SelectedInventoryWeap == None)
+    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
         return;
     
-    SelectedInventoryWeap.AddAmmo();
+    OwnedWeapList[SelectedInventoryIdx].AddAmmo();
     UpdateStatsDisplay();
 }
 
@@ -782,8 +763,8 @@ function DrawMenu()
         
         if (bIsInventorySelected)
         {
-            if (SelectedInventoryWeap == none) return;
-            WP2Draw = SelectedInventoryWeap.WeaponClass;
+            if (SelectedInventoryIdx < 0) return;
+            WP2Draw = OwnedWeapList[SelectedInventoryIdx].WeaponClass;
         }
         else
         {

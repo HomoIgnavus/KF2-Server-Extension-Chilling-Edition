@@ -173,6 +173,7 @@ function ApplyPerk(Ext_PerkBase P)
 	if (CurrentPerk!=None)
 	{
 		CurrentPerk.ActivateTraits();
+		// class'Ext_WeaponProperties'.static.SetMaxLvs(PRIOwner);
 	}
 	
 	ApplyPawnStats();

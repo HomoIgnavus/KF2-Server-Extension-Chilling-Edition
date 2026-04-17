@@ -58,6 +58,7 @@ var public int NextFireRateCost;
 var public int NextPenetrationCost;
 var public int NextMagazineCost;
 var public int NextSpareCost;
+var public int TotalValue;
 
 // called when the weapon is added to the player's inventory
 public function PCInit(ExtPlayerController PCParam, KFWeapon WeaponParam)
@@ -128,9 +129,10 @@ public function DefInit(class<KFWeaponDefinition> WeaponDefParam)
     NextPenetrationCost = PenetrationCost * BasePrice;
     NextMagazineCost = MagazineCost * BasePrice;
     NextSpareCost = SpareCost * BasePrice;
+    TotalValue = WeaponDef.Default.BuyPrice;
 }
 
-public static function InitClass(PlayerReplicationInfo PRIParam)
+public static function SetMaxLvs(PlayerReplicationInfo PRIParam)
 {
     local ExtPlayerReplicationInfo ExtPRI;
     local Ext_PerkBase CurrentPerk;
@@ -144,14 +146,15 @@ public static function InitClass(PlayerReplicationInfo PRIParam)
 
     Prestige = CurrentPerk.CurrentPrestige;
 
-    default.MaxDmgLv = default.DmgPerLv * Prestige;
-    default.MaxAoELv = default.AoEPerLv * Prestige;
-    default.MaxDotLv = default.DoTPerLv * Prestige;
-    default.MaxFireRateLv = default.FireRatePerLv * Prestige;
-    default.MaxPenetrationLv = default.PenetrationPerLv * Prestige;
-    default.MaxMagazineLv = default.MagazinePerLv * Prestige;
-    default.MaxSpareLv = default.SparePerLv * Prestige;
+    default.MaxDmgLv = Prestige;
+    default.MaxAoELv = Prestige;
+    default.MaxDotLv = Prestige;
+    default.MaxFireRateLv = Prestige;
+    default.MaxPenetrationLv = Prestige;
+    default.MaxMagazineLv = Prestige;
+    default.MaxSpareLv = Prestige;
 
+    `log("Ext_WeaponProperties.SetMaxLvs: Prestige=" @ Prestige);
     `log("Ext_WeaponProperties.SetMaxLvs: MaxDmgLv=" @ default.MaxDmgLv @ " MaxAoELv=" @ default.MaxAoELv @ " MaxDotLv=" @ default.MaxDotLv @ " MaxFireRateLv=" @ default.MaxFireRateLv @ " MaxPenetrationLv=" @ default.MaxPenetrationLv @ " MaxMagazineLv=" @ default.MaxMagazineLv @ " MaxSpareLv=" @ default.MaxSpareLv);
 }
 
@@ -180,7 +183,7 @@ public function ApplyModifiers()
     {
         for (Idx = 0; Idx < WeaponInstance.FireInterval.Length; Idx++)
         {
-            WeaponInstance.FireInterval[Idx] *= (1.0 - default.FireRatePerLv * FireRateLv);
+            WeaponInstance.FireInterval[Idx] = BaseFireInterval[Idx] * (1.0 - default.FireRatePerLv * FireRateLv);
         }
     }
 
@@ -188,22 +191,22 @@ public function ApplyModifiers()
     {
         for (Idx = 0; Idx < WeaponInstance.PenetrationPower.Length; Idx++)
         {
-            WeaponInstance.PenetrationPower[Idx] *= (1.0 + default.PenetrationPerLv * PenetrationLv);
+            WeaponInstance.PenetrationPower[Idx] = BasePenetration[idx] * (1.0 + default.PenetrationPerLv * PenetrationLv);
         }
     }
 
     if (MagazineLv > 0)
     {
         MagMod = 1.0 + default.MagazinePerLv * MagazineLv;
-        WeaponInstance.MagazineCapacity[0] = Round(float(WeaponInstance.MagazineCapacity[0]) * MagMod);
-        WeaponInstance.MagazineCapacity[1] = Round(float(WeaponInstance.MagazineCapacity[1]) * MagMod);
+        WeaponInstance.MagazineCapacity[0] = Round(float(BaseMagazine[0]) * MagMod);
+        WeaponInstance.MagazineCapacity[1] = Round(float(BaseMagazine[1]) * MagMod);
         // `log("ApplyModifiers: MagazinePerLv=" @ MagazinePerLv @ " MagazineLv=" @ MagazineLv @ ", MagMod=" @ MagMod @ ", magazine upgrade to: " @ WeaponInstance.MagazineCapacity[0] @ ", " @ WeaponInstance.MagazineCapacity[1]);
     }
 
     if (MaxAmmoLv > 0)
     {
-        WeaponInstance.SpareAmmoCapacity[0] *= (1.0 + default.SparePerLv * MaxAmmoLv);
-        WeaponInstance.SpareAmmoCapacity[1] *= (1.0 + default.SparePerLv * MaxAmmoLv);
+        WeaponInstance.SpareAmmoCapacity[0] = Round(BaseMaxAmmo[0] * (1.0 + default.SparePerLv * MaxAmmoLv));
+        WeaponInstance.SpareAmmoCapacity[1] = Round(BaseMaxAmmo[1] * (1.0 + default.SparePerLv * MaxAmmoLv));
     }
 
     `log("ApplyModifiers: modded stats: Dmg=" @ WeaponInstance.InstantHitDamage[0] @ " FireRate=" @ WeaponInstance.FireInterval[0] @ " Penetration=" @ WeaponInstance.PenetrationPower[0] @ " Magazine=" @ WeaponInstance.MagazineCapacity[0] @ " MaxAmmo=" @ WeaponInstance.SpareAmmoCapacity[0]);
@@ -252,6 +255,8 @@ public function AddDamage()
 
     DamageLv++;
     ExtPRI.AddDosh(-NextDmgCost);
+    TotalValue += NextDmgCost;
+
     if (DamageLv < default.MaxDmgLv)
         NextDmgCost = Round(BasePrice * DmgCost * (1 + DamageLv));
     else
@@ -265,6 +270,8 @@ public function AddFireRate()
 
     FireRateLv++;
     ExtPRI.AddDosh(-NextFireRateCost);
+    TotalValue += NextFireRateCost;
+
     if (FireRateLv < default.MaxFireRateLv)
         NextFireRateCost = Round(BasePrice * FireRateCost * (1 + FireRateLv));
     else
@@ -278,6 +285,7 @@ public function AddPenetration()
 
     PenetrationLv++;
     ExtPRI.AddDosh(-NextPenetrationCost);
+    TotalValue += NextPenetrationCost;
 
     if (PenetrationLv < default.MaxPenetrationLv)
         NextPenetrationCost = Round(BasePrice *  PenetrationCost * (1 + PenetrationLv));
@@ -293,6 +301,7 @@ public function AddMagazine()
 
     MagazineLv++;
     ExtPRI.AddDosh(-NextMagazineCost);
+    TotalValue += NextMagazineCost;
 
     if (MagazineLv < default.MaxMagazineLv)
         NextMagazineCost = Round(BasePrice * MagazineCost * (1 + MagazineLv));
@@ -307,6 +316,7 @@ public function AddAmmo()
 
     MaxAmmoLv++;
     ExtPRI.AddDosh(-NextSpareCost);
+    TotalValue += NextSpareCost;
 
     if (MaxAmmoLv < default.MaxSpareLv)
         NextSpareCost = Round(BasePrice * SpareCost * (1 + MaxAmmoLv));
@@ -321,6 +331,7 @@ public function AddAoE()
 
     AoELv += 1.0;
     ExtPRI.AddDosh(-NextAoECost);
+    TotalValue += NextAoECost;
 
     if (AoELv < MaxAoELv)
         NextAoECost = Round(BasePrice * AoECost * (1 + AoELv));
@@ -335,7 +346,7 @@ public function string GetItemName()
 
 public function int GetSellPrice()
 {
-    return ListedPrice * 0.75;
+    return TotalValue * 0.75;
 }
 
 public function int GetCostDmg()
@@ -385,7 +396,9 @@ public function string GetAoEInfo()
 
 public function int GetBaseFireRate()
 {
-    return Round(3600 / BaseFireInterval[0]);
+    local float interval;
+    interval = BaseFireInterval[0] > 0 ? BaseFireInterval[0] : 1.0;
+    return Round(1.0 / interval);
 }
 
 public function string GetFireRateInfo()

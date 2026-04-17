@@ -1283,7 +1283,18 @@ function CreateWeapProp(KFWeapon NewWeapon)
 	}
 	else
 	{
-		WPP = new class'Ext_WeaponProperties';
+		if (ClassIsChildOf(NewWeapon.Class, class'KFWeap_GrenadeLauncher_Base'))
+		{
+			WPP = new class'Ext_WeaponProp_GrenadeLauncher';
+		}
+		else if (ClassIsChildOf(NewWeapon.class, class'KFWeap_HuskCannon'))
+		{
+			WPP = new class'Ext_WeaponProp_HuskCannon';
+		}
+		else
+		{
+			WPP = new class'Ext_WeaponProperties';
+		}
 		WPP.PCInit(self, NewWeapon);
 		InvProperties.AddItem(WPP);
 	}
@@ -1342,6 +1353,13 @@ function NotifyAddInventory(Inventory NewItem)
 	KFW = KFWeapon(NewItem);
 	if (KFW != none)
 		CreateWeapProp(KFW);
+}
+
+function RemoveWeapon(int PropIdx)
+{
+	Pawn.InvManager.RemoveFromInventory(InvProperties[PropIdx].WeaponInstance);
+	InvProperties[PropIdx].WeaponInstance.Destroy();
+	InvProperties.Remove(PropIdx, 1);
 }
 
 exec function RequestSwitchTeam()
