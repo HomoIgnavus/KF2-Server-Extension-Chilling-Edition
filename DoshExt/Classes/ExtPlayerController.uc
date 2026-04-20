@@ -1291,6 +1291,10 @@ function CreateWeapProp(KFWeapon NewWeapon)
 		{
 			WPP = new class'Ext_WeaponProp_HuskCannon';
 		}
+		else if (ClassIsChildOf(NewWeapon.class, class'KFWeap_MeleeBase'))
+		{
+			WPP = new class'Ext_WeaponProp_Melee';
+		}
 		else
 		{
 			WPP = new class'Ext_WeaponProperties';

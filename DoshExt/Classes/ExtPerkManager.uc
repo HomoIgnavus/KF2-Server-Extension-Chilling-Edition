@@ -939,6 +939,14 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 		CurrentPerk.ModifyWeaponSwitchTime(ModifiedSwitchTime);
 }
 
+simulated function SetSuccessfullParry()
+{
+	local Ext_PerkBerserker ZerkerPerk;
+	ZerkerPerk = Ext_PerkBerserker(CurrentPerk);
+	if (ZerkerPerk != none) 
+		ZerkerPerk.TriggerTraitParry();
+}
+
 // Other
 function ApplySkillsToPawn()
 {

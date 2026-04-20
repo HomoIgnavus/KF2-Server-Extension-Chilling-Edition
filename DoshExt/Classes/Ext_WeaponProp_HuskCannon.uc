@@ -86,18 +86,13 @@ public function ApplyModifiers()
     }
 
     // apply AoE
-    class<KFProjectile>(WeaponClass.default.WeaponProjectiles[0]).default.ExplosionTemplate.DamageRadius = BaseAoE * (1.0 + default.AoEPerLv * AoELv);
+    Projectile.default.ExplosionTemplate.DamageRadius = BaseAoE * (1.0 + default.AoEPerLv * AoELv);
 
 }
 
 public function Bool CanAddPenetration()
 {
     return false;
-}
-
-public function Bool CanAddFireRate()
-{
-    return true;
 }
 
 public function string GetAoEInfo()

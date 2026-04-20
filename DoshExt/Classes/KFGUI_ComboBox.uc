@@ -24,6 +24,8 @@ var float BorderSize;
 var() array<string> Values;
 var() int SelectedIndex;
 var() color SelectedTextColor,TextColor;
+var() color ListBackgroundColor, ListBorderColor, ListHoverColor;
+var() color BoxColor, BoxDisabledColor, BoxPressedDownColor, BoxFocusedColor;
 var() bool bButtonStretched;
 
 function UpdateSizes()
@@ -82,4 +84,12 @@ defaultproperties
 	SelectedTextColor=(R=255,G=128,B=128,A=255)
 	TextColor=(R=255,G=255,B=255,A=255)
 	BorderSize=4
+	
+	ListBackgroundColor=(R=64,G=4,B=4,A=255)
+	ListBorderColor=(R=128,G=4,B=4,A=255)
+	ListHoverColor=(R=128,G=48,B=48,A=255)
+	BoxColor=(R=186,G=4,B=4,A=255)
+	BoxDisabledColor=(R=64,G=4,B=4,A=255)
+	BoxPressedDownColor=(R=220,G=56,B=56,A=255)
+	BoxFocusedColor=(R=190,G=48,B=48,A=255)
 }

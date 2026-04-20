@@ -42,6 +42,10 @@ var int SelectedTraderIdx;
 var Array<Ext_WeaponProperties> OwnedWeapList;
 var bool bIsInventorySelected;
 
+var int SelectedPerkIdx;
+var KFGUI_ComboBox PerkDropdown;
+var array<class<KFPerk> > DropdownPerkList;
+
 function LoadAvailableWeapons()
 {
     local int i;
@@ -141,9 +145,24 @@ private function EnsureComponentsBuilt()
     SaleComp = new (Self) class'KFGUI_ColumnList';
     SaleComp.ID = 'Sale';
     SaleComp.XPosition = 0.50;
-    SaleComp.YPosition = 0.02;
+    SaleComp.YPosition = 0.08;
     SaleComp.XSize = 0.48;
-    SaleComp.YSize = 0.96;
+    SaleComp.YSize = 0.90;
+
+    PerkDropdown = new (Self) class'KFGUI_ComboBox';
+    PerkDropdown.ID = 'PerkDropdown';
+    PerkDropdown.XPosition = 0.50;
+    PerkDropdown.YPosition = 0.02;
+    PerkDropdown.XSize = 0.48;
+    PerkDropdown.YSize = 0.05;
+    PerkDropdown.ListBackgroundColor = MakeColor(4, 30, 8, 255);
+    PerkDropdown.ListBorderColor = MakeColor(8, 60, 16, 255);
+    PerkDropdown.ListHoverColor = MakeColor(32, 128, 32, 255);
+    PerkDropdown.BoxColor = MakeColor(4, 30, 8, 255);
+    PerkDropdown.SelectedTextColor = MakeColor(128, 255, 128, 255);
+    Components.AddItem(PerkDropdown);
+    PerkDropdown.Owner = Owner;
+    PerkDropdown.ParentComponent = Self;
     SaleComp.BackgroundColor.R = 4;
     SaleComp.BackgroundColor.G = 30;
     SaleComp.BackgroundColor.B = 8;
@@ -236,6 +255,11 @@ function InitMenu()
 
     Super.InitMenu();
 
+    if (PerkDropdown != None)
+    {
+        PerkDropdown.OnComboChanged = OnPerkDropdownChanged;
+    }
+
     InventoryList.OnSelectedRow = OnInventorySelected;
     SaleList.OnSelectedRow = OnTraderSelected;
 
@@ -298,13 +322,76 @@ function InitMenu()
 
 }
 
+function PopulatePerkDropdown()
+{
+    local int i;
+    local int CurrentPerkIdx;
+    local ExtPerkManager CurrentManager;
+    local class<KFPerk> BP;
+
+    if (PerkDropdown == None || KFPC == None) return;
+
+    DropdownPerkList.Length = 0;
+    PerkDropdown.Values.Length = 0;
+    
+    DropdownPerkList.AddItem(None);
+    PerkDropdown.Values.AddItem("All Perks");
+
+    CurrentPerkIdx = -1;
+
+    CurrentManager = KFPC.ActivePerkManager;
+    if (CurrentManager != None)
+    {
+        for (i = 0; i < CurrentManager.UserPerks.Length; i++)
+        {
+            if (CurrentManager.UserPerks[i] == None) continue;
+
+            BP = CurrentManager.UserPerks[i].BasePerk;
+            DropdownPerkList.AddItem(BP);
+            PerkDropdown.Values.AddItem(BP.default.PerkName);
+            
+            if (KFPRI != None && KFPRI.ECurrentPerk.default.BasePerk == BP)
+            {
+                CurrentPerkIdx = i;
+            }
+        }
+    }
+    
+    PerkDropdown.SelectedIndex = CurrentPerkIdx;
+    if (CurrentPerkIdx >= 0 && CurrentPerkIdx < DropdownPerkList.Length)
+    {
+        SelectedPerkIdx = CurrentPerkIdx;
+    }
+    else
+    {
+        SelectedPerkIdx = -1;
+    }
+}
+
+function OnPerkDropdownChanged(KFGUI_ComboBox Sender)
+{
+    if (Sender.SelectedIndex >= 0 && Sender.SelectedIndex < DropdownPerkList.Length)
+    {
+        SelectedPerkIdx = Sender.SelectedIndex;
+    }
+    else
+    {
+        SelectedPerkIdx = -1;
+    }
+    
+    Timer();
+}
+
 function ShowMenu()
 {
     Super.ShowMenu();
     
+    PopulatePerkDropdown();
+    
     class'Ext_WeaponProperties'.static.SetMaxLvs(KFPRI);
     class'Ext_WeaponProp_GrenadeLauncher'.static.SetMaxLvs(KFPRI);
     class'Ext_WeaponProp_HuskCannon'.static.SetMaxLvs(KFPRI);
+    class'Ext_WeaponProp_Melee'.static.SetMaxLvs(KFPRI);
 
     SetTimer(2.0, true);
     Timer();
@@ -362,6 +449,7 @@ function Timer()
     local int idx;
     local int PropIdx;
     local bool bHasWeapon;
+    local array< class<KFPerk> > WeaponPerks;
 
     KFPC = ExtPlayerController(GetPlayer());
     if (KFPC == none) return;
@@ -415,7 +503,12 @@ function Timer()
         SaleListMap.AddItem(idx);
         
         // hide weapons of different perks
-        // if (WPC.default.AssociatedPerkClasses != P.)
+        WeaponPerks = WPC.static.GetAssociatedPerkClasses();
+        if (SelectedPerkIdx != -1 && WeaponPerks.Find(DropdownPerkList[SelectedPerkIdx]) == INDEX_NONE)
+        {
+            continue;
+        }
+
         Price = WPP.BasePrice;
         FireRate = GetTraderFireRate(idx);
         Dmg = Round(WPC.static.CalculateTraderWeaponStatDamage());

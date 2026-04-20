@@ -1202,6 +1202,66 @@ Ignores FaceRotation, SetMovementPhysics, UnsetFeignDeath, Tick, TakeDamage, Die
 	}
 }
 
+function ActivateTraitBombzerker(float dmg, float rad, bool activate = true)
+{
+	bHasTraitBombzerker = Activate;
+	if (bHasTraitBombzerker)
+	{
+
+	}
+
+}
+
+function TakeFallingDamage()
+{
+	local float EffectiveSpeed;
+	local int FallDmg;
+	local ExtPerkManager PM;
+	local Ext_PerkBerserker ZerkerPerk;
+
+	if (!bHasTraitBombzerker) 
+	{
+		super.TakeFallingDamage();
+		return;
+	}
+
+	// bombzerker
+	if (Velocity.Z < -0.5 * MaxFallSpeed)
+	{
+		if ( Role == ROLE_Authority )
+		{
+			MakeNoise(1.0);
+			if (Velocity.Z < -1 * MaxFallSpeed)
+			{
+				EffectiveSpeed = Velocity.Z;
+				if (TouchingWaterVolume())
+				{
+					EffectiveSpeed += 100;
+				}
+				if (EffectiveSpeed < -1 * MaxFallSpeed)
+				{
+					FallDmg = BombzerkerMaxFallDmg * (EffectiveSpeed + MaxFallSpeed)/MaxFallSpeed;
+					TakeDamage(-FallDmg, None, Location, vect(0,0,0), class'KFDT_Falling');
+
+					PM = ExtPerkManager(GetPerk());
+					if (PM != None)
+					{
+						ZerkerPerk = Ext_PerkBerserker(PM.CurrentPerk);
+						if (ZerkerPerk != None)
+						{
+							ZerkerPerk.TriggerFallExplosion(FallDmg);
+						}
+					}
+				}
+			}
+		}
+	}
+	else if (Velocity.Z < -1.4 * JumpZ)
+		MakeNoise(0.5);
+	else if ( Velocity.Z < -0.8 * JumpZ )
+		MakeNoise(0.2);
+}
+
 simulated final function InitFPLegs()
 {
 	local int i;

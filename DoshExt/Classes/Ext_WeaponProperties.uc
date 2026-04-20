@@ -23,9 +23,13 @@ var public int BaseMagazine[2];
 var public int MaxAmmoLv;
 var public int BaseMaxAmmo[2];
 var public int ListedPrice;
-var public bool bCanUpgradeMagazine;
+
 var public bool bCanUpgradeAoE;
 var public bool bCanUpgradeDoT;
+var public bool bCanUpgradePenetration;
+var public bool bCanUpgradeFireRate;
+var public bool bCanUpgradeMagazine;
+var public bool bCanUpgradeSpare;
 
 var config int MaxDmgLv;
 var config int MaxAoELv;
