@@ -81,6 +81,213 @@ struct SavedSkins
 };
 var globalconfig array<SavedSkins> SavedWeaponSkins;
 
+private function bool HasWeaponPropertyIndex(int PropIdx)
+{
+	return PropIdx >= 0 && PropIdx < InvProperties.Length && InvProperties[PropIdx] != None;
+}
+
+private function SyncWeaponPropertyToClient(int PropIdx)
+{
+	local Ext_WeaponProperties WPP;
+
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		return;
+	}
+
+	WPP = InvProperties[PropIdx];
+	ClientSyncWeaponProperty(PropIdx,
+		WPP.DamageLv,
+		WPP.AoELv,
+		WPP.FireRateLv,
+		WPP.PenetrationLv,
+		WPP.MagazineLv,
+		WPP.MaxAmmoLv,
+		WPP.NextDmgCost,
+		WPP.NextAoECost,
+		WPP.NextFireRateCost,
+		WPP.NextPenetrationCost,
+		WPP.NextMagazineCost,
+		WPP.NextSpareCost,
+		WPP.TotalValue);
+	ClientApplyWeaponUpgrades();
+}
+
+private function CommitWeaponUpgrade(int PropIdx)
+{
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		return;
+	}
+
+	if (InvProperties[PropIdx].WeaponInstance != None)
+	{
+		InvProperties[PropIdx].ApplyModifiers();
+	}
+
+	SyncWeaponPropertyToClient(PropIdx);
+}
+
+reliable client function ClientSyncWeaponProperty(
+	int PropIdx,
+	int NewDamageLv,
+	int NewAoELv,
+	int NewFireRateLv,
+	int NewPenetrationLv,
+	int NewMagazineLv,
+	int NewMaxAmmoLv,
+	int NewNextDmgCost,
+	int NewNextAoECost,
+	int NewNextFireRateCost,
+	int NewNextPenetrationCost,
+	int NewNextMagazineCost,
+	int NewNextSpareCost,
+	int NewTotalValue)
+{
+	local Ext_WeaponProperties WPP;
+
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		return;
+	}
+
+	WPP = InvProperties[PropIdx];
+	WPP.DamageLv = NewDamageLv;
+	WPP.AoELv = NewAoELv;
+	WPP.FireRateLv = NewFireRateLv;
+	WPP.PenetrationLv = NewPenetrationLv;
+	WPP.MagazineLv = NewMagazineLv;
+	WPP.MaxAmmoLv = NewMaxAmmoLv;
+	WPP.NextDmgCost = NewNextDmgCost;
+	WPP.NextAoECost = NewNextAoECost;
+	WPP.NextFireRateCost = NewNextFireRateCost;
+	WPP.NextPenetrationCost = NewNextPenetrationCost;
+	WPP.NextMagazineCost = NewNextMagazineCost;
+	WPP.NextSpareCost = NewNextSpareCost;
+	WPP.TotalValue = NewTotalValue;
+
+	if (WPP.WeaponInstance != None)
+	{
+		WPP.ApplyModifiers();
+	}
+
+	if (WeaponPage != None)
+	{
+		WeaponPage.Timer();
+		WeaponPage.UpdateStatsDisplay();
+	}
+}
+
+reliable server function ServerUpgradeWeaponDamage(int PropIdx)
+{
+	`log("ExtPlayerController.ServerUpgradeWeaponDamage: PropIdx=" @ PropIdx @ " InvProperties.Length=" @ InvProperties.Length);
+	
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		`log("ExtPlayerController.ServerUpgradeWeaponDamage: FAILED - Invalid PropIdx");
+		return;
+	}
+
+	`log("ExtPlayerController.ServerUpgradeWeaponDamage: Calling AddDamage on InvProperties[" @ PropIdx @ "]");
+	InvProperties[PropIdx].AddDamage();
+	CommitWeaponUpgrade(PropIdx);
+	`log("ExtPlayerController.ServerUpgradeWeaponDamage: Upgrade complete");
+}
+
+reliable server function ServerUpgradeWeaponAoE(int PropIdx)
+{
+	`log("ExtPlayerController.ServerUpgradeWeaponAoE: PropIdx=" @ PropIdx);
+	
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		`log("ExtPlayerController.ServerUpgradeWeaponAoE: FAILED - Invalid PropIdx");
+		return;
+	}
+
+	InvProperties[PropIdx].AddAoE();
+	CommitWeaponUpgrade(PropIdx);
+}
+
+reliable server function ServerUpgradeWeaponFireRate(int PropIdx)
+{
+	`log("ExtPlayerController.ServerUpgradeWeaponFireRate: PropIdx=" @ PropIdx);
+	
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		`log("ExtPlayerController.ServerUpgradeWeaponFireRate: FAILED - Invalid PropIdx");
+		return;
+	}
+
+	InvProperties[PropIdx].AddFireRate();
+	CommitWeaponUpgrade(PropIdx);
+}
+
+reliable server function ServerUpgradeWeaponPenetration(int PropIdx)
+{
+	`log("ExtPlayerController.ServerUpgradeWeaponPenetration: PropIdx=" @ PropIdx);
+	
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		`log("ExtPlayerController.ServerUpgradeWeaponPenetration: FAILED - Invalid PropIdx");
+		return;
+	}
+
+	InvProperties[PropIdx].AddPenetration();
+	CommitWeaponUpgrade(PropIdx);
+}
+
+reliable server function ServerUpgradeWeaponMagazine(int PropIdx)
+{
+	`log("ExtPlayerController.ServerUpgradeWeaponMagazine: PropIdx=" @ PropIdx);
+	
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		`log("ExtPlayerController.ServerUpgradeWeaponMagazine: FAILED - Invalid PropIdx");
+		return;
+	}
+
+	InvProperties[PropIdx].AddMagazine();
+	CommitWeaponUpgrade(PropIdx);
+}
+
+reliable server function ServerUpgradeWeaponAmmo(int PropIdx)
+{
+	`log("ExtPlayerController.ServerUpgradeWeaponAmmo: PropIdx=" @ PropIdx);
+	
+	if (!HasWeaponPropertyIndex(PropIdx))
+	{
+		`log("ExtPlayerController.ServerUpgradeWeaponAmmo: FAILED - Invalid PropIdx");
+		return;
+	}
+
+	InvProperties[PropIdx].AddAmmo();
+	CommitWeaponUpgrade(PropIdx);
+}
+
+reliable server function ServerApplyWeaponUpgrades()
+{
+	ApplyWeaponUpgrades();
+}
+
+reliable client function ClientApplyWeaponUpgrades()
+{
+	local int idx;
+
+	for (idx = 0; idx < InvProperties.Length; idx++)
+	{
+		if (InvProperties[idx].WeaponInstance != None)
+		{
+			InvProperties[idx].ApplyModifiers();
+		}
+	}
+
+	if (WeaponPage != None)
+	{
+		WeaponPage.Timer();
+		WeaponPage.UpdateStatsDisplay();
+	}
+}
+
 replication
 {
 	// Things the server should send to the client.
@@ -1276,6 +1483,16 @@ function CreateWeapProp(KFWeapon NewWeapon)
 	local int idx;
 	local Ext_WeaponProperties WPP;
 
+	// Ensure max levels are set before creating weapon properties
+	if (PlayerReplicationInfo != None)
+	{
+		class'Ext_WeaponProperties'.static.SetMaxLvs(PlayerReplicationInfo);
+		class'Ext_WeaponProp_GrenadeLauncher'.static.SetMaxLvs(PlayerReplicationInfo);
+		class'Ext_WeaponProp_HuskCannon'.static.SetMaxLvs(PlayerReplicationInfo);
+		class'Ext_WeaponProp_Melee'.static.SetMaxLvs(PlayerReplicationInfo);
+		`log("ExtPlayerController.CreateWeapProp: SetMaxLvs called for " @ NewWeapon.Class);
+	}
+
 	if (FindWeaponProperties(NewWeapon.Class, idx))
 	{
 		InvProperties[idx].WeaponInstance = NewWeapon;
@@ -1301,6 +1518,7 @@ function CreateWeapProp(KFWeapon NewWeapon)
 		}
 		WPP.PCInit(self, NewWeapon);
 		InvProperties.AddItem(WPP);
+		`log("ExtPlayerController.CreateWeapProp: Created new weapon properties for " @ NewWeapon.Class @ " MaxDmgLv=" @ WPP.default.MaxDmgLv);
 	}
 }
 
@@ -1321,7 +1539,7 @@ function bool AddWeapon(class<KFWeapon> WPC)
 
 	if (HasWeapon(WPC)) return false;
 
-	SpawnedWeapon = KFWeapon(ExtHP.InvManager.CreateInventory(WPC));
+	SpawnedWeapon = ServerAddWeapon(WPC);
 	if (SpawnedWeapon == None) return false;
 
 	CreateWeapProp(SpawnedWeapon);
@@ -1329,15 +1547,136 @@ function bool AddWeapon(class<KFWeapon> WPC)
 	return true;
 }
 
+reliable server function KFWeapon ServerAddWeapon(class<KFWeapon> WPC)
+{
+    local ExtHumanPawn ExtHP;
+    local KFWeapon SpawnedWeapon;
+    local KFInventoryManager KFIM;
+
+    ExtHP = ExtHumanPawn(Pawn);
+    if (ExtHP == None) return none;
+
+    if (HasWeapon(WPC)) return none;
+
+    KFIM = KFInventoryManager(ExtHP.InvManager);
+    if (KFIM == None) return none;
+
+    SpawnedWeapon = KFWeapon(KFIM.CreateInventory(WPC));
+    
+    // Create weapon properties on server side as well
+    if (SpawnedWeapon != None)
+    {
+        CreateWeapProp(SpawnedWeapon);
+        `log("ExtPlayerController.ServerAddWeapon: Created weapon properties for " @ WPC @ " on server. InvProperties.Length=" @ InvProperties.Length);
+    }
+    
+    return SpawnedWeapon;
+}
+
+// Server function to purchase weapon and deduct dosh atomically
+reliable server function ServerPurchaseWeapon(class<KFWeapon> WPC, int Price)
+{
+    local ExtHumanPawn ExtHP;
+    local KFWeapon SpawnedWeapon;
+    local ExtPlayerReplicationInfo ExtPRI;
+    
+    ExtHP = ExtHumanPawn(Pawn);
+    if (ExtHP == None)
+    {
+        // `log("ExtPlayerController.ServerPurchaseWeapon: Failed - No pawn");
+        return;
+    }
+    
+    ExtPRI = ExtPlayerReplicationInfo(PlayerReplicationInfo);
+    if (ExtPRI == None)
+    {
+        // `log("ExtPlayerController.ServerPurchaseWeapon: Failed - No PRI");
+        return;
+    }
+    
+    // Check if player can afford it
+    if (ExtPRI.Score < Price)
+    {
+        // `log("ExtPlayerController.ServerPurchaseWeapon: Failed - Not enough dosh. Have: " @ ExtPRI.Score @ " Need: " @ Price);
+        return;
+    }
+    
+    // Add weapon
+    SpawnedWeapon = ServerAddWeapon(WPC);
+    if (SpawnedWeapon == None)
+    {
+        // `log("ExtPlayerController.ServerPurchaseWeapon: Failed - Could not add weapon");
+        return;
+    }
+    
+    // Deduct dosh on server (AddDosh has built-in Max(0, ...) to prevent negative)
+    ExtPRI.AddDosh(-Price);
+    `log("ExtPlayerController.ServerPurchaseWeapon: Success - Purchased " @ WPC @ " for " @ Price @ " dosh. Remaining: " @ ExtPRI.Score);
+}
+
+// Server function to sell weapon and add dosh atomically
+reliable server function ServerSellWeapon(int PropIdx)
+{
+    local ExtHumanPawn ExtHP;
+    local ExtPlayerReplicationInfo ExtPRI;
+    local int SellPrice;
+    local int ScoreBefore;
+    
+    ExtHP = ExtHumanPawn(Pawn);
+    if (ExtHP == None)
+    {
+        return;
+    }
+    
+    ExtPRI = ExtPlayerReplicationInfo(PlayerReplicationInfo);
+    if (ExtPRI == None)
+    {
+        return;
+    }
+    
+    // Validate the weapon property index
+    if (PropIdx < 0 || PropIdx >= InvProperties.Length)
+    {
+        `log("ExtPlayerController.ServerSellWeapon: Failed - Invalid PropIdx=" @ PropIdx @ " Length=" @ InvProperties.Length);
+        return;
+    }
+    
+    if (InvProperties[PropIdx] == None)
+    {
+        `log("ExtPlayerController.ServerSellWeapon: Failed - InvProperties[" @ PropIdx @ "] is None");
+        return;
+    }
+    
+    // Get sell price before removing
+    SellPrice = InvProperties[PropIdx].GetSellPrice();
+    ScoreBefore = ExtPRI.Score;
+    `log("ExtPlayerController.ServerSellWeapon: Before sell - Score=" @ ScoreBefore @ " SellPrice=" @ SellPrice);
+    
+    // Remove weapon from inventory
+    RemoveWeapon(PropIdx);
+    
+    // Add dosh on server
+    ExtPRI.AddDosh(SellPrice);
+    `log("ExtPlayerController.ServerSellWeapon: After AddDosh - Score=" @ ExtPRI.Score @ " Expected: " @ (ScoreBefore + SellPrice));
+}
+
 function ApplyWeaponUpgrades()
 {
 	local int idx;
+
+	if (Role < ROLE_Authority)
+	{
+		ServerApplyWeaponUpgrades();
+		return;
+	}
 
 	for (idx = 0; idx < InvProperties.Length; idx++)
 	{
 		if (InvProperties[idx].WeaponInstance != None)
 			InvProperties[idx].ApplyModifiers();
 	}
+
+	ClientApplyWeaponUpgrades();
 }
 
 // function HandlePickup(Inventory Inv)
@@ -1364,6 +1703,16 @@ function RemoveWeapon(int PropIdx)
 	Pawn.InvManager.RemoveFromInventory(InvProperties[PropIdx].WeaponInstance);
 	InvProperties[PropIdx].WeaponInstance.Destroy();
 	InvProperties.Remove(PropIdx, 1);
+}
+
+function OpenTraderMenu( optional bool bForce=false )
+{
+	local ExtInventoryManager InvMng;
+    if (Pawn == none) return;
+    InvMng = ExtInventoryManager(Pawn.InvManager);
+	if (InvMng == None) return;
+		
+	InvMng.ThrowMoney();
 }
 
 exec function RequestSwitchTeam()

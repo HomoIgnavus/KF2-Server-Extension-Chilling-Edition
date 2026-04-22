@@ -22,6 +22,7 @@ class ExtInventoryManager extends KFInventoryManager;
 var transient float MoneyTossTime;
 var transient byte MoneyTossCount;
 
+// overriden to open the finance menu
 simulated function ThrowMoney()
 {
     local KFPlayerController KFPC;

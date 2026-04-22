@@ -73,8 +73,31 @@ public function PCInit(ExtPlayerController PCParam, KFWeapon WeaponParam)
         `log("Failed to initialize Ext_WeaponProperties for " @ WeaponParam);
         return;
     }
+
     WeaponInstance = WeaponParam;
-    WeaponDef = PCParam.WeaponPage.GetWeaponProperties(WeaponParam.Class).WeaponDef;
+
+    if (PCParam.WeaponList == None)
+    {
+        PCParam.WeaponList = new class'Ext_WeaponList';
+        PCParam.WeaponList.LoadWeapons();
+    }
+
+    if (PCParam.WeaponList != None)
+    {
+        WeaponDef = PCParam.WeaponList.GetWeaponDef(WeaponParam.Class);
+    }
+
+    if (WeaponDef == None && PCParam.WeaponPage != None)
+    {
+        WeaponDef = PCParam.WeaponPage.GetWeaponProperties(WeaponParam.Class).WeaponDef;
+    }
+
+    if (WeaponDef == None)
+    {
+        `log("Failed to resolve weapon definition for " @ WeaponParam.Class);
+        return;
+    }
+
     DefInit(WeaponDef);
     ApplyModifiers();
 }
@@ -86,8 +109,14 @@ public function DefInit(class<KFWeaponDefinition> WeaponDefParam)
     //     `log("Failed to initialize Ext_WeaponProperties for " @ WeaponDefParam);
     //     return;
     // }
-
     WeaponDef = WeaponDefParam;
+
+    if (WeaponDefParam == None)
+    {
+        `log("Failed to initialize Ext_WeaponProperties: WeaponDefParam is none");
+        return;
+    }
+
     WeaponClass = class<KFWeapon>(DynamicLoadObject(WeaponDefParam.Default.WeaponClassPath, class'Class'));
     if (WeaponClass == None)
     {
@@ -138,17 +167,38 @@ public function DefInit(class<KFWeaponDefinition> WeaponDefParam)
 
 public static function SetMaxLvs(PlayerReplicationInfo PRIParam)
 {
-    local ExtPlayerReplicationInfo ExtPRI;
+    local ExtPlayerReplicationInfo LocalPRI;
     local Ext_PerkBase CurrentPerk;
     local int Prestige;
 
-    ExtPRI = ExtPlayerReplicationInfo(PRIParam);
-    if (ExtPRI == none) return;
+    LocalPRI = ExtPlayerReplicationInfo(PRIParam);
+    if (LocalPRI == none)
+    {
+        `log("Ext_WeaponProperties.SetMaxLvs: LocalPRI is None");
+        return;
+    }
 
-    CurrentPerk = ExtPRI.FCurrentPerk;
-    if (CurrentPerk == None) return;
-
-    Prestige = CurrentPerk.CurrentPrestige;
+    // Try to get prestige from replicated ECurrentPerkPrestige first
+    if (LocalPRI.ECurrentPerkPrestige > 0)
+    {
+        Prestige = LocalPRI.ECurrentPerkPrestige;
+        `log("Ext_WeaponProperties.SetMaxLvs: Using replicated ECurrentPerkPrestige=" @ Prestige);
+    }
+    else
+    {
+        // Fallback to FCurrentPerk if available
+        CurrentPerk = LocalPRI.FCurrentPerk;
+        if (CurrentPerk == None)
+        {
+            `log("Ext_WeaponProperties.SetMaxLvs: FCurrentPerk is None and ECurrentPerkPrestige=0, using default max level 10");
+            Prestige = 10;
+        }
+        else
+        {
+            Prestige = CurrentPerk.CurrentPrestige;
+            `log("Ext_WeaponProperties.SetMaxLvs: Using FCurrentPerk.CurrentPrestige=" @ Prestige);
+        }
+    }
 
     default.MaxDmgLv = Prestige;
     default.MaxAoELv = Prestige;
@@ -158,7 +208,6 @@ public static function SetMaxLvs(PlayerReplicationInfo PRIParam)
     default.MaxMagazineLv = Prestige;
     default.MaxSpareLv = Prestige;
 
-    `log("Ext_WeaponProperties.SetMaxLvs: Prestige=" @ Prestige);
     `log("Ext_WeaponProperties.SetMaxLvs: MaxDmgLv=" @ default.MaxDmgLv @ " MaxAoELv=" @ default.MaxAoELv @ " MaxDotLv=" @ default.MaxDotLv @ " MaxFireRateLv=" @ default.MaxFireRateLv @ " MaxPenetrationLv=" @ default.MaxPenetrationLv @ " MaxMagazineLv=" @ default.MaxMagazineLv @ " MaxSpareLv=" @ default.MaxSpareLv);
 }
 
@@ -218,7 +267,17 @@ public function ApplyModifiers()
 
 public function Bool CanAddDamage()
 {
-    return ExtPRI != None && DamageLv < default.MaxDmgLv && ExtPRI.Score > NextDmgCost;
+    local bool bResult;
+    local int ScoreValue;
+
+    if (ExtPRI != None)
+        ScoreValue = ExtPRI.Score;
+    else
+        ScoreValue = -1;
+
+    bResult = ExtPRI != None && DamageLv < default.MaxDmgLv && ExtPRI.Score > NextDmgCost;
+    `log("Ext_WeaponProperties.CanAddDamage: ExtPRI=" @ ExtPRI @ " DamageLv=" @ DamageLv @ " MaxDmgLv=" @ default.MaxDmgLv @ " Score=" @ ScoreValue @ " NextDmgCost=" @ NextDmgCost @ " Result=" @ bResult);
+    return bResult;
 }
 
 public function Bool CanAddAoE()

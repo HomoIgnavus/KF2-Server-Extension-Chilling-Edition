@@ -32,14 +32,20 @@ var private float ParryHealPct;
 var private float ParryArmorPct;
 
 var private bool bIsParryExplosionActive;
-var private float ParryExpDmg;
-var private float ParryExpAoE;
+// var private float ParryExpDmg;
+// var private float ParryExpAoE;
 
 // fall explosion
 var private bool bHasTraitBombzerker;
-var private float BombzerkerDamage, BombzerkerRadius, BombzerkerMaxFallDmg;
+var private float BombzerkerDmgRatio;
+var private float BombzerkerRadiusRatio;
+
+var GameExplosion FallExplosion;
 var GameExplosion FallExploTemplateNormal;
 var GameExplosion FallExploTemplateNuke;
+
+var public float FallDamageScale;
+var public bool bIsAtomic; // won't die from fall damage
 
 replication
 {
@@ -114,7 +120,7 @@ simulated function TriggerParryExplosion()
 			ExploActor.InstigatorController = PlayerOwner;
 			ExploActor.Instigator = PlayerOwner.Pawn;
 			ExploActor.bIgnoreInstigator = true;
-			ExploActor.Explode(ParryExploTemplate);
+			ExploActor.Explode(default.ParryExploTemplate);
 		}
 	}
 }
@@ -141,11 +147,11 @@ function ApplyTraitParryMaster(float Reduction, float Duration)
 
 function ApplyTraitParryExplosion(float Damage, float Radius)
 {
+	ParryExploTemplate.DamageRadius = Radius;
+	ParryExploTemplate.Damage = Damage;
 
-	ParryExploTemplate.DamageRadius = ParryExpAoE;
-	ParryExploTemplate.Damage = ParryExpDmg;
-
-	bIsParryExplosionActive = ParryExpDmg > 0.f || ParryExpAoE > 0.f;
+	bIsParryExplosionActive = Damage > 0.f || Radius > 0.f;
+	// `log("ParryExploTemplate.DamageRadius=" @ ParryExploTemplate.DamageRadius @ " ParryExploTemplate.Damage=" @ ParryExploTemplate.Damage @ " bIsParryExplosionActive=" @ bIsParryExplosionActive);
 }
 
 function ApplyTraitParryHealing(float HealthPct, float ArmorPct)
@@ -161,12 +167,23 @@ simulated function TriggerFallExplosion(int FallDmg)
 {
 	local vector HitLocation;
 	local KFExplosionActorReplicated ExploActor;
+	local float ExpDmg;
+	local float ExpRadius;
+	local float ExpAnimScale;
 
-	if (PlayerOwner == None || PlayerOwner.Pawn == None || !PlayerOwner.Pawn.IsAliveAndWell())
+	if (PlayerOwner == None || PlayerOwner.Pawn == None || !PlayerOwner.Pawn.IsAliveAndWell() || !bHasTraitBombzerker)
 		return;
 
 	if (Role == ROLE_Authority)
 	{
+		ExpDmg = FallDmg * BombzerkerDmgRatio;
+		ExpRadius = FallDmg * BombzerkerRadiusRatio;
+		ExpAnimScale = ExpRadius / 200.f;
+
+		FallExplosion.Damage = ExpDmg;
+		FallExplosion.DamageRadius = ExpRadius;
+		FallExplosion.ExplosionEmitterScale = ExpAnimScale;
+		`log("TriggerFallExplosion(): Dmg=" @ FallExplosion.Damage @ " Radius=" @ FallExplosion.DamageRadius @ " ExpAnimScale=" @ FallExplosion.ExplosionEmitterScale);
 		// Spawn explosion centered on the player
 		HitLocation = PlayerOwner.Pawn.Location;
 		ExploActor = Spawn(class'KFExplosionActorReplicated', self,, HitLocation, rotator(vect(0,0,1)),, true);
@@ -175,17 +192,32 @@ simulated function TriggerFallExplosion(int FallDmg)
 			ExploActor.InstigatorController = PlayerOwner;
 			ExploActor.Instigator = PlayerOwner.Pawn;
 			ExploActor.bIgnoreInstigator = true;
-			ExploActor.Explode(FallExploTemplateNuke);
+			ExploActor.Explode(FallExplosion);
 		}
 	}
 }
 
-function ApplyTraitBombzerker(float ExpDmg, float ExpRadius, float FallDmg, bool bActivate)
+function ApplyTraitBombzerker(float DmgRatio, float RadiusRatio, bool bActivate = true)
 {
 	bHasTraitBombzerker = bActivate;
-	BombzerkerDamage = ExpDmg;
-	BombzerkerRadius = ExpRadius;
-	BombzerkerMaxFallDmg = FallDmg;
+	BombzerkerDmgRatio = DmgRatio;
+	BombzerkerRadiusRatio = RadiusRatio;
+	FallExplosion = FallExploTemplateNormal;
+}
+
+function ApplyTraitAtomic(int Level)
+{
+	if (Level <= 0)
+	{
+		bIsAtomic = false;
+		return;
+	}
+
+	bIsAtomic = true;
+	if (Level == 1)
+		FallExplosion = FallExploTemplateNormal;
+	else
+		FallExplosion = FallExploTemplateNuke;
 }
 
 simulated function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageType, optional Controller InstigatedBy)
@@ -209,11 +241,14 @@ defaultproperties
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_Berserker'
 	DefTraitList.Add(class'Ext_TraitWPBers')
 	DefTraitList.Add(class'Ext_TraitUnGrab')
+	DefTraitList.Add(class'Ext_TraitBombzerker')
+	DefTraitList.Add(class'Ext_TraitPiptomaniac')
+	DefTraitList.Add(class'Ext_TraitAtomic')
 	DefTraitList.Add(class'Ext_TraitVampire')
-	DefTraitList.Add(class'Ext_TraitSpartan')
 	DefTraitList.Add(class'Ext_TraitParryMaster')
 	DefTraitList.Add(class'Ext_TraitParryHealing')
 	DefTraitList.Add(class'Ext_TraitParryExplosion')
+	DefTraitList.Add(class'Ext_TraitSpartan')
 	DefPerkStats(15)=(bHiddenConfig=false) // Poison damage.
 	BasePerk=class'KFPerk_Berserker'
 
@@ -278,29 +313,34 @@ defaultproperties
 	End Object
 	FallExploTemplateNormal=FallExploTemplate0
 
-	// Dynamite Grenade-style fall explosion (mirrors KFProj_DynamiteGrenade.ExploTemplate0)
+	// nuke explosion
 	Begin Object Class=KFGameExplosion Name=FallExploTemplate1
-		Damage=300
-		DamageRadius=400
-		DamageFalloffExponent=2
+		Damage=45 //15
+		DamageRadius=450
+		DamageFalloffExponent=1.f
 		DamageDelay=0.f
+		MyDamageType=class'KFDT_Toxic_DemoNuke'
+		//bIgnoreInstigator is set to true in PrepareExplosionTemplate
 
-		MyDamageType=class'KFDT_Explosive_DynamiteGrenade'
+		// Damage Effects
 		KnockDownStrength=0
+		KnockDownRadius=0
 		FractureMeshRadius=200.0
 		FracturePartVel=500.0
-		ExplosionEffects=KFImpactEffectInfo'WEP_Dynamite_ARCH.Dynamite_Explosion'
-		ExplosionSound=AkEvent'WW_WEP_EXP_Dynamite.Play_WEP_EXP_Dynamite_Explosion'
+		ExplosionEffects=KFImpactEffectInfo'FX_Impacts_ARCH.Explosions.Nuke_Explosion'
+		ExplosionSound=AkEvent'WW_GLO_Runtime.Play_WEP_Nuke_Explo'
+		MomentumTransferScale=1.f
 
+		// Camera Shake
 		CamShake=CameraShake'FX_CameraShake_Arch.Grenades.Default_Grenade'
 		CamShakeInnerRadius=200
 		CamShakeOuterRadius=900
 		CamShakeFalloff=1.5f
 		bOrientCameraShakeTowardsEpicenter=true
-
-		bIgnoreInstigator=true
-		ActorClassToIgnoreForDamage=class'KFPawn_Human'
 	End Object
 	FallExploTemplateNuke=FallExploTemplate1
 
+	bHasTraitBombzerker = false
+	FallDamageScale = 1.0;
+	bIsAtomic = false
 }

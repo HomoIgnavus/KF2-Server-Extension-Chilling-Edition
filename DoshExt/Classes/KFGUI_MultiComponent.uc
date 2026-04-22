@@ -52,6 +52,7 @@ function PreDraw()
 	DrawMenu();
 	for (i=0; i<Components.Length; ++i)
 	{
+		if (Components[i].bHidden) continue;
 		Components[i].Canvas = Canvas;
 		for (j=0; j<4; ++j)
 			Components[i].InputPos[j] = CompPos[j];
@@ -89,7 +90,7 @@ function bool CaptureMouse()
 	local int i;
 
 	for (i=0; i<Components.Length; ++i)
-		if (Components[i].CaptureMouse())
+		if (!Components[i].bHidden && Components[i].CaptureMouse())
 		{
 			MouseArea = Components[i];
 			return true;

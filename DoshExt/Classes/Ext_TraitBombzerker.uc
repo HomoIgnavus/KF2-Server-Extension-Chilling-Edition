@@ -18,55 +18,50 @@
 
 Class Ext_TraitBombzerker extends Ext_TraitBase;
 
-var float MaxExpDamage[5];
-var float MaxExpRadius[5];
-var float MaxFallDamage[5];
+var float ExpDamageRatio[5]; // explosion damage/falldamage ratio
+var float ExpRadiusRatio[5]; // explosion radius/falldamage ratio
 
-static function ApplyEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
+static function TraitActivate(Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
 	local Ext_PerkBerserker ZerkerPerk;
 	ZerkerPerk = Ext_PerkBerserker(Perk);
 
 	if (ZerkerPerk == none) return;
 
-	ZerkerPerk.ApplyTraitBombzerker(MaxExpDamage[Level-1], MaxExpRadius[Level-1], MaxFallDamage[Level-1], true);
+	ZerkerPerk.ApplyTraitBombzerker(default.ExpDamageRatio[Level-1], default.ExpRadiusRatio[Level-1], true);
 }
 
-static function CancelEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
+static function TraitDeActivate(Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
 	local Ext_PerkBerserker ZerkerPerk;
 	ZerkerPerk = Ext_PerkBerserker(Perk);
 
 	if (ZerkerPerk == none) return;
-	
-	ZerkerPerk.ApplyTraitBombzerker(0.0, 0.0, 0.0, false);
+
+	ZerkerPerk.ApplyTraitBombzerker(0.0, 0.0, false);
 }
 
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkBerserker'
+	TraitGroup=class'Ext_TGroupBombzerker'
 	NumLevels=5
+	
 	DefLevelCosts(0)=100
 	DefLevelCosts(1)=200
 	DefLevelCosts(2)=400
 	DefLevelCosts(3)=800
 	DefLevelCosts(4)=1600
 	
-	MaxExpDamage(0)=0.2
-	MaxExpDamage(1)=0.5
-	MaxExpDamage(2)=1.0
-	MaxExpDamage(3)=3.0
-	MaxExpDamage(4)=10.0
+	ExpDamageRatio(0)=1.0
+	ExpDamageRatio(1)=2.0
+	ExpDamageRatio(2)=10.0
+	ExpDamageRatio(3)=40.0
+	ExpDamageRatio(4)=150.0
 	
-	MaxExpRadius(0)=500
-	MaxExpRadius(1)=700
-	MaxExpRadius(2)=1000
-	MaxExpRadius(3)=1500
-	MaxExpRadius(4)=3500
-	
-	MaxFallDamage(0)=1.0
-	MaxFallDamage(1)=2.0
-	MaxFallDamage(2)=3.0
-	MaxFallDamage(3)=4.0
-	MaxFallDamage(4)=10.0
+	ExpRadiusRatio(0)=0.5
+	ExpRadiusRatio(1)=1.0
+	ExpRadiusRatio(2)=1.5
+	ExpRadiusRatio(3)=2.0
+	ExpRadiusRatio(4)=3.0
 }

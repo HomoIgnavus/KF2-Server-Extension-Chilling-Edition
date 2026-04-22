@@ -18,27 +18,37 @@
 
 Class Ext_TraitParryHealing extends Ext_TraitBase;
 
-var public float HealPercentage[3];
-var public float ArmorPercentage[3];
+var public float HealPercentage[4];
+var public float ArmorPercentage[4];
 
 // Only available once Parry Master has been learned.
-// static function bool MeetsRequirements(byte Lvl, Ext_PerkBase Perk)
-// {
-// 	return true;
-// }
+static function bool MeetsRequirements(byte Lvl, Ext_PerkBase Perk)
+{
+	local int TraitIdx;
+
+	// First check level.
+	if (Perk.CurrentLevel<Default.MinLevel || Perk.CurrentPrestige < 2)
+		return false;
+		
+	TraitIdx = Perk.PerkTraits.Find('TraitType', class'Ext_TraitParryMaster');
+	if (TraitIdx < 0 || Perk.PerkTraits[TraitIdx].CurrentLevel < 3)
+		return false;
+	
+	return true;
+}
 
 
 static function TraitActivate(Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
 	local Ext_PerkBerserker ZerkerPerk;
-	local int Idx;
+	local int ValIdx;
 
 	ZerkerPerk = Ext_PerkBerserker(Perk);
 	if (ZerkerPerk == none) return;
 
-	Idx = Level - 1;
+	ValIdx = Level - 1;
 
-	ZerkerPerk.ApplyTraitParryHealing(Default.HealPercentage[Idx], Default.ArmorPercentage[Idx]);
+	ZerkerPerk.ApplyTraitParryHealing(Default.HealPercentage[ValIdx], Default.ArmorPercentage[ValIdx]);
 }
 
 static function TraitDeActivate(Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)

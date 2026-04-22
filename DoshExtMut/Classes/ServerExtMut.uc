@@ -1402,6 +1402,7 @@ function ResetPlayerPerk(ExtPlayerController PC, class<Ext_PerkBase> PerkClass, 
 			return;
 		}
 		++P.CurrentPrestige;
+		P.MinimumLevel = P.CurrentLevel - P.MinLevelForPrestige;
 	}
 	P.FullReset(bPrestige);
 }

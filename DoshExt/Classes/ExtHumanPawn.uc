@@ -1202,16 +1202,6 @@ Ignores FaceRotation, SetMovementPhysics, UnsetFeignDeath, Tick, TakeDamage, Die
 	}
 }
 
-function ActivateTraitBombzerker(float dmg, float rad, bool activate = true)
-{
-	bHasTraitBombzerker = Activate;
-	if (bHasTraitBombzerker)
-	{
-
-	}
-
-}
-
 function TakeFallingDamage()
 {
 	local float EffectiveSpeed;
@@ -1219,7 +1209,11 @@ function TakeFallingDamage()
 	local ExtPerkManager PM;
 	local Ext_PerkBerserker ZerkerPerk;
 
-	if (!bHasTraitBombzerker) 
+	PM = ExtPerkManager(GetPerk());
+	if (PM == none) return;
+
+	ZerkerPerk = Ext_PerkBerserker(PM.CurrentPerk);
+	if (ZerkerPerk == none) 
 	{
 		super.TakeFallingDamage();
 		return;
@@ -1240,17 +1234,22 @@ function TakeFallingDamage()
 				}
 				if (EffectiveSpeed < -1 * MaxFallSpeed)
 				{
-					FallDmg = BombzerkerMaxFallDmg * (EffectiveSpeed + MaxFallSpeed)/MaxFallSpeed;
-					TakeDamage(-FallDmg, None, Location, vect(0,0,0), class'KFDT_Falling');
+					FallDmg = -100 * (EffectiveSpeed + MaxFallSpeed) / MaxFallSpeed;
+					// `log("TakeFallingDamage(): FallDmg before = " @ FallDmg);
+					FallDmg *= ZerkerPerk.FallDamageScale;
 
-					PM = ExtPerkManager(GetPerk());
-					if (PM != None)
+					if (ZerkerPerk.bIsAtomic)
 					{
-						ZerkerPerk = Ext_PerkBerserker(PM.CurrentPerk);
-						if (ZerkerPerk != None)
-						{
-							ZerkerPerk.TriggerFallExplosion(FallDmg);
-						}
+						// `log("TakeFallingDamage(): Is Atomic");
+						FallDmg = Min(self.Health - 1, FallDmg);
+					}
+					// `log("TakeFallingDamage(): FallDmg after = " @ FallDmg);
+
+					TakeDamage(FallDmg, None, Location, vect(0,0,0), class'KFDT_Falling');
+
+					if (PM != None && ZerkerPerk != None)
+					{
+						ZerkerPerk.TriggerFallExplosion(FallDmg);
 					}
 				}
 			}

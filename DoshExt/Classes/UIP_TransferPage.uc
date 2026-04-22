@@ -43,7 +43,7 @@ function Timer()
 
         if (PRI == GetPlayer().PlayerReplicationInfo)
         {
-            
+            continue;
         }
 
         if (ItemsCount >= PlayerItems.Length)

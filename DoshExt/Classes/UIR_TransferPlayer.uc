@@ -4,6 +4,7 @@ var KFGUI_TextLable InfoText;
 var KFGUI_NumericBox AmountBox;
 var KFGUI_Button TransferButton;
 
+var KFPlayerReplicationInfo MyPRI;
 var KFPlayerReplicationInfo TargetPRI;
 
 var localized string TransferButtonToolTip;
@@ -11,14 +12,26 @@ var localized string AmountBoxToolTip;
 
 function InitMenu()
 {
+	MyPRI = KFPlayerReplicationInfo(GetPlayer().PlayerReplicationInfo);
 	InfoText = KFGUI_TextLable(FindComponentID('Info'));
 	AmountBox = KFGUI_NumericBox(FindComponentID('AmountBox'));
 	TransferButton = KFGUI_Button(FindComponentID('AddBox'));
 	
 	TransferButton.ToolTip = TransferButtonToolTip;
+	TransferButton.OnClickLeft = OnTransferClicked;
 	AmountBox.ToolTip = AmountBoxToolTip;
 	
 	Super.InitMenu();
+}
+
+function OnTransferClicked(KFGUI_Button Sender)
+{
+	local int AmountTransfered;
+	if (MyPRI == none || TargetPRI == none) return;
+
+	AmountTransfered = int(AmountBox.Value);
+	MyPRI.AddDosh(-AmountTransfered);
+	TargetPRI.AddDosh(AmountTransfered);
 }
 
 function ShowMenu()

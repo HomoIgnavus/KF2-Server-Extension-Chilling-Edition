@@ -46,7 +46,7 @@ var localized string Hint;
 
 var transient KFGUI_Base MouseArea; // Next in recurse line of the mouse pointer focus area.
 
-var() bool bDisabled,bClickable,bCanFocus;
+var() bool bDisabled,bClickable,bCanFocus,bHidden;
 var bool bFocusedPostDrawItem; // If this component has been given input focus, should it receive draw menu call after everything else been drawn?
 var bool bTimerActive,bLoopTimer;
 var transient bool bFocused;

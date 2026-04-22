@@ -16,70 +16,48 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-Class Ext_TraitParryExplosion extends Ext_TraitBase;
+Class Ext_TraitAtomic extends Ext_TraitBase;
 
-var public float ExplosionDamage[5];
-var public float ExplosionRadius[5];
-
-// // Only available once Parry Master has been learned.
 static function bool MeetsRequirements(byte Lvl, Ext_PerkBase Perk)
 {
-	local int TraitIdx;
-
+	local int Idx;
 	// First check level.
-	if (Perk.CurrentLevel<Default.MinLevel || Perk.CurrentPrestige < 3)
+	if (Perk.CurrentLevel<Default.MinLevel || Perk.CurrentPrestige < 5)
 		return false;
 
-	TraitIdx = Perk.PerkTraits.Find('TraitType', class'Ext_TraitParryMaster');
-	if (TraitIdx < 0 || Perk.PerkTraits[TraitIdx].CurrentLevel < 3)
+	// Prerequisite: Bombzerker
+	idx = Perk.PerkTraits.Find('TraitType', class'Ext_TraitBombzerker');
+	if (Idx < 0 || Perk.PerkTraits[idx].CurrentLevel < 5)
 		return false;
-	
+
 	return true;
 }
 
 static function TraitActivate(Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
 	local Ext_PerkBerserker ZerkerPerk;
-	local int ValIdx;
-	
-
 	ZerkerPerk = Ext_PerkBerserker(Perk);
+
 	if (ZerkerPerk == none) return;
 
-	ValIdx = Level - 1;
-	// `log("ParryExplosion.TraitActivate() Level=" @ Level @ " Damage=" @ Default.ExplosionDamage[ValIdx] @ " Radius=" @ Default.ExplosionRadius[ValIdx]);
-	ZerkerPerk.ApplyTraitParryExplosion(Default.ExplosionDamage[ValIdx], Default.ExplosionRadius[ValIdx]);
+	ZerkerPerk.ApplyTraitAtomic(Level);
 }
 
 static function TraitDeActivate(Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
 	local Ext_PerkBerserker ZerkerPerk;
-
 	ZerkerPerk = Ext_PerkBerserker(Perk);
+
 	if (ZerkerPerk == none) return;
 
-	ZerkerPerk.ApplyTraitParryExplosion(0.0, 0.0);
+	ZerkerPerk.ApplyTraitAtomic(0);
 }
 
 defaultproperties
 {
-	TraitGroup=class'Ext_TGroupParry'
-	NumLevels=5
-	DefLevelCosts(0)=10
-	DefLevelCosts(1)=20
-	DefLevelCosts(2)=40
-	DefLevelCosts(3)=80
-	DefLevelCosts(4)=160
-
-	ExplosionDamage(0)=20;
-	ExplosionDamage(1)=50;
-	ExplosionDamage(2)=80;
-	ExplosionDamage(3)=120;
-	ExplosionDamage(4)=240;
-
-	ExplosionRadius(0)=200;
-	ExplosionRadius(1)=300;
-	ExplosionRadius(2)=400;
-	ExplosionRadius(3)=600;
-	ExplosionRadius(4)=1000;
+	SupportedPerk=class'Ext_PerkBerserker'
+	TraitGroup=class'Ext_TGroupBombzerker'
+	NumLevels=2
+	DefLevelCosts(0)=1000
+	DefLevelCosts(1)=1500
 }
