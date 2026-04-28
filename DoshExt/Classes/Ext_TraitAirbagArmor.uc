@@ -16,39 +16,31 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-class ExtHUD_PlayerBackpack extends KFGFxHUD_PlayerBackpack;
+// Armor now consumes falling damage
+Class Ext_TraitAirbagArmor extends Ext_TraitBase;
 
-var class<Ext_PerkBase> EPerkClass;
+var float AbsorbRate[5]; // explosion damage/falldamage ratio
 
-function UpdateGrenades()
+static function ApplyEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
+
 {
-	local int CurrentGrenades;
-	local ExtPerkManager PM;
+	Player.AirBagRate = default.AbsorbRate[Level-1];
+}
 
-	if (MyKFInvManager != none)
-		CurrentGrenades = MyKFInvManager.GrenadeCount;
-
-	//Update the icon the for grenade type.
-	if (ExtPlayerController(MyKFPC)!=None)
-	{
-		PM = ExtPlayerController(MyKFPC).ActivePerkManager;
-
-		if (PM!=None && PM.CurrentPerk!=None && EPerkClass!=PM.CurrentPerk.Class)
-		{
-			SetString("backpackGrenadeType", "img://"$PM.CurrentPerk.GrenadeWeaponDef.Static.GetImagePath());
-			EPerkClass = PM.CurrentPerk.Class;
-		}
-	}
-	// Update the grenades count value
-	if (CurrentGrenades != LastGrenades)
-	{
-		SetInt("backpackGrenades" , Min(CurrentGrenades,9));
-		// SetString("backpackGrenades" , "10.01");
-		LastGrenades = CurrentGrenades;
-	}
+static function CancelEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
+{
+	Player.AirBagRate = 0.0;
 }
 
 defaultproperties
 {
-
+	NumLevels=3
+	
+	DefLevelCosts(0)=100
+	DefLevelCosts(1)=200
+	DefLevelCosts(2)=400
+	
+	AbsorbRate(0)=0.2
+	AbsorbRate(1)=0.5
+	AbsorbRate(2)=1.0
 }

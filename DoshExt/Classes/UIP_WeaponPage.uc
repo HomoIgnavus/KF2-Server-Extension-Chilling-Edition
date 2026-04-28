@@ -1,5 +1,7 @@
 class UIP_WeaponPage extends KFGUI_MultiComponent
-    config(DoshExtWeapons);
+    config(DoshExtWeapons)
+    dependson(Ext_WeaponProperties)
+    DependsOn(Ext_WeaponProperties);
 
 var ExtPlayerController KFPC;
 var ExtPlayerReplicationInfo KFPRI;
@@ -9,27 +11,13 @@ var KFGUI_Base WeaponIconDisplay; // For displaying weapon icon
 var KFGUI_Button BuyWeaponButton; // Upgrade button below icon
 var int WeaponIdx;
 
-var KFGUI_Button DmgUpgradeBtn;
-var KFGUI_Button AoEUpgradeBtn;
-var KFGUI_Button FireRateUpgradeBtn;
-var KFGUI_Button PenetrationUpgradeBtn;
-var KFGUI_Button MagazineUpgradeBtn;
-var KFGUI_Button AmmoUpgradeBtn;
-
-var KFGUI_TextLable DmgValueLabel;
-var KFGUI_TextLable AoEValueLabel;
-var KFGUI_TextLable FireRateValueLabel;
-var KFGUI_TextLable PenetrationValueLabel;
-var KFGUI_TextLable MagazineValueLabel;
-var KFGUI_TextLable AmmoValueLabel;
+var KFGUI_ComponentList WeaponStatsList;
+var array<UIR_WeaponStatRow> StatRows;
 
 var localized string ColumnWeaponText;
 var localized string ColumnPriceText;
 var localized string ColumnDamageText;
-var localized string ColumnFireRateText;
 var localized string ColumnPenetrationText;
-var localized string ColumnMagazineText;
-var localized string ColumnAmmoText;
 
 var Array<int> SaleListMap; // Maps SaleList row indices to WeaponDefList indices
 
@@ -83,6 +71,7 @@ private function EnsureComponentsBuilt()
     local KFGUI_Base Icon;
     local KFGUI_GreenButton Btn;
     local KFGUI_ColumnList Inv, SaleComp;
+    local KFGUI_ComponentList StatsComp;
 
     if (FindComponentID('WeaponUpgradeButton') != None)
         return;
@@ -110,23 +99,17 @@ private function EnsureComponentsBuilt()
     Btn.Owner = Owner;
     Btn.ParentComponent = Self;
 
-    // Damage row with upgrade button
-    AddStatRow('DmgLabel', 'DmgValue', 'DmgUpgradeBtn', 0.00, "Damage:");
-    
-    // AoE row with upgrade button
-    AddStatRow('AoELabel', 'AoEValue', 'AoEUpgradeBtn', 0.05, "AoE:");
-    
-    // FireRate row with upgrade button
-    AddStatRow('FireRateLabel', 'FireRateValue', 'FireRateUpgradeBtn', 0.10, "Fire Rate:");
-    
-    // Penetration row with upgrade button
-    AddStatRow('PenetrationLabel', 'PenetrationValue', 'PenetrationUpgradeBtn', 0.15, "Penetration:");
-    
-    // Magazine row with upgrade button
-    AddStatRow('MagazineLabel', 'MagazineValue', 'MagazineUpgradeBtn', 0.20, "Magazine:");
-    
-    // Ammo row with upgrade button
-    AddStatRow('AmmoLabel', 'AmmoValue', 'AmmoUpgradeBtn', 0.25, "Max Ammo:");
+    // Weapon stats ComponentList
+    StatsComp = new (Self) class'KFGUI_ComponentList';
+    StatsComp.ID = 'WeaponStatsList';
+    StatsComp.XPosition = 0.18;
+    StatsComp.YPosition = 0.02;
+    StatsComp.XSize = 0.30;
+    StatsComp.YSize = 0.28;
+    StatsComp.ListItemsPerPage = 4;
+    Components.AddItem(StatsComp);
+    StatsComp.Owner = Owner;
+    StatsComp.ParentComponent = Self;
 
     Inv = new (Self) class'KFGUI_ColumnList';
     Inv.ID = 'Weapons';
@@ -172,49 +155,6 @@ private function EnsureComponentsBuilt()
     SaleComp.ParentComponent = Self;
 }
 
-private function AddStatRow(name LabelID, name ValueID, name ButtonID, float YPos, string LabelText)
-{
-    local KFGUI_TextLable Label;
-    local KFGUI_TextLable Value;
-    local KFGUI_Button Btn;
-
-    // Label
-    Label = new (Self) class'KFGUI_TextLable';
-    Label.ID = LabelID;
-    Label.XPosition = 0.18;
-    Label.YPosition = 0.02 + YPos;
-    Label.XSize = 0.10;
-    Label.YSize = 0.04;
-    Label.SetText(LabelText);
-    Components.AddItem(Label);
-    Label.Owner = Owner;
-    Label.ParentComponent = Self;
-
-    // Value
-    Value = new (Self) class'KFGUI_TextLable';
-    Value.ID = ValueID;
-    Value.XPosition = 0.28;
-    Value.YPosition = 0.02 + YPos;
-    Value.XSize = 0.14;
-    Value.YSize = 0.04;
-    Value.SetText("0 (Lv 0)");
-    Components.AddItem(Value);
-    Value.Owner = Owner;
-    Value.ParentComponent = Self;
-
-    // Upgrade Button
-    Btn = new (Self) class'KFGUI_Button';
-    Btn.ID = ButtonID;
-    Btn.XPosition = 0.43;
-    Btn.YPosition = 0.02 + YPos;
-    Btn.XSize = 0.04;
-    Btn.YSize = 0.04;
-    Btn.ButtonText = "+";
-    Components.AddItem(Btn);
-    Btn.Owner = Owner;
-    Btn.ParentComponent = Self;
-}
-
 function InitMenu()
 {
     KFPC = ExtPlayerController(GetPlayer());
@@ -237,19 +177,13 @@ function InitMenu()
     InventoryList.Columns.AddItem(NewFColumnItem(ColumnWeaponText, 0.32));
     // WeaponList.Columns.AddItem(NewFColumnItem(ColumnPriceText, 0.10));
     InventoryList.Columns.AddItem(NewFColumnItem(ColumnDamageText, 0.10));
-    InventoryList.Columns.AddItem(NewFColumnItem(ColumnFireRateText, 0.12));
     InventoryList.Columns.AddItem(NewFColumnItem(ColumnPenetrationText, 0.12));
-    InventoryList.Columns.AddItem(NewFColumnItem(ColumnMagazineText, 0.12));
-    InventoryList.Columns.AddItem(NewFColumnItem(ColumnAmmoText, 0.22));
 
     SaleList = KFGUI_ColumnList(FindComponentID('Sale'));
     SaleList.Columns.AddItem(NewFColumnItem(ColumnWeaponText, 0.32));
     SaleList.Columns.AddItem(NewFColumnItem(ColumnPriceText, 0.10));
     SaleList.Columns.AddItem(NewFColumnItem(ColumnDamageText, 0.10));
-    SaleList.Columns.AddItem(NewFColumnItem(ColumnFireRateText, 0.12));
     SaleList.Columns.AddItem(NewFColumnItem(ColumnPenetrationText, 0.12));
-    SaleList.Columns.AddItem(NewFColumnItem(ColumnMagazineText, 0.12));
-    SaleList.Columns.AddItem(NewFColumnItem(ColumnAmmoText, 0.22));
 
     // InitWeaponProperties();
 
@@ -269,57 +203,8 @@ function InitMenu()
         BuyWeaponButton.OnClickRight = OnBuyWeaponClicked;
     }
 
-    // Find stat value labels
-    DmgValueLabel = KFGUI_TextLable(FindComponentID('DmgValue'));
-    AoEValueLabel = KFGUI_TextLable(FindComponentID('AoEValue'));
-    FireRateValueLabel = KFGUI_TextLable(FindComponentID('FireRateValue'));
-    PenetrationValueLabel = KFGUI_TextLable(FindComponentID('PenetrationValue'));
-    MagazineValueLabel = KFGUI_TextLable(FindComponentID('MagazineValue'));
-    AmmoValueLabel = KFGUI_TextLable(FindComponentID('AmmoValue'));
-
-    // Find and wire up upgrade buttons
-    DmgUpgradeBtn = KFGUI_Button(FindComponentID('DmgUpgradeBtn'));
-    if (DmgUpgradeBtn != None)
-    {
-        DmgUpgradeBtn.OnClickLeft = OnUpgradeDamage;
-        DmgUpgradeBtn.OnClickRight = OnUpgradeDamage;
-    }
-
-    AoEUpgradeBtn = KFGUI_Button(FindComponentID('AoEUpgradeBtn'));
-    if (AoEUpgradeBtn != None)
-    {
-        AoEUpgradeBtn.OnClickLeft = OnUpgradeAoE;
-        AoEUpgradeBtn.OnClickRight = OnUpgradeAoE;
-    }
-
-    FireRateUpgradeBtn = KFGUI_Button(FindComponentID('FireRateUpgradeBtn'));
-    if (FireRateUpgradeBtn != None)
-    {
-        FireRateUpgradeBtn.OnClickLeft = OnUpgradeFireRate;
-        FireRateUpgradeBtn.OnClickRight = OnUpgradeFireRate;
-    }
-
-    PenetrationUpgradeBtn = KFGUI_Button(FindComponentID('PenetrationUpgradeBtn'));
-    if (PenetrationUpgradeBtn != None)
-    {
-        PenetrationUpgradeBtn.OnClickLeft = OnUpgradePenetration;
-        PenetrationUpgradeBtn.OnClickRight = OnUpgradePenetration;
-    }
-
-    MagazineUpgradeBtn = KFGUI_Button(FindComponentID('MagazineUpgradeBtn'));
-    if (MagazineUpgradeBtn != None)
-    {
-        MagazineUpgradeBtn.OnClickLeft = OnUpgradeMagazine;
-        MagazineUpgradeBtn.OnClickRight = OnUpgradeMagazine;
-    }
-
-    AmmoUpgradeBtn = KFGUI_Button(FindComponentID('AmmoUpgradeBtn'));
-    if (AmmoUpgradeBtn != None)
-    {
-        AmmoUpgradeBtn.OnClickLeft = OnUpgradeAmmo;
-        AmmoUpgradeBtn.OnClickRight = OnUpgradeAmmo;
-    }
-
+    // Find stats component list
+    WeaponStatsList = KFGUI_ComponentList(FindComponentID('WeaponStatsList'));
 }
 
 function PopulatePerkDropdown()
@@ -383,7 +268,6 @@ function ShowMenu()
     class'Ext_WeaponProperties'.static.SetMaxLvs(KFPRI);
     class'Ext_WeaponProp_GrenadeLauncher'.static.SetMaxLvs(KFPRI);
     class'Ext_WeaponProp_HuskCannon'.static.SetMaxLvs(KFPRI);
-    class'Ext_WeaponProp_Melee'.static.SetMaxLvs(KFPRI);
 
     SetTimer(2.0, true);
     Timer();
@@ -399,21 +283,7 @@ function CloseMenu()
     SelectedTraderIdx = -1;
 }
 
-function int GetFireRate(KFWeapon KFW)
-{
-    return Round(60 / KFW.FireInterval[0]);
-}
 
-function int GetTraderFireRate(int WeaponIdxParam)
-{
-    local Ext_WeaponProperties WPP;
-
-    WPP = AvailableWeapons[WeaponIdxParam];
-    if (WPP == None)
-        return 0;
-
-    return WPP.GetBaseFireRate();
-}
 
 function bool CanAfford(Ext_WeaponProperties WPP)
 {
@@ -429,13 +299,8 @@ function Timer()
     local Ext_WeaponProperties WPP;
     local KFWeapon KFW;
     local Pawn P;
-    local int FireRate;
-    local int AoE;
-    local int DoT;
     local int Dmg;
     local int Pnt;
-    local int Mag;
-    local int Spare;
     local int Price;
     local ExtPlayerController LocalPC;
     local int idx;
@@ -452,7 +317,6 @@ function Timer()
         class'Ext_WeaponProperties'.static.SetMaxLvs(KFPRI);
         class'Ext_WeaponProp_GrenadeLauncher'.static.SetMaxLvs(KFPRI);
         class'Ext_WeaponProp_HuskCannon'.static.SetMaxLvs(KFPRI);
-        class'Ext_WeaponProp_Melee'.static.SetMaxLvs(KFPRI);
     }
 
     P = LocalPC.Pawn;
@@ -468,13 +332,9 @@ function Timer()
         KFW = OwnedWeapList[idx].WeaponInstance;
         if (KFW == None) continue;
         
-        // Price = KFW.default.SellPrice;
         Dmg = Round(KFW.InstantHitDamage[0]);
-        FireRate = GetFireRate(KFW);
         Pnt = KFW.PenetrationPower[0];
-        Mag = KFW.MagazineCapacity[0];
-        Spare = KFW.SpareAmmoCapacity[0];
-        InventoryList.AddLine(WPP.WeaponDef.static.GetItemName() @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ Mag @ " \n " @ Spare, idx);
+        InventoryList.AddLine(WPP.WeaponDef.static.GetItemName() @ "\n" @ Dmg @ "\n" @ Pnt, idx);
     }
 
     // trader weapon list
@@ -511,10 +371,9 @@ function Timer()
         }
 
         Price = WPP.BasePrice;
-        FireRate = GetTraderFireRate(idx);
         Dmg = Round(WPC.static.CalculateTraderWeaponStatDamage());
         Pnt = Round(WPC.default.PenetrationPower[0]);
-        SaleList.AddLine(WPD.static.GetItemName() @ "\n" @ Price @ "\n" @ Dmg @ "\n" @ FireRate @ "/s\n" @ Pnt @ "\n" @ WPC.default.MagazineCapacity[0] @ " \n " @ WPC.default.SpareAmmoCapacity[0], SaleListMap.Length - 1);
+        SaleList.AddLine(WPD.static.GetItemName() @ "\n" @ Price @ "\n" @ Dmg @ "\n" @ Pnt, SaleListMap.Length - 1);
         `log("WeaponPage: Added " @ WPD.static.GetItemName() @ " to sale list with price " @ Price);
     }
 
@@ -597,7 +456,7 @@ private function SellSelectedWeapon(ExtPlayerController EXTPC, ExtHumanPawn EXTP
         return;
 
     // Call server function to sell weapon and add dosh atomically
-    EXTPC.ServerSellWeapon(SelectedInventoryIdx);
+    EXTPC.SellWeapon(SelectedInventoryIdx);
 
     // Clear selection and refresh
     SelectedInventoryIdx = -1;
@@ -623,8 +482,6 @@ function UpdateWeaponIconDisplay()
 
 function UpdateStatsDisplay()
 {
-    local int Prestige;
-    local int Dosh;
     local Ext_WeaponProperties WPP;
     local ExtPlayerController LocalPC;
     local ExtPlayerReplicationInfo ExtPri;
@@ -632,116 +489,149 @@ function UpdateStatsDisplay()
     LocalPC = ExtPlayerController(GetPlayer());
     if (LocalPC == None || !bIsInventorySelected || SelectedInventoryIdx < 0 || SelectedInventoryIdx >= LocalPC.InvProperties.Length)
     {
-        `log("UpdateStatsDisplay: LocalPC is None");
-        WPP = None;
+        ClearStatRows();
         return;
     }
 
     ExtPRI = ExtPlayerReplicationInfo(LocalPC.PlayerReplicationInfo);
     if (ExtPRI == None)
     {
-        `log("UpdateStatsDisplay: ExtPRI is None");
+        ClearStatRows();
         return;
     }
 
-    Prestige = ExtPRI.FCurrentPerk.CurrentPrestige;
-    Dosh = ExtPRI.Score;
     WPP = LocalPC.InvProperties[SelectedInventoryIdx];
-    `log("UpdateStatsDisplay: Dosh=" @ Dosh @ " SelectedInventoryIdx=" @ SelectedInventoryIdx @ " WPP=" @ WPP);
+    RebuildStatRows(WPP);
+}
 
-    // Toggle upgrade buttons based on selection type
-    if (DmgUpgradeBtn != None)
-    {
-        DmgUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddDamage());
-        `log("UpdateStatsDisplay: DmgUpgradeBtn disabled=" @ DmgUpgradeBtn.bDisabled @ " bIsInventorySelected=" @ bIsInventorySelected @ " WPP=" @ WPP @ " CanAddDamage=" @ (WPP != None ? WPP.CanAddDamage() : false));
-        DmgUpgradeBtn.bHidden = (WPP == None);
-        if (WPP != None) DmgUpgradeBtn.ButtonText = string(WPP.NextDmgCost);
-    }
-    else
-    {
-        `log("UpdateStatsDisplay: DmgUpgradeBtn is None");
-    }
+private function ClearStatRows()
+{
+    local int i;
 
-    if (AoEUpgradeBtn != None)
-    {
-        AoEUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddAoE());
-        AoEUpgradeBtn.bHidden = (WPP == None || !WPP.bCanUpgradeAoE);
-        if (WPP != None) AoEUpgradeBtn.ButtonText = string(WPP.NextAoECost);
-    }
+    if (WeaponStatsList == None) return;
 
-    if (FireRateUpgradeBtn != None)
-    {
-        FireRateUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddFireRate());
-        FireRateUpgradeBtn.bHidden = (WPP == None || !WPP.bCanUpgradeFireRate);
-        if (WPP != None) FireRateUpgradeBtn.ButtonText = string(WPP.NextFireRateCost);
-    }
+    for (i = 0; i < StatRows.Length; i++)
+        StatRows[i].CloseMenu();
+    StatRows.Length = 0;
+    WeaponStatsList.ItemComponents.Length = 0;
+}
 
-    if (PenetrationUpgradeBtn != None)
+private function RebuildStatRows(Ext_WeaponProperties WPP)
+{
+    local UIR_WeaponStatRow StatRow;
+    local int i;
+    local array<UpgradeTypes> Upgradables;
+    local UpgradeTypes UT;
+
+    if (WPP == None || WeaponStatsList == None)
     {
-        PenetrationUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddPenetration());
-        PenetrationUpgradeBtn.bHidden = (WPP == None || !WPP.bCanUpgradePenetration);
-        if (WPP != None) PenetrationUpgradeBtn.ButtonText = string(WPP.NextPenetrationCost);
+        ClearStatRows();
+        return;
     }
 
-    if (MagazineUpgradeBtn != None)
+    // Rebuild only if the set of upgradable stats has changed
+    if (StatRowsMatch(WPP))
     {
-        MagazineUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddMagazine());
-        MagazineUpgradeBtn.bHidden = (WPP == None || !WPP.bCanUpgradeMagazine);
-        if (WPP != None) MagazineUpgradeBtn.ButtonText = string(WPP.NextMagazineCost);
+        // Same stats, just update values
+        for (i = 0; i < StatRows.Length; i++)
+        {
+            switch (StatRows[i].StatType)
+            {
+            case 0:
+                StatRows[i].SetStatInfo("Damage:" @ WPP.GetUpgradeInfo(DamageUp), WPP.NextDmgCost, WPP.CanAddDamage());
+                break;
+            case 1:
+                StatRows[i].SetStatInfo("AoE:" @ WPP.GetUpgradeInfo(AoEUp), WPP.NextAoECost, WPP.CanAddAoE());
+                break;
+            case 2:
+                StatRows[i].SetStatInfo("Penetration:" @ WPP.GetUpgradeInfo(PenetrationUp), WPP.NextPenetrationCost, WPP.CanAddPenetration());
+                break;
+            case 3:
+                StatRows[i].SetStatInfo("DoT:" @ WPP.GetUpgradeInfo(DoTUp), WPP.NextDoTCost, WPP.CanAddDot());
+                break;
+            }
+        }
+        return;
     }
 
-    if (AmmoUpgradeBtn != None)
+    // Stats changed, rebuild rows
+    ClearStatRows();
+
+    // Get upgradable stats and create rows dynamically
+    Upgradables = WPP.GetUpgradables();
+    
+    for (i = 0; i < Upgradables.Length; i++)
     {
-        AmmoUpgradeBtn.SetDisabled(!bIsInventorySelected || WPP == None || !WPP.CanAddAmmo());
-        AmmoUpgradeBtn.bHidden = (WPP == None || !WPP.bCanUpgradeSpare);
-        if (WPP != None) AmmoUpgradeBtn.ButtonText = string(WPP.NextSpareCost);
+        UT = Upgradables[i];
+        StatRow = UIR_WeaponStatRow(WeaponStatsList.AddListComponent(class'UIR_WeaponStatRow'));
+        StatRow.ParentPage = Self;
+        StatRow.InitMenu();
+        
+        switch (UT)
+        {
+            case DamageUp:
+                StatRow.StatType = 0;
+                StatRow.SetStatInfo("Damage:" @ WPP.GetUpgradeInfo(DamageUp), WPP.NextDmgCost, WPP.CanAddDamage());
+                break;
+            case AoEUp:
+                StatRow.StatType = 1;
+                StatRow.SetStatInfo("AoE:" @ WPP.GetUpgradeInfo(AoEUp), WPP.NextAoECost, WPP.CanAddAoE());
+                break;
+            case PenetrationUp:
+                StatRow.StatType = 2;
+                StatRow.SetStatInfo("Penetration:" @ WPP.GetUpgradeInfo(PenetrationUp), WPP.NextPenetrationCost, WPP.CanAddPenetration());
+                break;
+            case DoTUp:
+                StatRow.StatType = 3;
+                StatRow.SetStatInfo("DoT:" @ WPP.GetUpgradeInfo(DoTUp), WPP.NextDoTCost, WPP.CanAddDot());
+                break;
+        }
+        
+        StatRows.AddItem(StatRow);
+    }
+}
+
+// Check if existing stat rows still match the weapon's upgradable stats
+private function bool StatRowsMatch(Ext_WeaponProperties WPP)
+{
+    local int i;
+    local array<int> AvailableUpgrades;
+    local array<UpgradeTypes> Upgradables;
+    local UpgradeTypes UT;
+
+    // Get the list of upgradable stats from the weapon properties
+    Upgradables = WPP.GetUpgradables();
+    
+    // Convert UpgradeTypes enum to StatType integers
+    for (i = 0; i < Upgradables.Length; i++)
+    {
+        UT = Upgradables[i];
+        switch (UT)
+        {
+            case DamageUp:
+                AvailableUpgrades.AddItem(0);
+                break;
+            case AoEUp:
+                AvailableUpgrades.AddItem(1);
+                break;
+            case PenetrationUp:
+                AvailableUpgrades.AddItem(2);
+                break;
+            case DoTUp:
+                AvailableUpgrades.AddItem(3);
+                break;
+        }
     }
 
-    // if (bIsInventorySelected && SelectedInventoryWeap != None)
-    // {
-    //     WPP = SelectedInventoryWeap;
-    // }
-    // else
-    // {
-    //     // For trader weapons, show base stats without level
-    //     if (DmgValueLabel != None)
-    //         DmgValueLabel.SetText("Base");
-    //     if (AoEValueLabel != None)
-    //         AoEValueLabel.SetText("Base");
-    //     if (FireRateValueLabel != None)
-    //         FireRateValueLabel.SetText("Base");
-    //     if (PenetrationValueLabel != None)
-    //         PenetrationValueLabel.SetText("Base");
-    //     if (MagazineValueLabel != None)
-    //         MagazineValueLabel.SetText("Base");
-    //     if (AmmoValueLabel != None)
-    //         AmmoValueLabel.SetText("Base");
-    //     return;
-    // }
+    if (StatRows.Length != AvailableUpgrades.Length)
+        return false;
 
-    // Update damage stat
-    if (DmgValueLabel != None)
-        DmgValueLabel.SetText(WPP.GetDamageInfo());
-
-    // Update AoE stat
-    if (AoEValueLabel != None)
-        AoEValueLabel.SetText(WPP.GetAoEInfo());
-
-    // Update fire rate stat
-    if (FireRateValueLabel != None)
-        FireRateValueLabel.SetText(WPP.GetFireRateInfo());
-
-    // Update penetration stat
-    if (PenetrationValueLabel != None)
-        PenetrationValueLabel.SetText(WPP.GetPenetrationInfo());
-
-    // Update magazine stat
-    if (MagazineValueLabel != None)
-        MagazineValueLabel.SetText(WPP.GetMagazineInfo());
-
-    // Update ammo stat
-    if (AmmoValueLabel != None)
-        AmmoValueLabel.SetText(WPP.GetAmmoInfo());
+    for (i = 0; i < StatRows.Length; i++)
+    {
+        if (StatRows[i].StatType != AvailableUpgrades[i])
+            return false;
+    }
+    return true;
 }
 
 simulated function OnUpgradeDamage(KFGUI_Button Sender)
@@ -819,41 +709,6 @@ simulated function OnUpgradeAoE(KFGUI_Button Sender)
     EXTPC.ServerUpgradeWeaponAoE(SelectedInventoryIdx);
 }
 
-simulated function OnUpgradeFireRate(KFGUI_Button Sender)
-{
-    local ExtPlayerController EXTPC;
-    local Ext_WeaponProperties WPP;
-
-    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
-    {
-        // `log("UIP_WeaponPage.OnUpgradeFireRate: Early return - invalid selection state");
-        return;
-    }
-
-    EXTPC = ExtPlayerController(GetPlayer());
-    if (EXTPC == None)
-    {
-        // `log("UIP_WeaponPage.OnUpgradeFireRate: Early return - EXTPC is None");
-        return;
-    }
-    
-    if (SelectedInventoryIdx >= EXTPC.InvProperties.Length)
-    {
-        // `log("UIP_WeaponPage.OnUpgradeFireRate: ERROR - SelectedInventoryIdx (" @ SelectedInventoryIdx @ ") >= InvProperties.Length (" @ EXTPC.InvProperties.Length @ ")");
-        return;
-    }
-    
-    WPP = EXTPC.InvProperties[SelectedInventoryIdx];
-    if (WPP == None)
-    {
-        // `log("UIP_WeaponPage.OnUpgradeFireRate: ERROR - InvProperties[" @ SelectedInventoryIdx @ "] is None");
-        return;
-    }
-    
-    // `log("UIP_WeaponPage.OnUpgradeFireRate: Calling ServerUpgradeWeaponFireRate(" @ SelectedInventoryIdx @ ")");
-    EXTPC.ServerUpgradeWeaponFireRate(SelectedInventoryIdx);
-}
-
 simulated function OnUpgradePenetration(KFGUI_Button Sender)
 {
     local ExtPlayerController EXTPC;
@@ -889,74 +744,34 @@ simulated function OnUpgradePenetration(KFGUI_Button Sender)
     EXTPC.ServerUpgradeWeaponPenetration(SelectedInventoryIdx);
 }
 
-simulated function OnUpgradeMagazine(KFGUI_Button Sender)
+simulated function OnUpgradeDoT(KFGUI_Button Sender)
 {
     local ExtPlayerController EXTPC;
     local Ext_WeaponProperties WPP;
 
     if (!bIsInventorySelected || SelectedInventoryIdx < 0)
     {
-        // `log("UIP_WeaponPage.OnUpgradeMagazine: Early return - invalid selection state");
         return;
     }
 
     EXTPC = ExtPlayerController(GetPlayer());
     if (EXTPC == None)
     {
-        // `log("UIP_WeaponPage.OnUpgradeMagazine: Early return - EXTPC is None");
         return;
     }
     
     if (SelectedInventoryIdx >= EXTPC.InvProperties.Length)
     {
-        // `log("UIP_WeaponPage.OnUpgradeMagazine: ERROR - SelectedInventoryIdx (" @ SelectedInventoryIdx @ ") >= InvProperties.Length (" @ EXTPC.InvProperties.Length @ ")");
         return;
     }
     
     WPP = EXTPC.InvProperties[SelectedInventoryIdx];
     if (WPP == None)
     {
-        // `log("UIP_WeaponPage.OnUpgradeMagazine: ERROR - InvProperties[" @ SelectedInventoryIdx @ "] is None");
         return;
     }
     
-    // `log("UIP_WeaponPage.OnUpgradeMagazine: Calling ServerUpgradeWeaponMagazine(" @ SelectedInventoryIdx @ ")");
-    EXTPC.ServerUpgradeWeaponMagazine(SelectedInventoryIdx);
-}
-
-simulated function OnUpgradeAmmo(KFGUI_Button Sender)
-{
-    local ExtPlayerController EXTPC;
-    local Ext_WeaponProperties WPP;
-
-    if (!bIsInventorySelected || SelectedInventoryIdx < 0)
-    {
-        `log("UIP_WeaponPage.OnUpgradeAmmo: Early return - invalid selection state");
-        return;
-    }
-
-    EXTPC = ExtPlayerController(GetPlayer());
-    if (EXTPC == None)
-    {
-        `log("UIP_WeaponPage.OnUpgradeAmmo: Early return - EXTPC is None");
-        return;
-    }
-    
-    if (SelectedInventoryIdx >= EXTPC.InvProperties.Length)
-    {
-        `log("UIP_WeaponPage.OnUpgradeAmmo: ERROR - SelectedInventoryIdx (" @ SelectedInventoryIdx @ ") >= InvProperties.Length (" @ EXTPC.InvProperties.Length @ ")");
-        return;
-    }
-    
-    WPP = EXTPC.InvProperties[SelectedInventoryIdx];
-    if (WPP == None)
-    {
-        `log("UIP_WeaponPage.OnUpgradeAmmo: ERROR - InvProperties[" @ SelectedInventoryIdx @ "] is None");
-        return;
-    }
-    
-    `log("UIP_WeaponPage.OnUpgradeAmmo: Calling ServerUpgradeWeaponAmmo(" @ SelectedInventoryIdx @ ")");
-    EXTPC.ServerUpgradeWeaponAmmo(SelectedInventoryIdx);
+    EXTPC.ServerUpgradeWeaponDoT(SelectedInventoryIdx);
 }
 
 function DrawWeaponIcon(class<KFWeapon> KFW, Canvas C, float X, float Y, float Width, float Height)

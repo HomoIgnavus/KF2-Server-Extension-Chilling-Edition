@@ -36,6 +36,15 @@ var int MaxArmorInt;
 
 var byte HealingShieldMod,HealingSpeedBoostMod,HealingDamageBoostMod;
 
+var bool bCanParryProj;
+var bool bCanReflectProj;
+
+var int SpWeaponCount;
+var int SpWeaponMax;
+
+var public float ArmorEfficiency;
+var public float AirBagRate; // for berserker's Ext_TraitAirbagArmor
+
 replication
 {
 	if (true)
@@ -121,8 +130,8 @@ function AdjustDamage(out int InDamage, out vector Momentum, Controller Instigat
 	local KFPerk MyKFPerk;
 	local float TempDamage;
 	local bool bHasSacrificeSkill;
+	local Projectile ProjectileCauser;
 
-	// `log("ExtHumanPawn.AdjustDamage() InDamage="$InDamage$", ArmorInt="$ArmorInt);
 	super.AdjustDamage(InDamage, Momentum, InstigatedBy, HitLocation, DamageType, HitInfo, DamageCauser);
 
 	// nullify damage during trader time
@@ -182,9 +191,9 @@ function AdjustDamage(out int InDamage, out vector Momentum, Controller Instigat
 	if( InstigatedBy != none )
 	{
 		AddTakenDamage( InstigatedBy, FMin(Health, InDamage), DamageCauser, class<KFDamageType>(DamageType) );
+	// `log("ExtHumanPawn.AdjustDamage() adjusted InDamage="$InDamage$", ArmorInt="$ArmorInt);
 	}
 
-	// `log("ExtHumanPawn.AdjustDamage() adjusted InDamage="$InDamage$", ArmorInt="$ArmorInt);
 
 	// (Cheats) Dont allow dying if demigod mode is enabled
 `if(`__TW_SDK_)
@@ -206,6 +215,114 @@ function AdjustDamage(out int InDamage, out vector Momentum, Controller Instigat
 	if (KFPlayerController_WeeklySurvival(Controller) != none)
 	{
 		KFPlayerController_WeeklySurvival(Controller).UpdateVIPDamage();
+	}
+
+	// parry projectile damage the the pawn can
+	// debug
+	bCanParryProj = true;
+
+	ProjectileCauser = Projectile(DamageCauser);
+	if (bCanParryProj && ProjectileCauser != None) 
+	{
+		`log("ExtHumanPawn.AdjustDamage() DamageType=" @ DamageType);
+		ParryProjectile(ProjectileCauser);
+		InDamage = 0;
+		Momentum.Y = 0;
+		Momentum.Z = 0;
+	}
+}
+
+function ParryProjectile(Projectile DamageCauser)
+{
+	local ExtPerkManager ExtPM;
+	local Ext_PerkBerserker BerserkerPerk;
+	local KFWeap_MeleeBase MeleeWeap;
+	local float FacingDot;
+	local vector Dir2d;
+
+	ExtPM = ExtPerkManager(GetPerk());
+	if (ExtPM == None)
+	{
+		`log("ExtHumanPawn.ParryProjectile() ExtPM == None");
+		return;
+	}
+
+	BerserkerPerk = Ext_PerkBerserker(ExtPM.CurrentPerk);
+	if (BerserkerPerk == None)
+	{
+		`log("ExtHumanPawn.ParryProjectile() BerserkerPerk == None");
+		return;
+	}
+
+	if (DamageCauser != None && Instigator != None)
+	{
+		if (!ClassIsChildOf(DamageCauser.class, class'Projectile'))
+		{
+			`log("ExtHumanPawn.ParryProjectile() not a projectile!");
+			return;
+		}
+		MeleeWeap = KFWeap_MeleeBase(MyKFWeapon);
+		if (MeleeWeap != None && MeleeWeap.IsInState('MeleeBlocking'))
+		{
+			if (DamageCauser.Instigator != None)
+			{
+				Dir2d = Normal2d(DamageCauser.Instigator.Location - DamageCauser.Location);
+			}
+			else
+			{
+				Dir2d = Normal2d(DamageCauser.Location - Location);
+			}
+			FacingDot = vector(Rotation) dot Dir2d;
+
+			if (FacingDot > 0.087f && !IsSameTeam(DamageCauser.Instigator))
+			{
+				
+				if (bCanParryProj &&MeleeWeap.IsTimerActive('ParryCheckTimer'))
+				{
+					// `log("ExtHumanPawn.AdjustDamage() blocked projectile!");
+					
+					// ExtPM.SetSuccessfullBlock();
+					// BerserkerPerk.TriggerParryExplosion(DamageCauser.Instigator, false);
+					BerserkerPerk.TriggerTraitParry(DamageCauser.Instigator);
+					
+					if (bCanReflectProj)
+						ReflectProj(DamageCauser);
+				}
+			}
+		}
+	}
+}
+
+function ReflectProj(Projectile Proj)
+{
+	local Projectile RefProj;
+	local vector ReflectDir;
+	local KFProjectile KFRefProj;
+
+	ReflectDir = -vector(Proj.Rotation);
+	Proj.Destroy();
+
+	RefProj = Spawn(Proj.class, self, , self.Location, rotator(ReflectDir),, true);
+	if (RefProj != None)
+	{
+		// Initialize the projectile with proper direction
+		RefProj.Init(ReflectDir);
+		
+		// Ensure proper multiplayer replication and collision
+		KFRefProj = KFProjectile(RefProj);
+		if (KFRefProj != None)
+		{
+			// Set OriginalLocation for client-side position sync
+			KFRefProj.OriginalLocation = self.Location;
+			
+			// Force synchronization of visual mesh with physical location
+			KFRefProj.SyncOriginalLocation();
+			
+			// Ensure projectile can collide with all actors including zombies
+			KFRefProj.bBlockedByInstigator = true;
+		}
+		
+		`log("ExtHumanPawn.ReflectProj() RefProj.Velocity="$RefProj.Velocity$" Proj.Velocity="$Proj.Velocity);
 	}
 }
 
@@ -407,7 +524,35 @@ event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageTyp
 
 function GiveHealthOverTime()
 {
-	Super.GiveHealthOverTime();
+	local KFPlayerReplicationInfo KFPRI;
+	local int RegenAmt;
+
+	if( HealthToRegen > 0 && Health < HealthMax )
+	{
+		RegenAmt = Min(HealthToRegen, HealthMax * 0.01);
+		Health += RegenAmt;
+		HealthToRegen -= RegenAmt;
+
+        WorldInfo.Game.ScoreHeal(RegenAmt, Health - RegenAmt, Controller, self, none);
+
+		KFPRI = KFPlayerReplicationInfo( PlayerReplicationInfo );
+		if( KFPRI != none )
+		{
+			KFPRI.PlayerHealth = Health;
+			KFPRI.PlayerHealthPercent = FloatToByte( float(Health) / float(HealthMax) );
+		}
+
+		if (KFPlayerController_WeeklySurvival(Controller) != none)
+		{
+			KFPlayerController_WeeklySurvival(Controller).UpdateVIPDamage();
+		}
+	}
+	else
+	{
+		HealthToRegen = 0;
+	 	ClearTimer( nameof( GiveHealthOverTime ) );
+	}
+
 	RepRegenHP = HealthToRegen;
 }
 
@@ -1202,12 +1347,26 @@ Ignores FaceRotation, SetMovementPhysics, UnsetFeignDeath, Tick, TakeDamage, Die
 	}
 }
 
+function AbsorbFallingDamage(out int ActualDamage, out int AbsorbedDamage)
+{
+	if (AirBagRate <= 0.0) 
+	{
+		AbsorbedDamage = 0;
+		return;
+	}
+
+	AbsorbedDamage = Min(Round(float(ActualDamage) * AirBagRate), ArmorInt);
+	ArmorInt -= AbsorbedDamage;
+	ActualDamage -= AbsorbedDamage;
+}
+
 function TakeFallingDamage()
 {
 	local float EffectiveSpeed;
 	local int FallDmg;
 	local ExtPerkManager PM;
 	local Ext_PerkBerserker ZerkerPerk;
+	local int AbsorbedDamage;
 
 	PM = ExtPerkManager(GetPerk());
 	if (PM == none) return;
@@ -1238,6 +1397,8 @@ function TakeFallingDamage()
 					// `log("TakeFallingDamage(): FallDmg before = " @ FallDmg);
 					FallDmg *= ZerkerPerk.FallDamageScale;
 
+					AbsorbFallingDamage(FallDmg, AbsorbedDamage);
+
 					if (ZerkerPerk.bIsAtomic)
 					{
 						// `log("TakeFallingDamage(): Is Atomic");
@@ -1249,7 +1410,7 @@ function TakeFallingDamage()
 
 					if (PM != None && ZerkerPerk != None)
 					{
-						ZerkerPerk.TriggerFallExplosion(FallDmg);
+						ZerkerPerk.TriggerFallExplosion(FallDmg + AbsorbedDamage);
 					}
 				}
 			}
@@ -1548,6 +1709,7 @@ simulated function Ext_PerkFieldMedic GetMedicPerk(ExtPlayerController Healer)
 function ThrowActiveWeapon(optional bool bDestroyWeap)
 {
 	local KFWeapon TempWeapon;
+	local ExtPlayerController EPC;
 
 	if( Role < ROLE_Authority )
 	{
@@ -1564,13 +1726,28 @@ function ThrowActiveWeapon(optional bool bDestroyWeap)
 	else
 	{
 		super.ThrowActiveWeapon(bDestroyWeap);
+		// TODO Remove from InvProperties
+		EPC = ExtPlayerController(Controller);
+		if (EPC != none)
+		{	
+			TempWeapon = FindBestWeapon();
+			EPC.DropWeapon(TempWeapon);
+			TossInventory(TempWeapon);
+		}
 	}
 }
 
 defaultproperties
 {
-	ArmorInt=0;
-	MaxArmorInt=100;
+	HealthRegenRate=0.2
+	ArmorInt=0
+	MaxArmorInt=100
+
+	ArmorEfficiency = 1.0
+	AirBagRate = 0.0
+
+	bCanParryProj=false
+	bCanReflectProj=false
 	
 	KnockbackResist=1
 

@@ -42,20 +42,6 @@ public function ApplyModifiers()
         }
     }
 
-    if (MagazineLv > 0)
-    {
-        MagMod = 1.0 + default.MagazinePerLv * MagazineLv;
-        WeaponInstance.MagazineCapacity[0] = Round(float(BaseMagazine[0]) * MagMod);
-        WeaponInstance.MagazineCapacity[1] = Round(float(BaseMagazine[1]) * MagMod);
-        // `log("ApplyModifiers: MagazinePerLv=" @ MagazinePerLv @ " MagazineLv=" @ MagazineLv @ ", MagMod=" @ MagMod @ ", magazine upgrade to: " @ WeaponInstance.MagazineCapacity[0] @ ", " @ WeaponInstance.MagazineCapacity[1]);
-    }
-
-    if (MaxAmmoLv > 0)
-    {
-        WeaponInstance.SpareAmmoCapacity[0] = Round(BaseMaxAmmo[0] * (1.0 + default.SparePerLv * MaxAmmoLv));
-        WeaponInstance.SpareAmmoCapacity[1] = Round(BaseMaxAmmo[1] * (1.0 + default.SparePerLv * MaxAmmoLv));
-    }
-
     // apply AoE
     Projectile.default.ExplosionTemplate.DamageRadius = BaseAoE * (1.0 + default.AoEPerLv * AoELv);
     

@@ -35,6 +35,10 @@ var UIP_WeaponPage WeaponPage;
 var Ext_WeaponList WeaponList;
 var array<Ext_WeaponProperties> InvProperties;
 
+var array<SpecialAbilities> SpecialAbil;
+
+var public bool bCanRocketJump;
+
 struct FAdminCmdType
 {
 	var string Cmd,Info;
@@ -74,6 +78,8 @@ var globalconfig bool bShowFPLegs,bHideNameBeacons,bHideKillMsg,bHideDamageMsg,b
 var globalconfig int SelectedEmoteIndex;
 var bool bMOTDReceived,bNamePlateShown,bNamePlateHidden,bClientHideKillMsg,bClientHideDamageMsg,bClientHideNumbers,bNoDamageTracking,bClientNoZed,bSetPerk;
 
+var SpecialAbilities CurrentSpecialAbility;
+
 struct SavedSkins
 {
 	var int ID;
@@ -99,16 +105,10 @@ private function SyncWeaponPropertyToClient(int PropIdx)
 	ClientSyncWeaponProperty(PropIdx,
 		WPP.DamageLv,
 		WPP.AoELv,
-		WPP.FireRateLv,
 		WPP.PenetrationLv,
-		WPP.MagazineLv,
-		WPP.MaxAmmoLv,
 		WPP.NextDmgCost,
 		WPP.NextAoECost,
-		WPP.NextFireRateCost,
 		WPP.NextPenetrationCost,
-		WPP.NextMagazineCost,
-		WPP.NextSpareCost,
 		WPP.TotalValue);
 	ClientApplyWeaponUpgrades();
 }
@@ -132,16 +132,10 @@ reliable client function ClientSyncWeaponProperty(
 	int PropIdx,
 	int NewDamageLv,
 	int NewAoELv,
-	int NewFireRateLv,
 	int NewPenetrationLv,
-	int NewMagazineLv,
-	int NewMaxAmmoLv,
 	int NewNextDmgCost,
 	int NewNextAoECost,
-	int NewNextFireRateCost,
 	int NewNextPenetrationCost,
-	int NewNextMagazineCost,
-	int NewNextSpareCost,
 	int NewTotalValue)
 {
 	local Ext_WeaponProperties WPP;
@@ -154,16 +148,10 @@ reliable client function ClientSyncWeaponProperty(
 	WPP = InvProperties[PropIdx];
 	WPP.DamageLv = NewDamageLv;
 	WPP.AoELv = NewAoELv;
-	WPP.FireRateLv = NewFireRateLv;
 	WPP.PenetrationLv = NewPenetrationLv;
-	WPP.MagazineLv = NewMagazineLv;
-	WPP.MaxAmmoLv = NewMaxAmmoLv;
 	WPP.NextDmgCost = NewNextDmgCost;
 	WPP.NextAoECost = NewNextAoECost;
-	WPP.NextFireRateCost = NewNextFireRateCost;
 	WPP.NextPenetrationCost = NewNextPenetrationCost;
-	WPP.NextMagazineCost = NewNextMagazineCost;
-	WPP.NextSpareCost = NewNextSpareCost;
 	WPP.TotalValue = NewTotalValue;
 
 	if (WPP.WeaponInstance != None)
@@ -180,27 +168,27 @@ reliable client function ClientSyncWeaponProperty(
 
 reliable server function ServerUpgradeWeaponDamage(int PropIdx)
 {
-	`log("ExtPlayerController.ServerUpgradeWeaponDamage: PropIdx=" @ PropIdx @ " InvProperties.Length=" @ InvProperties.Length);
+	// `log("ExtPlayerController.ServerUpgradeWeaponDamage: PropIdx=" @ PropIdx @ " InvProperties.Length=" @ InvProperties.Length);
 	
 	if (!HasWeaponPropertyIndex(PropIdx))
 	{
-		`log("ExtPlayerController.ServerUpgradeWeaponDamage: FAILED - Invalid PropIdx");
+		// `log("ExtPlayerController.ServerUpgradeWeaponDamage: FAILED - Invalid PropIdx");
 		return;
 	}
 
-	`log("ExtPlayerController.ServerUpgradeWeaponDamage: Calling AddDamage on InvProperties[" @ PropIdx @ "]");
+	// `log("ExtPlayerController.ServerUpgradeWeaponDamage: Calling AddDamage on InvProperties[" @ PropIdx @ "]");
 	InvProperties[PropIdx].AddDamage();
 	CommitWeaponUpgrade(PropIdx);
-	`log("ExtPlayerController.ServerUpgradeWeaponDamage: Upgrade complete");
+	// `log("ExtPlayerController.ServerUpgradeWeaponDamage: Upgrade complete");
 }
 
 reliable server function ServerUpgradeWeaponAoE(int PropIdx)
 {
-	`log("ExtPlayerController.ServerUpgradeWeaponAoE: PropIdx=" @ PropIdx);
+	// `log("ExtPlayerController.ServerUpgradeWeaponAoE: PropIdx=" @ PropIdx);
 	
 	if (!HasWeaponPropertyIndex(PropIdx))
 	{
-		`log("ExtPlayerController.ServerUpgradeWeaponAoE: FAILED - Invalid PropIdx");
+		// `log("ExtPlayerController.ServerUpgradeWeaponAoE: FAILED - Invalid PropIdx");
 		return;
 	}
 
@@ -208,27 +196,15 @@ reliable server function ServerUpgradeWeaponAoE(int PropIdx)
 	CommitWeaponUpgrade(PropIdx);
 }
 
-reliable server function ServerUpgradeWeaponFireRate(int PropIdx)
-{
-	`log("ExtPlayerController.ServerUpgradeWeaponFireRate: PropIdx=" @ PropIdx);
-	
-	if (!HasWeaponPropertyIndex(PropIdx))
-	{
-		`log("ExtPlayerController.ServerUpgradeWeaponFireRate: FAILED - Invalid PropIdx");
-		return;
-	}
 
-	InvProperties[PropIdx].AddFireRate();
-	CommitWeaponUpgrade(PropIdx);
-}
 
 reliable server function ServerUpgradeWeaponPenetration(int PropIdx)
 {
-	`log("ExtPlayerController.ServerUpgradeWeaponPenetration: PropIdx=" @ PropIdx);
+	// `log("ExtPlayerController.ServerUpgradeWeaponPenetration: PropIdx=" @ PropIdx);
 	
 	if (!HasWeaponPropertyIndex(PropIdx))
 	{
-		`log("ExtPlayerController.ServerUpgradeWeaponPenetration: FAILED - Invalid PropIdx");
+		// `log("ExtPlayerController.ServerUpgradeWeaponPenetration: FAILED - Invalid PropIdx");
 		return;
 	}
 
@@ -236,31 +212,17 @@ reliable server function ServerUpgradeWeaponPenetration(int PropIdx)
 	CommitWeaponUpgrade(PropIdx);
 }
 
-reliable server function ServerUpgradeWeaponMagazine(int PropIdx)
+reliable server function ServerUpgradeWeaponDoT(int PropIdx)
 {
-	`log("ExtPlayerController.ServerUpgradeWeaponMagazine: PropIdx=" @ PropIdx);
+	// `log("ExtPlayerController.ServerUpgradeWeaponDoT: PropIdx=" @ PropIdx);
 	
 	if (!HasWeaponPropertyIndex(PropIdx))
 	{
-		`log("ExtPlayerController.ServerUpgradeWeaponMagazine: FAILED - Invalid PropIdx");
+		// `log("ExtPlayerController.ServerUpgradeWeaponDoT: FAILED - Invalid PropIdx");
 		return;
 	}
 
-	InvProperties[PropIdx].AddMagazine();
-	CommitWeaponUpgrade(PropIdx);
-}
-
-reliable server function ServerUpgradeWeaponAmmo(int PropIdx)
-{
-	`log("ExtPlayerController.ServerUpgradeWeaponAmmo: PropIdx=" @ PropIdx);
-	
-	if (!HasWeaponPropertyIndex(PropIdx))
-	{
-		`log("ExtPlayerController.ServerUpgradeWeaponAmmo: FAILED - Invalid PropIdx");
-		return;
-	}
-
-	InvProperties[PropIdx].AddAmmo();
+	InvProperties[PropIdx].AddDot();
 	CommitWeaponUpgrade(PropIdx);
 }
 
@@ -297,6 +259,8 @@ replication
 
 simulated function PostBeginPlay()
 {
+	SetSpAbil(SpecialAbil[0]);
+	
 	InvProperties.Length = 0;
 	if (WeaponList == None)
 	{
@@ -313,6 +277,8 @@ simulated function PostBeginPlay()
 			ActivePerkManager.PRIOwner.PerkManager = ActivePerkManager;
 		SetTimer(0.1,true,'CheckPerk');
 	}
+
+	InitWeaponProperties();
 }
 
 simulated function Destroyed()
@@ -1040,6 +1006,43 @@ unreliable server function ServerPlayVoiceCommsDialog(int CommsIndex)
 	}
 }
 
+delegate UseSpAbil();
+
+function SetSpAbil(SpecialAbilities SpAbil)
+{
+	CurrentSpecialAbility = SpAbil;
+	switch (SpAbil)
+	{
+		case SpAbil_PerkGrenade:
+			UseSpAbil = SA_Grenade;
+			break;
+		case SpAbil_RocketJump:
+			UseSpAbil = SA_RocketJump;
+			break;
+		case SpAbil_MGRs:
+			UseSpAbil = SA_MGRsReload;
+			break;
+		default:
+			break;
+	}
+}
+
+function SA_Grenade()
+{
+	Super.StartFire(4);
+}
+
+function SA_MGRsReload()
+{
+
+}
+
+function SA_RocketJump()
+{
+	// Pawn.SetPhysics(PHYS_Falling);
+	Pawn.Velocity += vect(0.0f, 0.0f, 10000.0f);
+}
+
 // The player wants to fire.
 // Setup bFire/bAltFire so that Auto-Fire trait will work.
 exec function StartFire(optional byte FireModeNum)
@@ -1048,6 +1051,20 @@ exec function StartFire(optional byte FireModeNum)
 		bFire = 1;
 	else if (FireModeNum==1)
 		bAltFire = 1;
+	else if (FireModeNum==4)
+	{	// test rocket jump
+		if (UseSpAbil == none)
+		{
+			UseSpAbil = SA_Grenade;
+		}
+		
+		if (Pawn != None)
+		{	
+			UseSpAbil();
+			return;
+		}
+	}
+
 	Super.StartFire(FireModeNum);
 }
 
@@ -1478,6 +1495,20 @@ function bool HasWeapon(class<KFWeapon> WPC)
 	return false;
 }
 
+function InitWeaponProperties()
+{
+	local Inventory Inv;
+	local KFWeapon KFW;
+	for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+	{
+		KFW = KFWeapon(Inv);
+		if (KFW != None)
+		{
+			CreateWeapProp(KFW);
+		}
+	}
+}
+
 function CreateWeapProp(KFWeapon NewWeapon)
 {
 	local int idx;
@@ -1487,9 +1518,7 @@ function CreateWeapProp(KFWeapon NewWeapon)
 	if (PlayerReplicationInfo != None)
 	{
 		class'Ext_WeaponProperties'.static.SetMaxLvs(PlayerReplicationInfo);
-		class'Ext_WeaponProp_GrenadeLauncher'.static.SetMaxLvs(PlayerReplicationInfo);
 		class'Ext_WeaponProp_HuskCannon'.static.SetMaxLvs(PlayerReplicationInfo);
-		class'Ext_WeaponProp_Melee'.static.SetMaxLvs(PlayerReplicationInfo);
 		`log("ExtPlayerController.CreateWeapProp: SetMaxLvs called for " @ NewWeapon.Class);
 	}
 
@@ -1500,17 +1529,9 @@ function CreateWeapProp(KFWeapon NewWeapon)
 	}
 	else
 	{
-		if (ClassIsChildOf(NewWeapon.Class, class'KFWeap_GrenadeLauncher_Base'))
-		{
-			WPP = new class'Ext_WeaponProp_GrenadeLauncher';
-		}
-		else if (ClassIsChildOf(NewWeapon.class, class'KFWeap_HuskCannon'))
+		if (ClassIsChildOf(NewWeapon.class, class'KFWeap_HuskCannon'))
 		{
 			WPP = new class'Ext_WeaponProp_HuskCannon';
-		}
-		else if (ClassIsChildOf(NewWeapon.class, class'KFWeap_MeleeBase'))
-		{
-			WPP = new class'Ext_WeaponProp_Melee';
 		}
 		else
 		{
@@ -1614,6 +1635,44 @@ reliable server function ServerPurchaseWeapon(class<KFWeapon> WPC, int Price)
     `log("ExtPlayerController.ServerPurchaseWeapon: Success - Purchased " @ WPC @ " for " @ Price @ " dosh. Remaining: " @ ExtPRI.Score);
 }
 
+function DropWeapon(KFWeapon Weapon)
+{
+	local int Idx;
+
+	for (Idx = 0; Idx < InvProperties.Length; Idx++)
+	{
+		if (InvProperties[Idx].WeaponInstance == Weapon)
+		{	
+			`log("ExtPlayerController.DropWeapon: Dropped weapon at index " @ Idx);
+			RemoveWeaponIdx(Idx, false, false);
+		}
+	}
+}
+
+function RemoveWeaponIdx(int PropIdx, bool bDestroyWeapon, bool bRemoveProp)
+{
+	local KFInventoryManager KFIM;
+	KFIM = KFInventoryManager(Pawn.InvManager);
+
+	if (KFIM == None) return;
+	
+	KFIM.ServerRemoveFromInventory(InvProperties[PropIdx].WeaponInstance);
+
+	if (bDestroyWeapon)
+		InvProperties[PropIdx].WeaponInstance.Destroy();
+
+	if (bRemoveProp)
+		InvProperties.Remove(PropIdx, 1);
+	else	
+		InvProperties[PropIdx].WeaponInstance = None;
+}
+
+function SellWeapon(int PropIdx)
+{
+	ServerSellWeapon(PropIdx);
+	RemoveWeaponIdx(PropIdx, true, true);
+}
+
 // Server function to sell weapon and add dosh atomically
 reliable server function ServerSellWeapon(int PropIdx)
 {
@@ -1652,9 +1711,6 @@ reliable server function ServerSellWeapon(int PropIdx)
     ScoreBefore = ExtPRI.Score;
     `log("ExtPlayerController.ServerSellWeapon: Before sell - Score=" @ ScoreBefore @ " SellPrice=" @ SellPrice);
     
-    // Remove weapon from inventory
-    RemoveWeapon(PropIdx);
-    
     // Add dosh on server
     ExtPRI.AddDosh(SellPrice);
     `log("ExtPlayerController.ServerSellWeapon: After AddDosh - Score=" @ ExtPRI.Score @ " Expected: " @ (ScoreBefore + SellPrice));
@@ -1679,13 +1735,15 @@ function ApplyWeaponUpgrades()
 	ClientApplyWeaponUpgrades();
 }
 
-// function HandlePickup(Inventory Inv)
-// {
-// 	local KFWeapon KFW;
+function HandlePickup(Inventory Inv)
+{
+	local KFWeapon KFW;
 
-// 	super.HandlePickup(Inv);
-
-// }
+	super.HandlePickup(Inv);
+	KFW = KFWeapon(Inv);
+	if (KFW != none)
+		CreateWeapProp(KFW);
+}
 
 function NotifyAddInventory(Inventory NewItem)
 {
@@ -1696,13 +1754,6 @@ function NotifyAddInventory(Inventory NewItem)
 	KFW = KFWeapon(NewItem);
 	if (KFW != none)
 		CreateWeapProp(KFW);
-}
-
-function RemoveWeapon(int PropIdx)
-{
-	Pawn.InvManager.RemoveFromInventory(InvProperties[PropIdx].WeaponInstance);
-	InvProperties[PropIdx].WeaponInstance.Destroy();
-	InvProperties.Remove(PropIdx, 1);
 }
 
 function OpenTraderMenu( optional bool bForce=false )
@@ -1727,6 +1778,9 @@ exec function SwitchTeam()
 
 defaultproperties
 {
+	SpecialAbil.Add(SpAbil_PerkGrenade)
+	
+	bCanRocketJump=false
 	InputClass=Class'ExtPlayerInput'
 	PurchaseHelperClass=class'ExtAutoPurchaseHelper'
 	bIgnoreEncroachers=true

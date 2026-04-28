@@ -1,9 +1,15 @@
 class Ext_WeaponProperties extends Object
     config(DoshExtWeapons);
 
+enum UpgradeTypes
+{
+    DamageUp,
+    PenetrationUp,
+    AoEUp,
+    DoTUp,
+};
 
 var ExtPlayerReplicationInfo ExtPRI;
-
 
 var public class<KFWeaponDefinition> WeaponDef;
 var public class<KFWeapon> WeaponClass;
@@ -14,30 +20,19 @@ var public int AoELv;
 var public float BaseAoE;
 var public int DoTLv;
 var public float BaseDoT;
-var public int FireRateLv;
-var public array<float> BaseFireInterval;
 var public int PenetrationLv;
 var public array<float> BasePenetration;
-var public int MagazineLv;
-var public int BaseMagazine[2];
-var public int MaxAmmoLv;
-var public int BaseMaxAmmo[2];
 var public int ListedPrice;
 
+var public bool bCanUpgradeDamage;
 var public bool bCanUpgradeAoE;
 var public bool bCanUpgradeDoT;
 var public bool bCanUpgradePenetration;
-var public bool bCanUpgradeFireRate;
-var public bool bCanUpgradeMagazine;
-var public bool bCanUpgradeSpare;
 
 var config int MaxDmgLv;
 var config int MaxAoELv;
 var config int MaxDoTLv;
-var config int MaxFireRateLv;
 var config int MaxPenetrationLv;
-var config int MaxMagazineLv;
-var config int MaxSpareLv;
 
 var config float DmgPerLv;
 var config float DmgCost;
@@ -45,23 +40,14 @@ var config float AoEPerLv;
 var config float AoECost;
 var config float DoTPerLv;
 var config float DoTCost;
-var config float FireRatePerLv;
-var config float FireRateCost;
 var config float PenetrationPerLv;
 var config float PenetrationCost;
-var config float MagazinePerLv;
-var config float MagazineCost;
-var config float SparePerLv;
-var config float SpareCost;
 
 var public int BasePrice;
 var public int NextDmgCost;
 var public int NextAoECost;
 var public int NextDoTCost;
-var public int NextFireRateCost;
 var public int NextPenetrationCost;
-var public int NextMagazineCost;
-var public int NextSpareCost;
 var public int TotalValue;
 
 // called when the weapon is added to the player's inventory
@@ -126,24 +112,21 @@ public function DefInit(class<KFWeaponDefinition> WeaponDefParam)
     
     DamageLv=0;
     BaseDamage=WeaponClass.default.InstantHitDamage;
-    FireRateLv=0;
-    BaseFireInterval=WeaponClass.default.FireInterval;
     PenetrationLv=0;
     BasePenetration=WeaponClass.default.PenetrationPower;
-    MagazineLv=0;
-    BaseMagazine[0] = WeaponClass.default.MagazineCapacity[0];
-    BaseMagazine[1] = WeaponClass.default.MagazineCapacity[1];
-    MaxAmmoLv=0;
-    BaseMaxAmmo[0] = WeaponClass.default.SpareAmmoCapacity[0];
-    BaseMaxAmmo[1] = WeaponClass.default.SpareAmmoCapacity[1];
     // SetMaxLvs();
 
     ListedPrice=WeaponDefParam.Default.BuyPrice;
 
-    if (WeaponClass.default.MagazineCapacity[0] > 1)
-        bCanUpgradeMagazine = true;
+    if (WeaponClass.default.InstantHitDamage[0] > 0)
+        bCanUpgradeDamage = true;
     else
-        bCanUpgradeMagazine = false;
+        bCanUpgradeDamage = false;
+
+    if (WeaponClass.default.PenetrationPower[0] > 0)
+        bCanUpgradePenetration = true;
+    else
+        bCanUpgradePenetration = false;
 
     if (ClassIsChildOf(WeaponClass, class'KFWeap_GrenadeLauncher_Base'))
         bCanUpgradeAoE = true;
@@ -158,10 +141,7 @@ public function DefInit(class<KFWeaponDefinition> WeaponDefParam)
     BasePrice = WeaponDef.Default.BuyPrice;
     NextDmgCost = DmgCost * BasePrice;
     NextAoECost = AoECost * BasePrice;
-    NextFireRateCost = FireRateCost * BasePrice;
     NextPenetrationCost = PenetrationCost * BasePrice;
-    NextMagazineCost = MagazineCost * BasePrice;
-    NextSpareCost = SpareCost * BasePrice;
     TotalValue = WeaponDef.Default.BuyPrice;
 }
 
@@ -203,19 +183,15 @@ public static function SetMaxLvs(PlayerReplicationInfo PRIParam)
     default.MaxDmgLv = Prestige;
     default.MaxAoELv = Prestige;
     default.MaxDotLv = Prestige;
-    default.MaxFireRateLv = Prestige;
     default.MaxPenetrationLv = Prestige;
-    default.MaxMagazineLv = Prestige;
-    default.MaxSpareLv = Prestige;
 
-    `log("Ext_WeaponProperties.SetMaxLvs: MaxDmgLv=" @ default.MaxDmgLv @ " MaxAoELv=" @ default.MaxAoELv @ " MaxDotLv=" @ default.MaxDotLv @ " MaxFireRateLv=" @ default.MaxFireRateLv @ " MaxPenetrationLv=" @ default.MaxPenetrationLv @ " MaxMagazineLv=" @ default.MaxMagazineLv @ " MaxSpareLv=" @ default.MaxSpareLv);
+    `log("Ext_WeaponProperties.SetMaxLvs: MaxDmgLv=" @ default.MaxDmgLv @ " MaxAoELv=" @ default.MaxAoELv @ " MaxDotLv=" @ default.MaxDotLv @ " MaxPenetrationLv=" @ default.MaxPenetrationLv);
 }
 
 public function ApplyModifiers()
 {
     local int Idx;
     local float DmgMod;
-    local float MagMod;
 
     if (WeaponInstance == none) 
     {
@@ -232,13 +208,7 @@ public function ApplyModifiers()
         }
     }
 
-    if (FireRateLv > 0)
-    {
-        for (Idx = 0; Idx < WeaponInstance.FireInterval.Length; Idx++)
-        {
-            WeaponInstance.FireInterval[Idx] = BaseFireInterval[Idx] * (1.0 - default.FireRatePerLv * FireRateLv);
-        }
-    }
+
 
     if (PenetrationLv > 0)
     {
@@ -248,21 +218,9 @@ public function ApplyModifiers()
         }
     }
 
-    if (MagazineLv > 0)
-    {
-        MagMod = 1.0 + default.MagazinePerLv * MagazineLv;
-        WeaponInstance.MagazineCapacity[0] = Round(float(BaseMagazine[0]) * MagMod);
-        WeaponInstance.MagazineCapacity[1] = Round(float(BaseMagazine[1]) * MagMod);
-        // `log("ApplyModifiers: MagazinePerLv=" @ MagazinePerLv @ " MagazineLv=" @ MagazineLv @ ", MagMod=" @ MagMod @ ", magazine upgrade to: " @ WeaponInstance.MagazineCapacity[0] @ ", " @ WeaponInstance.MagazineCapacity[1]);
-    }
 
-    if (MaxAmmoLv > 0)
-    {
-        WeaponInstance.SpareAmmoCapacity[0] = Round(BaseMaxAmmo[0] * (1.0 + default.SparePerLv * MaxAmmoLv));
-        WeaponInstance.SpareAmmoCapacity[1] = Round(BaseMaxAmmo[1] * (1.0 + default.SparePerLv * MaxAmmoLv));
-    }
 
-    `log("ApplyModifiers: modded stats: Dmg=" @ WeaponInstance.InstantHitDamage[0] @ " FireRate=" @ WeaponInstance.FireInterval[0] @ " Penetration=" @ WeaponInstance.PenetrationPower[0] @ " Magazine=" @ WeaponInstance.MagazineCapacity[0] @ " MaxAmmo=" @ WeaponInstance.SpareAmmoCapacity[0]);
+    `log("ApplyModifiers: modded stats: Dmg=" @ WeaponInstance.InstantHitDamage[0] @ " Penetration=" @ WeaponInstance.PenetrationPower[0]);
 }
 
 public function Bool CanAddDamage()
@@ -295,20 +253,6 @@ public function Bool CanAddPenetration()
     return ExtPRI != None && PenetrationLv < default.MaxPenetrationLv && ExtPRI.Score > NextPenetrationCost;
 }
 
-public function Bool CanAddFireRate()
-{
-    return ExtPRI != None && FireRateLv < default.MaxFireRateLv && ExtPRI.Score > NextFireRateCost;
-}
-
-public function Bool CanAddMagazine()
-{
-    return ExtPRI != None && bCanUpgradeMagazine && MagazineLv < default.MaxMagazineLv && ExtPRI.Score > NextMagazineCost;
-}
-
-public function Bool CanAddAmmo()
-{
-    return ExtPRI != None && MaxAmmoLv < default.MaxSpareLv && ExtPRI.Score > NextSpareCost;
-}
 
 public function AddDamage()
 {
@@ -326,20 +270,7 @@ public function AddDamage()
         NextDmgCost = 0;
 }
 
-public function AddFireRate()
-{
-    if (!CanAddFireRate())
-        return;
 
-    FireRateLv++;
-    ExtPRI.AddDosh(-NextFireRateCost);
-    TotalValue += NextFireRateCost;
-
-    if (FireRateLv < default.MaxFireRateLv)
-        NextFireRateCost = Round(BasePrice * FireRateCost * (1 + FireRateLv));
-    else
-        NextFireRateCost = 0;
-}
 
 public function AddPenetration()
 {
@@ -356,36 +287,7 @@ public function AddPenetration()
         NextPenetrationCost = 0;
 }
 
-public function AddMagazine()
-{
 
-    if (!CanAddMagazine())
-        return;
-
-    MagazineLv++;
-    ExtPRI.AddDosh(-NextMagazineCost);
-    TotalValue += NextMagazineCost;
-
-    if (MagazineLv < default.MaxMagazineLv)
-        NextMagazineCost = Round(BasePrice * MagazineCost * (1 + MagazineLv));
-    else
-        NextMagazineCost = 0;
-}
-
-public function AddAmmo()
-{
-    if (!CanAddAmmo())
-        return;
-
-    MaxAmmoLv++;
-    ExtPRI.AddDosh(-NextSpareCost);
-    TotalValue += NextSpareCost;
-
-    if (MaxAmmoLv < default.MaxSpareLv)
-        NextSpareCost = Round(BasePrice * SpareCost * (1 + MaxAmmoLv));
-    else
-        NextSpareCost = 0;
-}
 
 public function AddAoE()
 {
@@ -400,6 +302,21 @@ public function AddAoE()
         NextAoECost = Round(BasePrice * AoECost * (1 + AoELv));
     else
         NextAoECost = 0;
+}
+
+public function AddDot()
+{
+    if (!CanAddDot())
+        return;
+
+    DoTLv += 1.0;
+    ExtPRI.AddDosh(-NextDoTCost);
+    TotalValue += NextDoTCost;
+
+    if (DoTLv < MaxDoTLv)
+        NextDoTCost = Round(BasePrice * DoTCost * (1 + DoTLv));
+    else
+        NextDoTCost = 0;
 }
 
 public function string GetItemName()
@@ -422,82 +339,66 @@ public function int GetCostAoE()
     return NextAoECost;
 }
 
-public function int GetCostFireRate()
-{
-    return NextFireRateCost;
-}
+
 
 public function int GetCostPenetration()
 {
     return NextPenetrationCost;
 }
 
-public function int GetCostMagazine()
+public function Array<UpgradeTypes> GetUpgradables()
 {
-    return NextMagazineCost;
+    local Array<UpgradeTypes> upgradables;
+
+    if (bCanUpgradeDamage)
+        upgradables.AddItem(UpgradeTypes.DamageUp);
+    if (bCanUpgradeDoT)
+        upgradables.AddItem(UpgradeTypes.DoTUp);
+    if (bCanUpgradeAoE)
+        upgradables.AddItem(UpgradeTypes.AoEUp);
+    if (bCanUpgradePenetration)
+        upgradables.AddItem(UpgradeTypes.PenetrationUp);
+
+    return upgradables;
 }
 
-public function int GetCostAmmo()
-{
-    return NextSpareCost;
-}
 
-public function string GetDamageInfo()
+public function string GetUpgradeInfo(UpgradeTypes Type)
 {
     local float Modified;
-    if (BaseDamage.Length == 0) return "0 (Lv 0)";
-    Modified = BaseDamage[0] * (1.0 + DmgPerLv * DamageLv);
-    if (DamageLv == 0) return Round(Modified) @ "(Lv 0)";
-    return Round(Modified) @ "(Lv" $ DamageLv @ "+" $ Round(DmgPerLv * DamageLv * 100) $ "%)";
+    
+    switch (Type)
+    {
+        case DamageUp:
+            if (BaseDamage.Length == 0) return "0 (Lv 0)";
+            Modified = BaseDamage[0] * (1.0 + DmgPerLv * DamageLv);
+            if (DamageLv == 0) return Round(Modified) @ "(Lv 0)";
+            return Round(Modified) @ "(Lv" $ DamageLv @ "+" $ Round(DmgPerLv * DamageLv * 100) $ "%)";
+            break;
+            
+        case AoEUp:
+            if (AoELv == 0) return "(Lv 0)";
+            return "(Lv" $ AoELv @ "+" $ Round(AoEPerLv * AoELv * 100) $ "%)";
+            break;
+            
+        case DoTUp:
+            if (DoTLv == 0) return "(Lv 0)";
+            return "(Lv" $ DoTLv @ "+" $ Round(DoTPerLv * DoTLv * 100) $ "%)";
+            break;
+            
+        case PenetrationUp:
+            if (BasePenetration.Length == 0) return "0 (Lv 0)";
+            Modified = BasePenetration[0] * (1.0 + PenetrationPerLv * PenetrationLv);
+            if (PenetrationLv == 0) return Round(Modified) @ "(Lv 0)";
+            return Round(Modified) @ "(Lv" $ PenetrationLv @ "+" $ Round(PenetrationPerLv * PenetrationLv * 100) $ "%)";
+            break;
+            
+        default:
+            return "(Lv 0)";
+            break;
+    }
 }
 
-public function string GetAoEInfo()
-{
-    if (AoELv == 0) return "(Lv 0)";
-    return "(Lv" $ AoELv @ "+" $ Round(AoEPerLv * AoELv * 100) $ "%)"; 
-}
-
-public function int GetBaseFireRate()
-{
-    local float interval;
-    interval = BaseFireInterval[0] > 0 ? BaseFireInterval[0] : 1.0;
-    return Round(1.0 / interval);
-}
-
-public function string GetFireRateInfo()
-{
-    local float interval, Modified;
-    if (BaseFireInterval.Length == 0) return "0/s (Lv 0)";
-    interval = BaseFireInterval[0] > 0 ? BaseFireInterval[0] : 1.0;
-    Modified = interval * (1.0 - FireRatePerLv * FireRateLv);
-    if (FireRateLv == 0) return Round(1.0/interval) $ "/s (Lv 0)";
-    return Round(1.0/Modified) $ "/s (Lv" $ FireRateLv @ "+" $ Round(FireRatePerLv * FireRateLv * 100) $ "%)";
-}
-
-public function string GetPenetrationInfo()
-{
-    local float Modified;
-    if (BasePenetration.Length == 0) return "0 (Lv 0)";
-    Modified = BasePenetration[0] * (1.0 + PenetrationPerLv * PenetrationLv);
-    if (PenetrationLv == 0) return Round(Modified) @ "(Lv 0)";
-    return Round(Modified) @ "(Lv" $ PenetrationLv @ "+" $ Round(PenetrationPerLv * PenetrationLv * 100) $ "%)";
-}
-
-public function string GetMagazineInfo()
-{
-    local float Modified;
-    Modified = BaseMagazine[0] * (1.0 + MagazinePerLv * MagazineLv);
-    if (MagazineLv == 0) return Round(Modified) @ "(Lv 0)";
-    return Round(Modified) @ "(Lv" $ MagazineLv @ "+" $ Round(MagazinePerLv * MagazineLv * 100) $ "%)";
-}
-
-public function string GetAmmoInfo()
-{
-    local float Modified;
-    Modified = BaseMaxAmmo[0] * (1.0 + SparePerLv * MaxAmmoLv);
-    if (MaxAmmoLv == 0) return Round(Modified) @ "(Lv 0)";
-    return Round(Modified) @ "(Lv" $ MaxAmmoLv @ "+" $ Round(SparePerLv * MaxAmmoLv * 100) $ "%)";
-}
 
 static final operator(24) bool == ( Ext_WeaponProperties A, Ext_WeaponProperties B )
 {

@@ -16,37 +16,27 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-class ExtHUD_PlayerBackpack extends KFGFxHUD_PlayerBackpack;
+class Ext_TGroupSpAbility extends Ext_TGroupBase;
 
-var class<Ext_PerkBase> EPerkClass;
-
-function UpdateGrenades()
+static function bool GroupLimited(Ext_PerkBase Perk, class<Ext_TraitBase> Trait)
 {
-	local int CurrentGrenades;
-	local ExtPerkManager PM;
+	local int i;
+	local byte n;
 
-	if (MyKFInvManager != none)
-		CurrentGrenades = MyKFInvManager.GrenadeCount;
-
-	//Update the icon the for grenade type.
-	if (ExtPlayerController(MyKFPC)!=None)
-	{
-		PM = ExtPlayerController(MyKFPC).ActivePerkManager;
-
-		if (PM!=None && PM.CurrentPerk!=None && EPerkClass!=PM.CurrentPerk.Class)
-		{
-			SetString("backpackGrenadeType", "img://"$PM.CurrentPerk.GrenadeWeaponDef.Static.GetImagePath());
-			EPerkClass = PM.CurrentPerk.Class;
-		}
-	}
-	// Update the grenades count value
-	if (CurrentGrenades != LastGrenades)
-	{
-		SetInt("backpackGrenades" , Min(CurrentGrenades,9));
-		// SetString("backpackGrenades" , "10.01");
-		LastGrenades = CurrentGrenades;
-	}
+	n = GetMaxLimit(Perk);
+	for (i=0; i<Perk.PerkTraits.Length; ++i)
+		if (Perk.PerkTraits[i].CurrentLevel>0 && Perk.PerkTraits[i].TraitType!=Trait && Perk.PerkTraits[i].TraitType.Default.TraitGroup==Default.Class && --n==0)
+			return true;
+	return false;
 }
+
+static final function byte GetMaxLimit(Ext_PerkBase Perk)
+{
+	if (Perk.CurrentPrestige<1 || Perk.CurrentLevel<50)
+		return 1;
+	return ((Perk.CurrentPrestige<5 || Perk.CurrentLevel<50) ? 2 : 3);
+}
+
 
 defaultproperties
 {

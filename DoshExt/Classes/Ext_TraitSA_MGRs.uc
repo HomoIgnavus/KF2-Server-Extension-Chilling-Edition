@@ -16,39 +16,31 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-class ExtHUD_PlayerBackpack extends KFGFxHUD_PlayerBackpack;
+// Military Grade Rounds
+Class Ext_TraitSA_MGRs extends Ext_TraitSA_Base;
 
-var class<Ext_PerkBase> EPerkClass;
+var float DmgRatio[5];
+var float PntRatio[5];
 
-function UpdateGrenades()
+static function ApplyEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
-	local int CurrentGrenades;
-	local ExtPerkManager PM;
+	super.AddAbility(Player, SpAbil_MGRs);
+}
 
-	if (MyKFInvManager != none)
-		CurrentGrenades = MyKFInvManager.GrenadeCount;
-
-	//Update the icon the for grenade type.
-	if (ExtPlayerController(MyKFPC)!=None)
-	{
-		PM = ExtPlayerController(MyKFPC).ActivePerkManager;
-
-		if (PM!=None && PM.CurrentPerk!=None && EPerkClass!=PM.CurrentPerk.Class)
-		{
-			SetString("backpackGrenadeType", "img://"$PM.CurrentPerk.GrenadeWeaponDef.Static.GetImagePath());
-			EPerkClass = PM.CurrentPerk.Class;
-		}
-	}
-	// Update the grenades count value
-	if (CurrentGrenades != LastGrenades)
-	{
-		SetInt("backpackGrenades" , Min(CurrentGrenades,9));
-		// SetString("backpackGrenades" , "10.01");
-		LastGrenades = CurrentGrenades;
-	}
+static function CancelEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
+{
+	super.RemoveAbility(Player, SpAbil_MGRs);
 }
 
 defaultproperties
 {
-
+	SupportedPerk=class'Ext_PerkCommando'
+	
+	DmgRatio(0)=1.5
+	DmgRatio(1)=2.0
+	DmgRatio(2)=5.0
+	
+	PntRatio(0)=2.0
+	PntRatio(1)=5.0
+	PntRatio(2)=10.0
 }

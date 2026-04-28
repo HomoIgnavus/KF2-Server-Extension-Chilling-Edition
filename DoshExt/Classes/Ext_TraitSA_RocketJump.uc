@@ -16,39 +16,23 @@
 // You should have received a copy of the GNU General Public License along
 // with Server Extension. If not, see <https://www.gnu.org/licenses/>.
 
-class ExtHUD_PlayerBackpack extends KFGFxHUD_PlayerBackpack;
+// Armor now consumes falling damage
+Class Ext_TraitSA_RocketJump extends Ext_TraitSA_Base;
 
-var class<Ext_PerkBase> EPerkClass;
 
-function UpdateGrenades()
+static function ApplyEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
 {
-	local int CurrentGrenades;
-	local ExtPerkManager PM;
+	super.AddAbility(Player, SpAbil_RocketJump);
+}
 
-	if (MyKFInvManager != none)
-		CurrentGrenades = MyKFInvManager.GrenadeCount;
-
-	//Update the icon the for grenade type.
-	if (ExtPlayerController(MyKFPC)!=None)
-	{
-		PM = ExtPlayerController(MyKFPC).ActivePerkManager;
-
-		if (PM!=None && PM.CurrentPerk!=None && EPerkClass!=PM.CurrentPerk.Class)
-		{
-			SetString("backpackGrenadeType", "img://"$PM.CurrentPerk.GrenadeWeaponDef.Static.GetImagePath());
-			EPerkClass = PM.CurrentPerk.Class;
-		}
-	}
-	// Update the grenades count value
-	if (CurrentGrenades != LastGrenades)
-	{
-		SetInt("backpackGrenades" , Min(CurrentGrenades,9));
-		// SetString("backpackGrenades" , "10.01");
-		LastGrenades = CurrentGrenades;
-	}
+static function CancelEffectOn(ExtHumanPawn Player, Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data)
+{
+	super.RemoveAbility(Player, SpAbil_RocketJump);
 }
 
 defaultproperties
 {
-
+	SupportedPerk=class'Ext_PerkBerserker'
+	NumLevels=1
+	DefLevelCosts(0)=800
 }

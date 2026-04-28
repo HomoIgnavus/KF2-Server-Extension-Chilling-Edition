@@ -2,6 +2,7 @@ class UI_FinanceMenu extends KFGUI_FloatingWindow;
 
 var localized string BankingButtonText;
 var localized string TraderButtonText;
+var localized string AbilityButtonText;
 var localized string CloseButtonText;
 var localized string CloseButtonToolTip;
 
@@ -15,6 +16,7 @@ function InitMenu()
     local KFGUI_GreenButton B;
     local UIP_TransferPage BankingPage;
     local UIP_WeaponPage TraderPage;
+    local UIP_SpAbilPage SpAbilPage;
 
     Super.InitMenu();
 
@@ -39,6 +41,16 @@ function InitMenu()
     TraderPage.InitMenu();
     SubPages.AddItem(TraderPage);
 
+    SpAbilPage = new (Self) class'UIP_SpAbilPage';
+    SpAbilPage.Owner = Owner;
+    SpAbilPage.ParentComponent = Self;
+    SpAbilPage.XPosition = 0.01;
+    SpAbilPage.YPosition = 0.145;
+    SpAbilPage.XSize = 0.98;
+    SpAbilPage.YSize = 0.775;
+    SpAbilPage.InitMenu();
+    SubPages.AddItem(SpAbilPage);
+
     // Banking tab button
     B = new (Self) class'KFGUI_GreenButton';
     B.ButtonText = BankingButtonText;
@@ -60,6 +72,19 @@ function InitMenu()
     B.OnClickRight = TabClicked;
     B.IDValue = 1;
     B.XPosition = 0.20;
+    B.YPosition = 0.08;
+    B.XSize = 0.18;
+    B.YSize = 0.055;
+    TabButtons.AddItem(B);
+    AddComponent(B);
+
+    // Sp Weapon tab button (to the right of trader)
+    B = new (Self) class'KFGUI_GreenButton';
+    B.ButtonText = AbilityButtonText;
+    B.OnClickLeft = TabClicked;
+    B.OnClickRight = TabClicked;
+    B.IDValue = 2;
+    B.XPosition = 0.39;
     B.YPosition = 0.08;
     B.XSize = 0.18;
     B.YSize = 0.055;

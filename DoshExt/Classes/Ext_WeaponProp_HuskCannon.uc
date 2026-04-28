@@ -64,26 +64,12 @@ public function ApplyModifiers()
         }
     }
 
-    if (MagazineLv > 0)
-    {
-        MagMod = 1.0 + default.MagazinePerLv * MagazineLv;
-        WeaponInstance.MagazineCapacity[0] = Round(float(BaseMagazine[0]) * MagMod);
-        WeaponInstance.MagazineCapacity[1] = Round(float(BaseMagazine[1]) * MagMod);
-        // `log("ApplyModifiers: MagazinePerLv=" @ MagazinePerLv @ " MagazineLv=" @ MagazineLv @ ", MagMod=" @ MagMod @ ", magazine upgrade to: " @ WeaponInstance.MagazineCapacity[0] @ ", " @ WeaponInstance.MagazineCapacity[1]);
-    }
-
-    if (MaxAmmoLv > 0)
-    {
-        WeaponInstance.SpareAmmoCapacity[0] = Round(BaseMaxAmmo[0] * (1.0 + default.SparePerLv * MaxAmmoLv));
-        WeaponInstance.SpareAmmoCapacity[1] = Round(BaseMaxAmmo[1] * (1.0 + default.SparePerLv * MaxAmmoLv));
-    }
-
-    if (FireRateLv > 0)
-    {
-        // increased firerate = reduced charge time
-        CannonInstance.MaxChargeTime = BaseMaxChargeTime * ((1.0 - default.FireRatePerLv) ** FireRateLv);
-        CannonInstance.ValueIncreaseTime = BaseValueIncreaseTime * ((1.0 - default.FireRatePerLv) ** FireRateLv);
-    }
+    // if (FireRateLv > 0)
+    // {
+    //     // increased firerate = reduced charge time
+    //     CannonInstance.MaxChargeTime = BaseMaxChargeTime * ((1.0 - default.FireRatePerLv) ** FireRateLv);
+    //     CannonInstance.ValueIncreaseTime = BaseValueIncreaseTime * ((1.0 - default.FireRatePerLv) ** FireRateLv);
+    // }
 
     // apply AoE
     Projectile.default.ExplosionTemplate.DamageRadius = BaseAoE * (1.0 + default.AoEPerLv * AoELv);
@@ -105,9 +91,10 @@ public function string GetFireRateInfo()
 {
     local float Modified;
 
-    Modified = BaseMaxChargeTime * ((1.0 - default.FireRatePerLv) ** FireRateLv);
+    // Modified = BaseMaxChargeTime * ((1.0 - default.FireRatePerLv) ** FireRateLv);
 
-    return Round(1.0/Modified) $ "s (Lv" $ FireRateLv @ "+" $ Round(FireRatePerLv * FireRateLv * 100) $ "%)";
+    // return Round(1.0/Modified) $ "s (Lv" $ FireRateLv @ "+" $ Round(FireRatePerLv * FireRateLv * 100) $ "%)";
+    return "";
 }
 
 defaultproperties

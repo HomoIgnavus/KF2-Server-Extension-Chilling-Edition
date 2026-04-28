@@ -28,6 +28,7 @@ var private float ParryBuffDuration;
 var GameExplosion ParryExploTemplate;
 
 var private bool bIsParryHealActive;
+var private float ParryExpDmg;
 var private float ParryHealPct;
 var private float ParryArmorPct;
 
@@ -71,23 +72,41 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 	}
 }
 
-simulated function TriggerTraitParry()
-{
-	if (!bIsParryMasterActive) return;
-	
-	ActivateParryBuff();
-
-	if (bIsParryExplosionActive)
-		TriggerParryExplosion();
-	
-	if (bIsParryHealActive)
-		TriggerParryHeal();
-}
-
-simulated function TriggerParryHeal()
+simulated function TriggerTraitParry(Actor Target = none)
 {
 	local ExtHumanPawn ExtP;
 
+	if (!bIsParryMasterActive) return;
+	
+	ExtP = ExtHumanPawn(PlayerOwner.Pawn);
+	if (ExtP == None)
+		return;
+
+	ActivateParryBuff();
+
+	if (bIsParryExplosionActive)
+	{	
+		if (Target == none)
+			Target = ExtP;
+		TriggerParryExplosion(Target);
+	}
+	
+	if (bIsParryHealActive)
+		TriggerParryHeal(ExtP);
+}
+
+simulated function TriggerParryProj(KFWeap_MeleeBase ActiveWeapon, Actor Target)
+{
+	local AkBaseSoundObject Sound;
+	local ParticleSystem PSTemplate;
+	
+	ActiveWeapon.GetParryEffects(255, Sound, PSTemplate);
+	ActiveWeapon.PlayLocalBlockEffects(Sound, PSTemplate);
+	TriggerTraitParry(Target);
+}
+
+simulated function TriggerParryHeal(ExtHumanPawn ExtP)
+{
 	if (PlayerOwner == None || PlayerOwner.Pawn == None || !PlayerOwner.Pawn.IsAliveAndWell())
 		return;
 
@@ -98,11 +117,11 @@ simulated function TriggerParryHeal()
 	ExtP.HealDamage(Max(ExtP.HealthMax*ParryHealPct,1), PlayerOwner, class'KFDT_Healing', false, false);
 	if (ParryArmorPct > 0.f)
 	{
-		ExtP.ArmorInt = Min(ExtP.ArmorInt + Max(ExtP.HealthMax*ParryArmorPct,1), ExtP.MaxArmorInt);
+		ExtP.AddArmor(Max(ExtP.MaxArmorInt * ParryArmorPct, 1));
 	}
 }
 
-simulated function TriggerParryExplosion()
+simulated function TriggerParryExplosion(Actor Target)
 {
 	local vector HitLocation;
 	local KFExplosionActorReplicated ExploActor;
@@ -113,14 +132,15 @@ simulated function TriggerParryExplosion()
 	if (Role == ROLE_Authority)
 	{
 		// Spawn EMP-like explosion centered on the player
-		HitLocation = PlayerOwner.Pawn.Location;
+		HitLocation = Target.Location;;
+
 		ExploActor = Spawn(class'KFExplosionActorReplicated', self,, HitLocation, rotator(vect(0,0,1)),, true);
 		if (ExploActor != None)
 		{
 			ExploActor.InstigatorController = PlayerOwner;
 			ExploActor.Instigator = PlayerOwner.Pawn;
 			ExploActor.bIgnoreInstigator = true;
-			ExploActor.Explode(default.ParryExploTemplate);
+			ExploActor.Explode(ParryExploTemplate);
 		}
 	}
 }
@@ -147,8 +167,10 @@ function ApplyTraitParryMaster(float Reduction, float Duration)
 
 function ApplyTraitParryExplosion(float Damage, float Radius)
 {
+	// ParryExploTemplate = default.ParryExploTemplate;
 	ParryExploTemplate.DamageRadius = Radius;
 	ParryExploTemplate.Damage = Damage;
+	ParryExpDmg = Damage;
 
 	bIsParryExplosionActive = Damage > 0.f || Radius > 0.f;
 	// `log("ParryExploTemplate.DamageRadius=" @ ParryExploTemplate.DamageRadius @ " ParryExploTemplate.Damage=" @ ParryExploTemplate.Damage @ " bIsParryExplosionActive=" @ bIsParryExplosionActive);
@@ -248,7 +270,9 @@ defaultproperties
 	DefTraitList.Add(class'Ext_TraitParryMaster')
 	DefTraitList.Add(class'Ext_TraitParryHealing')
 	DefTraitList.Add(class'Ext_TraitParryExplosion')
+	DefTraitList.Add(class'Ext_TraitParryProjectile')
 	DefTraitList.Add(class'Ext_TraitSpartan')
+	DefTraitList.Add(class'Ext_TraitAirbagArmor')
 	DefPerkStats(15)=(bHiddenConfig=false) // Poison damage.
 	BasePerk=class'KFPerk_Berserker'
 

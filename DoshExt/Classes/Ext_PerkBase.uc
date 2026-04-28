@@ -48,6 +48,7 @@ var config int FirstLevelExp, // How much EXP needed for first level.
 				LevelUpExpCost, // How much EXP needed for every level up.
 				LevelUpIncCost, // How much EXP increase needed for each level up.
 				MinimumLevel,
+				PostPrestigeLevel,
 				MaximumLevel,
 				StarPointsPerLevel,
 				MinLevelForPrestige, // Minimum level required for perk prestige.
@@ -1120,15 +1121,21 @@ final function UnloadStats(optional byte Mode)
 	}
 }
 
-function FullReset(optional bool bNotPrestige)
+function FullReset(optional bool bPrestige)
 {
 	UnloadStats();
 
 	// Set minimum values.
 	CurrentEXP = 0;
-	if (!bNotPrestige)
+	if (bPrestige)
+	{
+		CurrentLevel = PostPrestigeLevel;
+	}
+	else
+	{
 		CurrentPrestige = 0;
-	CurrentLevel = MinimumLevel;
+		CurrentLevel = MinimumLevel;
+	}
 	CurrentSP = CurrentLevel*(StarPointsPerLevel+CurrentPrestige*PrestigeSPIncrease);
 	NextLevelEXP = GetNeededExp(CurrentLevel);
 	LastLevelEXP = 0;
